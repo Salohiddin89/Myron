@@ -19,7 +19,7 @@
         <select name="gender">
           <option value="">Barcha jinslar</option>
           {% for code, label in gender_choices %}
-          <option value="{{ code }}" {% if gender==code %} selected {% endif %}>{{ label }}</option>
+          <option value="{{ code }}" {% if gender == code %} selected {% endif %}>{{ label }}</option>
           {% endfor %}
         </select>
       </div>
@@ -27,16 +27,16 @@
       <div class="select-wrap">
         <select name="stock">
           <option value="">Barcha ombor holati</option>
-          <option value="low" {% if stock_filter=="low" %}selected{% endif %}>⚠️ Kam qolgan (<=5)< /option>
-          <option value="out" {% if stock_filter=="out" %}selected{% endif %}>❌ Tugagan (0)</option>
+          <option value="low" {% if stock_filter == "low" %}selected{% endif %}>⚠️ Kam qolgan (<=5)< /option>
+          <option value="out" {% if stock_filter == "out" %}selected{% endif %}>❌ Tugagan (0)</option>
         </select>
       </div>
 
       <div class="select-wrap">
         <select name="status">
           <option value="">Barcha holatlar</option>
-          <option value="active" {% if status=="active" %}selected{% endif %}>Faol (Saytda ko'rinadi)</option>
-          <option value="inactive" {% if status=="inactive" %}selected{% endif %}>Yashirilgan</option>
+          <option value="active" {% if status == "active" %}selected{% endif %}>Faol (Saytda ko'rinadi)</option>
+          <option value="inactive" {% if status == "inactive" %}selected{% endif %}>Yashirilgan</option>
         </select>
       </div>
 
