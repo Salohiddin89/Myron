@@ -19,7 +19,7 @@
         <select name="gender">
           <option value="">Barcha jinslar</option>
           {% for code, label in gender_choices %}
-          <option value="{{ code }}" {% if gender==code %}selected{% endif %}>{{ label }}</option>
+          <option value="{{ code }}" {% if gender==code %} selected {% endif %}>{{ label }}</option>
           {% endfor %}
         </select>
       </div>
