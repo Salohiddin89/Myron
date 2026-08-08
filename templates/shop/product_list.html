@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Katalog" %} — {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="catalog-section">
+  <div class="section-head reveal">
+    <span class="eyebrow">{% trans "BIZNING KOLLEKSIYA" %}</span>
+    <h2>{% trans "O'ZINGIZGA MOS HIDNI TOPING" %}</h2>
+    <span class="hero-divider">✦</span>
+  </div>
+
+  <div class="catalog-layout">
+    <!-- ===== SIDEBAR FILTERS ===== -->
+    <aside class="filters-panel reveal">
+      <h3>{% trans "FILTR" %}</h3>
+
+      <div class="filter-group">
+        <h4>{% trans "TOIFA" %} <span class="collapse-arrow">−</span></h4>
+        <div class="filter-options" id="filterGender">
+          <label class="filter-check">
+            <input type="radio" name="gender" value="all" {% if current_gender == "all" %}checked{% endif %}>
+            <span>{% trans "Barchasi" %}</span>
+          </label>
+          {% for code, label in gender_choices %}
+          <label class="filter-check">
+            <input type="radio" name="gender" value="{{ code }}" {% if current_gender == code %}checked{% endif %}>
+            <span>{{ label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h4>{% trans "NARX ORALIG'I" %} <span class="collapse-arrow">−</span></h4>
+        <div class="price-range-wrap"
+             data-min-price="{{ min_available_price }}"
+             data-max-price="{{ max_available_price }}">
+          <div class="price-track" id="priceTrack"></div>
+          <input type="range" id="priceMin" min="{{ min_available_price }}" max="{{ max_available_price }}" value="{{ current_min_price }}" step="1">
+          <input type="range" id="priceMax" min="{{ min_available_price }}" max="{{ max_available_price }}" value="{{ current_max_price }}" step="1">
+          <div class="price-values">
+            <span id="priceMinLabel">${{ current_min_price }}</span>
+            <span id="priceMaxLabel">${{ current_max_price }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h4>{% trans "KONSENTRATSIYA" %} <span class="collapse-arrow">−</span></h4>
+        <div class="filter-options" id="filterConcentration">
+          <label class="filter-check">
+            <input type="radio" name="concentration" value="" checked>
+            <span>{% trans "Barchasi" %}</span>
+          </label>
+          {% for code, label in concentration_choices %}
+          <label class="filter-check">
+            <input type="radio" name="concentration" value="{{ code }}">
+            <span>{{ label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button class="btn btn-outline btn-block" id="resetFilters">{% trans "Filtrni tozalash" %}</button>
+    </aside>
+
+    <!-- ===== PRODUCT GRID ===== -->
+    <div class="catalog-main">
+      <div class="catalog-toolbar reveal">
+        <div class="gender-tabs compact">
+          <a href="?gender=all" class="tab {% if current_gender == 'all' %}active{% endif %}" data-gender="all">{% trans "BARCHASI" %}</a>
+          <a href="?gender=women" class="tab {% if current_gender == 'women' %}active{% endif %}" data-gender="women">{% trans "AYOLLAR" %}</a>
+          <a href="?gender=men" class="tab {% if current_gender == 'men' %}active{% endif %}" data-gender="men">{% trans "ERKAKLAR" %}</a>
+          <a href="?gender=unisex" class="tab {% if current_gender == 'unisex' %}active{% endif %}" data-gender="unisex">UNISEX</a>
+        </div>
+        <div class="toolbar-right">
+          <span class="result-count">{{ count }} {% trans "ta mahsulot" %}</span>
+          <select id="sortSelect">
+            <option value="popular" {% if current_sort == "popular" %}selected{% endif %}>{% trans "Ommabop" %}</option>
+            <option value="newest" {% if current_sort == "newest" %}selected{% endif %}>{% trans "Yangilari" %}</option>
+            <option value="price_asc" {% if current_sort == "price_asc" %}selected{% endif %}>{% trans "Narx: pastdan yuqoriga" %}</option>
+            <option value="price_desc" {% if current_sort == "price_desc" %}selected{% endif %}>{% trans "Narx: yuqoridan pastga" %}</option>
+            <option value="rating" {% if current_sort == "rating" %}selected{% endif %}>{% trans "Reyting" %}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid" data-next-page="{{ next_page|default:'' }}" data-has-next="{{ has_next|yesno:'1,0' }}">
+        {% include "shop/_product_cards.html" with products=page_obj.object_list %}
+      </div>
+
+      <div class="grid-loader" id="gridLoader" style="display:none;">
+        <span class="spinner"></span>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

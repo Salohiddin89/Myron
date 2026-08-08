@@ -1,0 +1,310 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-05 09:53+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Ism familiyangizni kiriting"
+msgstr "Ism familiyangizni kiriting"
+
+msgid "Telefon raqamingizni kiriting"
+msgstr "Telefon raqamingizni kiriting"
+
+msgid "Savatingiz bo'sh"
+msgstr "Savatingiz bo'sh"
+
+msgid "Premium atirlar do'koni"
+msgstr "Premium atirlar do'koni"
+
+msgid ""
+"Premium sifatli atirlar вЂ” eng nozik hidlar orqali oК»z shaxsiyatingizni "
+"ifodalang."
+msgstr ""
+"Premium sifatli atirlar вЂ” eng nozik hidlar orqali oК»z shaxsiyatingizni "
+"ifodalang."
+
+msgid "PERFUME"
+msgstr "PERFUME"
+
+msgid "Bosh sahifa"
+msgstr "Bosh sahifa"
+
+msgid "Katalog"
+msgstr "Katalog"
+
+msgid "Erkaklar"
+msgstr "Erkaklar"
+
+msgid "Ayollar"
+msgstr "Ayollar"
+
+msgid "Unisex"
+msgstr "Unisex"
+
+msgid "Biz haqimizda"
+msgstr "Biz haqimizda"
+
+msgid "Aloqa"
+msgstr "Aloqa"
+
+msgid "Atir izlash..."
+msgstr "Atir izlash..."
+
+msgid "Savat"
+msgstr "Savat"
+
+msgid "Buyurtma berish"
+msgstr "Buyurtma berish"
+
+msgid "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz."
+msgstr "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz."
+
+msgid "Ism familiya"
+msgstr "Ism familiya"
+
+msgid "Ism familiyangiz"
+msgstr "Ism familiyangiz"
+
+msgid "Telefon raqam"
+msgstr "Telefon raqam"
+
+msgid "Telegram username (ixtiyoriy)"
+msgstr "Telegram username (ixtiyoriy)"
+
+msgid "Xabar qoldirish (ixtiyoriy)"
+msgstr "Xabar qoldirish (ixtiyoriy)"
+
+msgid "Bu yerga yozing..."
+msgstr "Bu yerga yozing..."
+
+msgid "Jami:"
+msgstr "Jami:"
+
+msgid "Buyurtmani tasdiqlash"
+msgstr "Buyurtmani tasdiqlash"
+
+msgid "Buyurtmani tasdiqlaysizmi?"
+msgstr "Buyurtmani tasdiqlaysizmi?"
+
+msgid "Yo'q"
+msgstr "Yo'q"
+
+msgid "Ha, tasdiqlayman"
+msgstr "Ha, tasdiqlayman"
+
+msgid "Buyurtmangiz qabul qilindi!"
+msgstr "Buyurtmangiz qabul qilindi!"
+
+msgid "Tez orada operatorlarimiz siz bilan bog'lanadi."
+msgstr "Tez orada operatorlarimiz siz bilan bog'lanadi."
+
+msgid "Yopish"
+msgstr "Yopish"
+
+msgid ""
+"Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni "
+"yuksaltiring."
+msgstr ""
+"Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni "
+"yuksaltiring."
+
+msgid "Do'kon"
+msgstr "Do'kon"
+
+msgid "Barcha atirlar"
+msgstr "Barcha atirlar"
+
+msgid "Yangi kelganlar"
+msgstr "Yangi kelganlar"
+
+msgid "Mijozlarga xizmat"
+msgstr "Mijozlarga xizmat"
+
+msgid "Biz bilan bog'lanish"
+msgstr "Biz bilan bog'lanish"
+
+msgid "Yetkazib berish"
+msgstr "Yetkazib berish"
+
+msgid "Qaytarish shartlari"
+msgstr "Qaytarish shartlari"
+
+msgid "Maxfiylik siyosati"
+msgstr "Maxfiylik siyosati"
+
+msgid "Perfume. Barcha huquqlar himoyalangan."
+msgstr "Perfume. Barcha huquqlar himoyalangan."
+
+msgid "NEW"
+msgstr "NEW"
+
+msgid "Savatga qo'shish"
+msgstr "Savatga qo'shish"
+
+msgid "Hech qanday atir topilmadi. Filtrlarni o'zgartirib ko'ring."
+msgstr "Hech qanday atir topilmadi. Filtrlarni o'zgartirib ko'ring."
+
+msgid "EKSKLYUZIV KOLLEKSIYA"
+msgstr "EKSKLYUZIV KOLLEKSIYA"
+
+msgid "O'ZINGIZGA XOS"
+msgstr "O'ZINGIZGA XOS"
+
+msgid "HIDNI KASHF ETING"
+msgstr "HIDNI KASHF ETING"
+
+msgid ""
+"Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali "
+"betakror shaxsiyatingizni namoyon eting."
+msgstr ""
+"Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali "
+"betakror shaxsiyatingizni namoyon eting."
+
+msgid "Kolleksiyani ko'rish"
+msgstr "Kolleksiyani ko'rish"
+
+msgid "BIZNING KOLLEKSIYA"
+msgstr "BIZNING KOLLEKSIYA"
+
+msgid "O'ZINGIZGA MOS HIDNI TOPING"
+msgstr "O'ZINGIZGA MOS HIDNI TOPING"
+
+msgid "BARCHASI"
+msgstr "BARCHASI"
+
+msgid "AYOLLAR"
+msgstr "AYOLLAR"
+
+msgid "ERKAKLAR"
+msgstr "ERKAKLAR"
+
+msgid "Barcha atirlarni ko'rish"
+msgstr "Barcha atirlarni ko'rish"
+
+msgid "BIZ HAQIMIZDA"
+msgstr "BIZ HAQIMIZDA"
+
+msgid "NOZIK ATIRLAR SAN'ATI"
+msgstr "NOZIK ATIRLAR SAN'ATI"
+
+msgid ""
+"MYRON'da biz atir shunchaki hid emas вЂ” u bir bayonot, bir hissiyot, bir "
+"xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara "
+"ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz "
+"sifat va nafosat bag'ishlaydi."
+msgstr ""
+"MYRON'da biz atir shunchaki hid emas вЂ” u bir bayonot, bir hissiyot, bir "
+"xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara "
+"ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz "
+"sifat va nafosat bag'ishlaydi."
+
+msgid "SIFATLI TARKIB"
+msgstr "SIFATLI TARKIB"
+
+msgid "Dunyoning eng sara joylaridan yetkazilgan"
+msgstr "Dunyoning eng sara joylaridan yetkazilgan"
+
+msgid "MOHIR USTALAR"
+msgstr "MOHIR USTALAR"
+
+msgid "Professional parfyumerlar tomonidan yaratilgan"
+msgstr "Professional parfyumerlar tomonidan yaratilgan"
+
+msgid "HASHAMATLI TAJRIBA"
+msgstr "HASHAMATLI TAJRIBA"
+
+msgid "Nafis qadoqlash va nozik detallar"
+msgstr "Nafis qadoqlash va nozik detallar"
+
+msgid "KAFOLAT"
+msgstr "KAFOLAT"
+
+#, python-format
+msgid "100%% originallik va sifat kafolati"
+msgstr "100%% originallik va sifat kafolati"
+
+msgid "ta sharh"
+msgstr "ta sharh"
+
+msgid "Konsentratsiya"
+msgstr "Konsentratsiya"
+
+msgid "Hajmi"
+msgstr "Hajmi"
+
+msgid "Toifa"
+msgstr "Toifa"
+
+msgid "Mavjudligi"
+msgstr "Mavjudligi"
+
+msgid "Sotuvda bor"
+msgstr "Sotuvda bor"
+
+msgid "Tugagan"
+msgstr "Tugagan"
+
+msgid "Tavsif"
+msgstr "Tavsif"
+
+msgid "Tarkibi"
+msgstr "Tarkibi"
+
+msgid "Ma'lumot kiritilmagan"
+msgstr "Ma'lumot kiritilmagan"
+
+msgid "SIZGA YOQISHI MUMKIN"
+msgstr "SIZGA YOQISHI MUMKIN"
+
+msgid "O'XSHASH ATIRLAR"
+msgstr "O'XSHASH ATIRLAR"
+
+msgid "FILTR"
+msgstr "FILTR"
+
+msgid "TOIFA"
+msgstr "TOIFA"
+
+msgid "Barchasi"
+msgstr "Barchasi"
+
+msgid "NARX ORALIG'I"
+msgstr "NARX ORALIG'I"
+
+msgid "KONSENTRATSIYA"
+msgstr "KONSENTRATSIYA"
+
+msgid "Filtrni tozalash"
+msgstr "Filtrni tozalash"
+
+msgid "ta mahsulot"
+msgstr "ta mahsulot"
+
+msgid "Ommabop"
+msgstr "Ommabop"
+
+msgid "Yangilari"
+msgstr "Yangilari"
+
+msgid "Narx: pastdan yuqoriga"
+msgstr "Narx: pastdan yuqoriga"
+
+msgid "Narx: yuqoridan pastga"
+msgstr "Narx: yuqoridan pastga"
+
+msgid "Reyting"
+msgstr "Reyting"

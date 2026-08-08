@@ -1,0 +1,368 @@
+# MYRON Perfume Russian Translations
+msgid ""
+msgstr ""
+"Project-Id-Version: MYRON 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-05 09:53+0500\n"
+"PO-Revision-Date: 2026-08-06 20:00+0500\n"
+"Last-Translator: MYRON Team\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Ism familiyangizni kiriting"
+msgstr "Введите имя и фамилию"
+
+msgid "Telefon raqamingizni kiriting"
+msgstr "Введите номер телефона"
+
+msgid "Savatingiz bo'sh"
+msgstr "Ваша корзина пуста"
+
+msgid "Premium atirlar do'koni"
+msgstr "Магазин премиальных духов"
+
+msgid "Premium sifatli atirlar — eng nozik hidlar orqali o'z shaxsiyatingizni ifodalang."
+msgstr "Премиальные духи — выразите свою индивидуальность через изысканные ароматы."
+
+msgid "PERFUME"
+msgstr "ПАРФЮМ"
+
+msgid "Bosh sahifa"
+msgstr "Главная"
+
+msgid "Katalog"
+msgstr "Каталог"
+
+msgid "Erkaklar"
+msgstr "Мужчинам"
+
+msgid "Ayollar"
+msgstr "Женщинам"
+
+msgid "Unisex"
+msgstr "Унисекс"
+
+msgid "Biz haqimizda"
+msgstr "О нас"
+
+msgid "Aloqa"
+msgstr "Контакты"
+
+msgid "Atir izlash..."
+msgstr "Поиск духов..."
+
+msgid "Savat"
+msgstr "Корзина"
+
+msgid "Buyurtma berish"
+msgstr "Оформить заказ"
+
+msgid "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz."
+msgstr "Заполните данные, и мы свяжемся с вами в ближайшее время."
+
+msgid "Ism familiya"
+msgstr "Имя и фамилия"
+
+msgid "Ism familiyangiz"
+msgstr "Ваше имя и фамилия"
+
+msgid "Telefon raqam"
+msgstr "Номер телефона"
+
+msgid "Telegram username (ixtiyoriy)"
+msgstr "Telegram username (необязательно)"
+
+msgid "Xabar qoldirish (ixtiyoriy)"
+msgstr "Оставить сообщение (необязательно)"
+
+msgid "Bu yerga yozing..."
+msgstr "Напишите здесь..."
+
+msgid "Jami:"
+msgstr "Итого:"
+
+msgid "Buyurtmani tasdiqlash"
+msgstr "Подтвердить заказ"
+
+msgid "Buyurtmani tasdiqlaysizmi?"
+msgstr "Подтвердить заказ?"
+
+msgid "Yo'q"
+msgstr "Нет"
+
+msgid "Ha, tasdiqlayman"
+msgstr "Да, подтверждаю"
+
+msgid "Buyurtmangiz qabul qilindi!"
+msgstr "Ваш заказ принят!"
+
+msgid "Tez orada operatorlarimiz siz bilan bog'lanadi."
+msgstr "Наши операторы скоро свяжутся с вами."
+
+msgid "Yopish"
+msgstr "Закрыть"
+
+msgid "Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni yuksaltiring."
+msgstr "Возвышайте себя с роскошными ароматами, отражающими вашу индивидуальность."
+
+msgid "Do'kon"
+msgstr "Магазин"
+
+msgid "Barcha atirlar"
+msgstr "Все духи"
+
+msgid "Yangi kelganlar"
+msgstr "Новинки"
+
+msgid "Mijozlarga xizmat"
+msgstr "Обслуживание клиентов"
+
+msgid "Biz bilan bog'lanish"
+msgstr "Связаться с нами"
+
+msgid "Yetkazib berish"
+msgstr "Доставка"
+
+msgid "Qaytarish shartlari"
+msgstr "Условия возврата"
+
+msgid "Maxfiylik siyosati"
+msgstr "Политика конфиденциальности"
+
+msgid "Perfume. Barcha huquqlar himoyalangan."
+msgstr "Perfume. Все права защищены."
+
+msgid "NEW"
+msgstr "NEW"
+
+msgid "Savatga qo'shish"
+msgstr "Добавить в корзину"
+
+msgid "Hech qanday atir topilmadi. Filtrlarni o'zgartirib ko'ring."
+msgstr "Духи не найдены. Попробуйте изменить фильтры."
+
+msgid "EKSKLYUZIV KOLLEKSIYA"
+msgstr "ЭКСКЛЮЗИВНАЯ КОЛЛЕКЦИЯ"
+
+msgid "O'ZINGIZGA XOS"
+msgstr "ОТКРОЙТЕ СВОЙ"
+
+msgid "HIDNI KASHF ETING"
+msgstr "УНИКАЛЬНЫЙ АРОМАТ"
+
+msgid "Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali betakror shaxsiyatingizni namoyon eting."
+msgstr "Раскройте свою неповторимую индивидуальность с помощью премиальных духов из лучших ингредиентов."
+
+msgid "Kolleksiyani ko'rish"
+msgstr "Смотреть коллекцию"
+
+msgid "BIZNING KOLLEKSIYA"
+msgstr "НАША КОЛЛЕКЦИЯ"
+
+msgid "O'ZINGIZGA MOS HIDNI TOPING"
+msgstr "НАЙДИТЕ СВОЙ ИДЕАЛЬНЫЙ АРОМАТ"
+
+msgid "BARCHASI"
+msgstr "ВСЕ"
+
+msgid "AYOLLAR"
+msgstr "ЖЕНСКИЕ"
+
+msgid "ERKAKLAR"
+msgstr "МУЖСКИЕ"
+
+msgid "Barcha atirlarni ko'rish"
+msgstr "Смотреть все духи"
+
+msgid "BIZ HAQIMIZDA"
+msgstr "О НАС"
+
+msgid "NOZIK ATIRLAR SAN'ATI"
+msgstr "ИСКУССТВО ИЗЫСКАННЫХ АРОМАТОВ"
+
+msgid "MYRON'da biz atir shunchaki hid emas — u bir bayonot, bir hissiyot, bir xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz sifat va nafosat bag'ishlaydi."
+msgstr "В MYRON мы верим, что духи — это не просто запах, а высказывание, эмоция, воспоминание. Наши ароматы создаются мастерами-парфюмерами из лучших ингредиентов мира, даря вам непревзойденное качество и изысканность."
+
+msgid "SIFATLI TARKIB"
+msgstr "КАЧЕСТВЕННЫЙ СОСТАВ"
+
+msgid "Dunyoning eng sara joylaridan yetkazilgan"
+msgstr "Доставлено из лучших уголков мира"
+
+msgid "MOHIR USTALAR"
+msgstr "МАСТЕРСТВО"
+
+msgid "Professional parfyumerlar tomonidan yaratilgan"
+msgstr "Создано профессиональными парфюмерами"
+
+msgid "HASHAMATLI TAJRIBA"
+msgstr "РОСКОШНЫЙ ОПЫТ"
+
+msgid "Nafis qadoqlash va nozik detallar"
+msgstr "Изысканная упаковка и тонкие детали"
+
+msgid "KAFOLAT"
+msgstr "ГАРАНТИЯ"
+
+msgid "100%% originallik va sifat kafolati"
+msgstr "100%% гарантия оригинальности и качества"
+
+msgid "ta sharh"
+msgstr "отзывов"
+
+msgid "Konsentratsiya"
+msgstr "Концентрация"
+
+msgid "Hajmi"
+msgstr "Объем"
+
+msgid "Toifa"
+msgstr "Категория"
+
+msgid "Mavjudligi"
+msgstr "Наличие"
+
+msgid "Sotuvda bor"
+msgstr "В наличии"
+
+msgid "Tugagan"
+msgstr "Рас распродано"
+
+msgid "Tavsif"
+msgstr "Описание"
+
+msgid "Tarkibi"
+msgstr "Состав"
+
+msgid "Ma'lumot kiritilmagan"
+msgstr "Информация не указана"
+
+msgid "SIZGA YOQISHI MUMKIN"
+msgstr "ВАМ МОЖЕТ ПОНРАВИТЬСЯ"
+
+msgid "O'XSHASH ATIRLAR"
+msgstr "ПОХОЖИЕ АРОМАТЫ"
+
+msgid "FILTR"
+msgstr "ФИЛЬТР"
+
+msgid "TOIFA"
+msgstr "КАТЕГОРИЯ"
+
+msgid "Barchasi"
+msgstr "Все"
+
+msgid "NARX ORALIG'I"
+msgstr "ЦЕНОВОЙ ДИАПАЗОН"
+
+msgid "KONSENTRATSIYA"
+msgstr "КОНЦЕНТРАЦИЯ"
+
+msgid "Filtrni tozalash"
+msgstr "Сбросить фильтр"
+
+msgid "ta mahsulot"
+msgstr "товаров"
+
+msgid "Ommabop"
+msgstr "Популярные"
+
+msgid "Yangilari"
+msgstr "Новинки"
+
+msgid "Narx: pastdan yuqoriga"
+msgstr "Цена: по возрастанию"
+
+msgid "Narx: yuqoridan pastga"
+msgstr "Цена: по убыванию"
+
+msgid "Reyting"
+msgstr "Рейтинг"
+
+msgid "Xaridorlarga"
+msgstr "Покупателям"
+
+msgid "Xarid va yetkazib berish shartlari"
+msgstr "Условия покупки и доставки"
+
+msgid "Xarid va Yetkazib Berish Shartlari"
+msgstr "Условия покупки и доставки"
+
+msgid "Bosh sahifaga qaytish"
+msgstr "Вернуться на главную"
+
+msgid "SHARTLAR VA KAFOLAT"
+msgstr "УСЛОВИЯ И ГАРАНТИЯ"
+
+msgid "XARID VA YETKAZIB BERISH SHARTLARI"
+msgstr "УСЛОВИЯ ПОКУПКИ И ДОСТАВКИ"
+
+msgid "Har bir xaridingiz xavfsiz, sifatli va kafolatlangan bo'lishi biz uchun ustuvor vazifadir."
+msgstr "Безопасность, качество и гарантия каждой вашей покупки — наш главный приоритет."
+
+msgid "100% Sifat & Original Kafolati"
+msgstr "100% Гарантия качества и оригинала"
+
+msgid "MYRON Premium Standarti"
+msgstr "Премиум Стандарт MYRON"
+
+msgid "Biz atirlaringiz mukammal holatda va asl iforini saqlagan holda sizga yetib borishiga mas'ulmiz."
+msgstr "Мы несем ответственность за то, чтобы ваши духи доставлялись в идеальном состоянии."
+
+msgid "Yetkazib Berish Tartibi va Taksi Xizmati"
+msgstr "Порядок доставки и службы такси"
+
+msgid "Rasmiy kurerlik yetkazib berish:"
+msgstr "Официальная курьерская доставка:"
+
+msgid "Do'konimiz tomonidan rasman topshirilgan kurerlik xizmatlari orqali yetkazilgan barcha buyurtmalar to'liq bizning javobgarligimizda bo'ladi."
+msgstr "Все заказы, доставленные через наши официальные курьерские службы, находятся под нашей полной ответственностью."
+
+msgid "Mijoz tomonidan shaxsiy taksi chaqirilganda:"
+msgstr "При вызове личного такси клиентом:"
+
+msgid "Agar siz buyurtmani o'zingiz chaqirgan taksi yoki shaxsiy kurer orqali olib ketishni (dastafka qildirishni) so'rasangiz, topshirilgandan so'ng yo'ldagi mahsulot holati, singanligi yoki yo'qolishiga MYRON do'koni javobgar bo'lmaydi."
+msgstr "Если вы просите отправить заказ через вызванное вами такси или личного курьера, магазин MYRON не несет ответственности за сохранность, повреждение или утерю товара в пути после его передачи."
+
+msgid "Mahsulotni Qabul Qilish va Rasmga Olish (MUHIM)"
+msgstr "Приемка и фотофиксация товара (ВАЖНО)"
+
+msgid "Qadoqni ochishdan oldin tekshirish:"
+msgstr "Проверка перед вскрытием упаковки:"
+
+msgid "Mahsulot kurer orqali yetib kelganida, upakovkani ochmasdan oldin kurer ishtirokida srazi rasm va videoga olib olishingiz shart."
+msgstr "При доставке товара курьером необходимо сразу сделать фото и видео нераспакованной упаковки в присутствии курьера."
+
+msgid "Shisha singanda yoki to'kilganda:"
+msgstr "При повреждении флакона или протечке:"
+
+msgid "Agar mahsulot yo'lda shikastlangan yoki to'kilgan bo'lsa, ochilmagan qadoqning rasm/videosini taqdim etgan holda 100% bepul almashtirib berish yoki pulingizni qaytarish kafolatlanadi."
+msgstr "Если товар был поврежден или пролит в пути, при предоставлении фото/видео нераспакованной упаковки гарантируется 100% бесплатная замена или возврат средств."
+
+msgid "Atirni Dam Oldirish va Saqlash Qoidasi"
+msgstr "Правило отстаивания и хранения духов"
+
+msgid "Transportirovkadan so'ng dam berish (Resting Rule):"
+msgstr "Отстаивание после транспортировки (Resting Rule):"
+
+msgid "Atir tashish jarayonida tebranish sababli molekulalari vaqtincha beqarorlashadi. Mahsulotni qabul qilib olgach, uni salqin, qorong'u joyda 12-24 soat dam oldiring."
+msgstr "При транспортировке молекулы духов временно дестабилизируются из-за вибраций. После получения дайте парфюму отдохнуть в прохладном темном месте 12–24 часа."
+
+msgid "Shunda atir notalari o'z o'rniga tushib, shleyfi va chidamliligi maksimal darajaga yetadi."
+msgstr "Тогда ноты аромата сбалансируются, а шлейф и стойкость достигнут максимума."
+
+msgid "Qaytarish va Almashtirish Shartlari"
+msgstr "Условия возврата и обмена"
+
+msgid "Parfyumeriya mahsulotlari gigiyena talablariga ko'ra ochilgan va ishlatilgan holatda qaytarib olinmaydi."
+msgstr "Парфюмерная продукция по гигиеническим нормам не подлежит возврату после вскрытия и использования."
+
+msgid "Faqatgina zavod nuqsoni yoki rasmiy kurer yetkazishidagi shikastlanish rasm/video bilan tasdiqlanganda zudlik bilan almashtirib beriladi."
+msgstr "Замена производится при наличии заводского брака или повреждений при официальной доставке, подтвержденных фото/видео."
+
+msgid "Filtrlash"
+msgstr "Фильтр"

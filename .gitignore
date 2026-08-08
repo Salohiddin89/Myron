@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+db.sqlite3
+/staticfiles/
+/media/
+venv/
+.env
+*.log
+.venv
+runserver-8000.err.log
+runserver-8000.out.log
+runserver-8001.err.log
+runserver-8001.out.log
+runserver.err.log
+runserver.out.log

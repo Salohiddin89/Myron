@@ -1,0 +1,123 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Sayt Sozlamalari — MYRON Control Panel{% endblock %}
+{% block heading %}Sayt Sozlamalari va Rasmlar{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <div class="panel-head">
+    <div>
+      <h2>Asosiy Sahifa va Aloqa Sozlamalari</h2>
+      <small class="panel-subtitle">Bosh sahifa, Biz haqimizda rasmlari va aloqa ma'lumotlarini tahrirlang</small>
+    </div>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="form-grid">
+    {% csrf_token %}
+
+    <div class="form-section field-span-full mb-3">
+      <h3 class="section-title">📞 Aloqa Ma'lumotlari va Ijtimoiy Tarmoqlar</h3>
+      <p class="section-sub">Sayt footeri va aloqa bo'limlarida ko'rinadigan ma'lumotlar</p>
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.phone.id_for_label }}">Telefon Raqami *</label>
+      {{ form.phone }}
+      {% if form.phone.errors %}<div class="form-error">{{ form.phone.errors.0 }}</div>{% endif %}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.instagram_url.id_for_label }}">Instagram URL Link</label>
+      {{ form.instagram_url }}
+      {% if form.instagram_url.errors %}<div class="form-error">{{ form.instagram_url.errors.0 }}</div>{% endif %}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.telegram_url.id_for_label }}">Telegram URL Link</label>
+      {{ form.telegram_url }}
+      {% if form.telegram_url.errors %}<div class="form-error">{{ form.telegram_url.errors.0 }}</div>{% endif %}
+    </div>
+
+    <div class="form-section field-span-full my-4">
+      <h3 class="section-title">🖼️ Bosh Sahifa va "Biz Haqimizda" Rasmlari</h3>
+      <p class="section-sub">Yangi rasm tanlasangiz, saytdagi standart rasmlar o'rniga shu rasmlar ko'rsatiladi</p>
+    </div>
+
+    <!-- Hero Image -->
+    <div class="field-group field-span-full">
+      <label>1. Bosh Sahifa Asosiy Rasmi (Hero Banner)</label>
+      <div class="image-upload-preview">
+        {% if settings_obj.hero_image %}
+          <div class="current-img">
+            <img src="{{ settings_obj.hero_image.url }}" alt="Hero Image">
+            <span>Hozirgi rasm</span>
+          </div>
+        {% else %}
+          <div class="current-img default">
+            <img src="{% static 'shop/img/hero-placeholder.png' %}" alt="Default Hero">
+            <span>Standart rasm</span>
+          </div>
+        {% endif %}
+        <div class="upload-box">
+          {{ form.hero_image }}
+          <small>Tavsiya etiladi: 600x600px shaffof fonli PNG yoki JPG</small>
+        </div>
+      </div>
+      {% if form.hero_image.errors %}<div class="form-error">{{ form.hero_image.errors.0 }}</div>{% endif %}
+    </div>
+
+    <!-- About Image 1 -->
+    <div class="field-group field-span-full">
+      <label>2. "Biz Haqimizda" Asosiy Rasm (About 1)</label>
+      <div class="image-upload-preview">
+        {% if settings_obj.about_image_1 %}
+          <div class="current-img">
+            <img src="{{ settings_obj.about_image_1.url }}" alt="About 1">
+            <span>Hozirgi rasm</span>
+          </div>
+        {% else %}
+          <div class="current-img default">
+            <img src="{% static 'shop/img/about-1.png' %}" alt="Default About 1">
+            <span>Standart rasm</span>
+          </div>
+        {% endif %}
+        <div class="upload-box">
+          {{ form.about_image_1 }}
+          <small>Tavsiya etiladi: 500x600px yuqori sifatli JPG/PNG</small>
+        </div>
+      </div>
+      {% if form.about_image_1.errors %}<div class="form-error">{{ form.about_image_1.errors.0 }}</div>{% endif %}
+    </div>
+
+    <!-- About Image 2 -->
+    <div class="field-group field-span-full">
+      <label>3. "Biz Haqimizda" Kichik Muallaq Rasm (About 2)</label>
+      <div class="image-upload-preview">
+        {% if settings_obj.about_image_2 %}
+          <div class="current-img">
+            <img src="{{ settings_obj.about_image_2.url }}" alt="About 2">
+            <span>Hozirgi rasm</span>
+          </div>
+        {% else %}
+          <div class="current-img default">
+            <img src="{% static 'shop/img/about-2.png' %}" alt="Default About 2">
+            <span>Standart rasm</span>
+          </div>
+        {% endif %}
+        <div class="upload-box">
+          {{ form.about_image_2 }}
+          <small>Tavsiya etiladi: 300x300px quticha yoki flakon rasmi</small>
+        </div>
+      </div>
+      {% if form.about_image_2.errors %}<div class="form-error">{{ form.about_image_2.errors.0 }}</div>{% endif %}
+    </div>
+
+    <div class="form-actions field-span-full mt-4">
+      <button type="submit" class="btn btn-gold btn-lg">
+        <span>💾 Sozlamalarni Saqlash</span>
+      </button>
+    </div>
+  </form>
+</div>
+{% endblock %}

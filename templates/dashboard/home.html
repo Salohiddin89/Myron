@@ -1,0 +1,114 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Dashboard — MYRON Control Panel{% endblock %}
+{% block heading %}Boshqaruv Paneli{% endblock %}
+
+{% block content %}
+<section class="stats-grid">
+  <article class="stat-card">
+    <div class="stat-head">
+      <span>Jami Savdo</span>
+      <div class="stat-icon icon-gold">💰</div>
+    </div>
+    <strong class="stat-value">${{ stats.revenue|floatformat:2 }}</strong>
+    <p class="stat-sub">Barcha bajarilgan buyurtmalar</p>
+  </article>
+
+  <article class="stat-card">
+    <div class="stat-head">
+      <span>Buyurtmalar</span>
+      <div class="stat-icon icon-blue">📦</div>
+    </div>
+    <strong class="stat-value">{{ stats.orders }}</strong>
+    <p class="stat-sub"><span class="highlight-gold">{{ stats.new_orders }} ta</span> yangi buyurtma</p>
+  </article>
+
+  <article class="stat-card">
+    <div class="stat-head">
+      <span>Katalog</span>
+      <div class="stat-icon icon-green">🛍️</div>
+    </div>
+    <strong class="stat-value">{{ stats.products }}</strong>
+    <p class="stat-sub"><span class="highlight-green">{{ stats.active_products }} ta</span> saytda faol</p>
+  </article>
+
+  <article class="stat-card">
+    <div class="stat-head">
+      <span>Kam qolganlar</span>
+      <div class="stat-icon icon-red">⚠️</div>
+    </div>
+    <strong class="stat-value">{{ low_stock|length }}</strong>
+    <p class="stat-sub">Omborda <= 5 dona</p>
+  </article>
+</section>
+
+<section class="split-grid">
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Oxirgi buyurtmalar</h2>
+        <small class="panel-subtitle">Eng so'nggi kelgan buyurtmalar ro'yxati</small>
+      </div>
+      <a href="{% url 'dashboard:order_list' %}" class="btn-link">Barchasini ko'rish &rarr;</a>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Mijoz</th>
+            <th>Telefon</th>
+            <th>Summa</th>
+            <th>Holat</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in recent_orders %}
+          <tr>
+            <td><a href="{% url 'dashboard:order_detail' order.pk %}" class="order-id-tag">#{{ order.pk }}</a></td>
+            <td><strong>{{ order.full_name }}</strong></td>
+            <td><span class="phone-tag">{{ order.phone }}</span></td>
+            <td><span class="price-tag">${{ order.total_price }}</span></td>
+            <td>
+              <span class="badge-status status-{{ order.status }}">
+                {{ order.get_status_display }}
+              </span>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="5" class="empty">Hozircha buyurtma yo'q.</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Omborda kam qolganlar</h2>
+        <small class="panel-subtitle">Zudlik bilan to'ldirish tavsiya etiladi</small>
+      </div>
+      <a href="{% url 'dashboard:product_list' %}" class="btn-link">Katalog &rarr;</a>
+    </div>
+    <div class="item-list">
+      {% for product in low_stock %}
+        <a href="{% url 'dashboard:product_update' product.pk %}" class="list-item">
+          <div class="item-info">
+            <strong>{{ product.name_uz }}</strong>
+            <small>{{ product.brand }}</small>
+          </div>
+          <div class="item-badge danger">
+            {{ product.stock }} dona
+          </div>
+        </a>
+      {% empty %}
+        <div class="empty-state">
+          <span>✅</span>
+          <p>Barcha mahsulotlar omborda yetarli.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

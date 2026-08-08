@@ -1,0 +1,222 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{{ SITE_NAME }} — {% trans "Premium atirlar do'koni" %}{% endblock %}</title>
+<meta name="description" content="{% trans 'Premium sifatli atirlar — eng nozik hidlar orqali oʻz shaxsiyatingizni ifodalang.' %}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+{% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="{% url 'shop:home' %}" class="brand">
+      <span class="brand-icon">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 6H25V10L28 13V16H12V13L15 10V6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+          <rect x="11" y="16" width="18" height="19" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M11 22H29" stroke="currentColor" stroke-width="1"/>
+          <circle cx="20" cy="26" r="3.2" stroke="currentColor" stroke-width="1"/>
+        </svg>
+      </span>
+      <span class="brand-text">{{ SITE_NAME }}<small>{% trans "PERFUME" %}</small></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="{% url 'shop:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" data-section="hero">{% trans "Bosh sahifa" %}</a>
+      <a href="{% url 'shop:home' %}#collection-section" class="nav-link {% if request.resolver_match.url_name == 'product_list' %}active{% endif %}" data-section="collection-section" data-gender="all">{% trans "Katalog" %}</a>
+      <a href="{% url 'shop:home' %}#collection-section" class="nav-link" data-section="collection-section" data-gender="men">{% trans "Erkaklar" %}</a>
+      <a href="{% url 'shop:home' %}#collection-section" class="nav-link" data-section="collection-section" data-gender="women">{% trans "Ayollar" %}</a>
+      <a href="{% url 'shop:home' %}#collection-section" class="nav-link" data-section="collection-section" data-gender="unisex">{% trans "Unisex" %}</a>
+      <a href="{% url 'shop:home' %}#about-us" class="nav-link" data-section="about-us">{% trans "Biz haqimizda" %}</a>
+      <a href="{% url 'shop:home' %}#footer" class="nav-link" data-section="footer">{% trans "Aloqa" %}</a>
+    </nav>
+
+    <div class="header-actions">
+      <form class="header-search" action="{% url 'shop:product_list' %}" method="get">
+        <input type="text" name="q" placeholder="{% trans 'Atir izlash...' %}" value="{{ request.GET.q }}">
+        <button type="submit" aria-label="Search">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+
+      <div class="lang-switch">
+        <button class="lang-current" id="langToggle">{{ LANGUAGE_CODE|upper }}</button>
+        <div class="lang-dropdown" id="langDropdown">
+          {% get_current_language as CUR_LANG %}
+          {% for code, label in LANGUAGES %}
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <input name="next" type="hidden" value="{{ request.get_full_path }}">
+              <input name="language" type="hidden" value="{{ code }}">
+              <button type="submit" class="{% if code == CUR_LANG %}active{% endif %}">{{ label }}</button>
+            </form>
+          {% endfor %}
+        </div>
+      </div>
+
+      <button class="icon-btn cart-btn" id="cartToggle" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 4H5L6.68 14.39A2 2 0 0 0 8.65 16H18.42A2 2 0 0 0 20.39 14.45L22 6H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>
+        <span class="cart-count" id="cartCount">{{ cart_count }}</span>
+      </button>
+
+      <button class="icon-btn burger" id="burgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="header-spacer"></div>
+
+<!-- ================= CART & NAV OVERLAYS ================= -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="nav-overlay" id="navOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-head">
+    <h3>{% trans "Savat" %}</h3>
+    <button id="cartClose" class="icon-btn">&times;</button>
+  </div>
+  <div class="cart-drawer-body" id="cartDrawerBody">
+    {% include "shop/_cart_drawer.html" %}
+  </div>
+</aside>
+
+<!-- ================= CHECKOUT MODAL ================= -->
+<div class="modal-overlay" id="checkoutOverlay"></div>
+<div class="checkout-modal" id="checkoutModal">
+  <button class="icon-btn modal-close" id="checkoutClose">&times;</button>
+  <h3>{% trans "Buyurtma berish" %}</h3>
+  <p class="modal-sub">{% trans "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz." %}</p>
+  <form id="checkoutForm">
+    <label>{% trans "Ism familiya" %} *</label>
+    <input type="text" name="full_name" id="cf_full_name" required placeholder="{% trans 'Ism familiyangiz' %}">
+
+    <label>{% trans "Telefon raqam" %} *</label>
+    <input type="tel" name="phone" id="cf_phone" required placeholder="+998 90 123 45 67">
+
+    <label>{% trans "Telegram username (ixtiyoriy)" %}</label>
+    <input type="text" name="telegram_username" id="cf_tg" placeholder="@username">
+
+    <label>{% trans "Xabar qoldirish (ixtiyoriy)" %}</label>
+    <textarea name="message" id="cf_message" rows="3" placeholder="{% trans 'Bu yerga yozing...' %}"></textarea>
+
+    <div class="checkout-total">
+      <span>{% trans "Jami:" %}</span>
+      <strong id="checkoutTotal">$0.00</strong>
+    </div>
+
+    <div class="form-error" id="checkoutError"></div>
+
+    <button type="submit" class="btn btn-gold btn-block">{% trans "Buyurtmani tasdiqlash" %}</button>
+  </form>
+</div>
+
+<!-- Confirm dialog -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <p>{% trans "Buyurtmani tasdiqlaysizmi?" %}</p>
+    <div class="confirm-actions">
+      <button class="btn btn-outline" id="confirmNo">{% trans "Yo'q" %}</button>
+      <button class="btn btn-gold" id="confirmYes">{% trans "Ha, tasdiqlayman" %}</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success toast -->
+<div class="order-success-overlay" id="orderSuccessOverlay"></div>
+<div class="order-success" id="orderSuccess">
+  <svg width="46" height="46" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5L10.7 15L16 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <h4>{% trans "Buyurtmangiz qabul qilindi!" %}</h4>
+  <p>{% trans "Tez orada operatorlarimiz siz bilan bog'lanadi." %}</p>
+  <div class="success-timer-bar"></div>
+</div>
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer" id="footer">
+  <div class="footer-inner">
+    <div class="footer-col footer-brand">
+      <a href="{% url 'shop:home' %}" class="brand">
+        <span class="brand-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 6H25V10L28 13V16H12V13L15 10V6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <rect x="11" y="16" width="18" height="19" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M11 22H29" stroke="currentColor" stroke-width="1"/>
+            <circle cx="20" cy="26" r="3.2" stroke="currentColor" stroke-width="1"/>
+          </svg>
+        </span>
+        <span class="brand-text">{{ SITE_NAME }}<small>{% trans "PERFUME" %}</small></span>
+      </a>
+      <p>{% trans "Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni yuksaltiring." %}</p>
+    </div>
+
+    <div class="footer-col footer-nav-col">
+      <h5>{% trans "Do'kon" %}</h5>
+      <div class="footer-nav-grid">
+        <a href="{% url 'shop:home' %}#collection-section" data-section="collection-section" data-gender="all">{% trans "Barcha atirlar" %}</a>
+        <a href="{% url 'shop:home' %}#collection-section" data-section="collection-section" data-gender="women">{% trans "Ayollar" %}</a>
+        <a href="{% url 'shop:home' %}#collection-section" data-section="collection-section" data-gender="men">{% trans "Erkaklar" %}</a>
+        <a href="{% url 'shop:home' %}#collection-section" data-section="collection-section" data-gender="unisex">{% trans "Unisex" %}</a>
+        <a href="{% url 'shop:home' %}#collection-section" data-section="collection-section" data-gender="all">{% trans "Yangi kelganlar" %}</a>
+      </div>
+    </div>
+
+    <div class="footer-col footer-rules-col">
+      <h5>{% trans "Xaridorlarga" %}</h5>
+      <div class="footer-nav-grid">
+        <a href="{% url 'shop:delivery_terms' %}" class="footer-terms-link">
+          <span class="terms-link-icon">📜</span>
+          <span>{% trans "Xarid va yetkazib berish shartlari" %}</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-col footer-contact-col">
+      <h5>{% trans "Aloqa" %}</h5>
+      <p class="contact-item">
+        <span class="contact-icon">📞</span>
+        <a href="tel:{{ SITE_PHONE }}" class="contact-phone-link">{{ SITE_PHONE }}</a>
+      </p>
+      <div class="contact-social-list">
+        <a href="{{ SITE_INSTAGRAM }}" target="_blank" class="contact-social-item">
+          <img src="{% static 'shop/img/instagram.png' %}" alt="Instagram" class="contact-social-img">
+          <span>Instagram</span>
+        </a>
+        <a href="{{ SITE_TELEGRAM }}" target="_blank" class="contact-social-item">
+          <img src="{% static 'shop/img/telegram.png' %}" alt="Telegram" class="contact-social-img">
+          <span>Telegram</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; {% now "Y" %} {{ SITE_NAME }} {% trans "Perfume. Barcha huquqlar himoyalangan." %}</p>
+  </div>
+</footer>
+
+<script>
+  window.CART_URLS = {
+    add: "{% url 'shop:cart_add' %}",
+    update: "{% url 'shop:cart_update' %}",
+    remove: "{% url 'shop:cart_remove' %}",
+    detail: "{% url 'shop:cart_detail' %}",
+    checkout: "{% url 'orders:create_order' %}",
+    catalog: "{% url 'shop:product_list' %}"
+  };
+</script>
+<script src="{% static 'shop/js/main.js' %}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

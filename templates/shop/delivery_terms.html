@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Xarid va Yetkazib Berish Shartlari" %} — {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="terms-page-section">
+  <!-- Back Button & Header -->
+  <div class="terms-header reveal">
+    <a href="{% url 'shop:home' %}" class="btn btn-outline back-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>{% trans "Bosh sahifaga qaytish" %}</span>
+    </a>
+    <span class="eyebrow">MYRON PARFUM · {% trans "SHARTLAR VA KAFOLAT" %}</span>
+    <h1 class="terms-title">{% trans "XARID VA YETKAZIB BERISH SHARTLARI" %}</h1>
+    <p class="terms-subtitle">{% trans "Har bir xaridingiz xavfsiz, sifatli va kafolatlangan bo'lishi biz uchun ustuvor vazifadir." %}</p>
+  </div>
+
+  <!-- Interactive 3D Canvas Showcase Container -->
+  <div class="terms-3d-showcase reveal">
+    <div class="bottle-3d-wrapper" id="bottle3dWrapper">
+      <canvas id="perfume3dCanvas" width="380" height="380"></canvas>
+      <div class="bottle-3d-badge">
+        <span class="sparkle">✨</span>
+        <span>{% trans "100% Sifat & Original Kafolati" %}</span>
+      </div>
+    </div>
+    <div class="showcase-desc">
+      <h3>{% trans "MYRON Premium Standarti" %}</h3>
+      <p>{% trans "Biz atirlaringiz mukammal holatda va asl iforini saqlagan holda sizga yetib borishiga mas'ulmiz." %}</p>
+    </div>
+  </div>
+
+  <!-- Policy Cards Grid -->
+  <div class="terms-grid">
+    <!-- Card 1: Delivery & Taxi Policy -->
+    <div class="terms-card reveal" style="--delay: 100ms">
+      <div class="terms-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 17H3V11L7 4H17L21 11V17H19M5 17C5 18.1 5.9 19 7 19C8.1 19 9 18.1 9 17M5 17C5 15.9 5.9 15 7 15C8.1 15 9 15.9 9 17M19 17C19 18.1 18.1 19 17 19C15.9 19 15 18.1 15 17M19 17C19 15.9 18.1 15 17 15C15.9 15 15 15.9 15 17M16 11V7H8V11H16Z" stroke="var(--gold-bright)" stroke-width="1.8"/></svg>
+      </div>
+      <h3>1. {% trans "Yetkazib Berish Tartibi va Taksi Xizmati" %}</h3>
+      <div class="terms-card-content">
+        <p><strong>{% trans "Rasmiy kurerlik yetkazib berish:" %}</strong> {% trans "Do'konimiz tomonidan rasman topshirilgan kurerlik xizmatlari orqali yetkazilgan barcha buyurtmalar to'liq bizning javobgarligimizda bo'ladi." %}</p>
+        
+        <div class="warning-box">
+          <span class="warning-icon">⚠️</span>
+          <div>
+            <strong>{% trans "Mijoz tomonidan shaxsiy taksi chaqirilganda:" %}</strong>
+            <p>{% trans "Agar siz buyurtmani o'zingiz chaqirgan taksi yoki shaxsiy kurer orqali olib ketishni (dastafka qildirishni) so'rasangiz, topshirilgandan so'ng yo'ldagi mahsulot holati, singanligi yoki yo'qolishiga MYRON do'koni javobgar bo'lmaydi." %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Unboxing & Inspection Protocol -->
+    <div class="terms-card reveal" style="--delay: 200ms">
+      <div class="terms-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M15 10L11 14L9 12M21 12C21 16.97 16.97 21 12 21C7.03 21 3 16.97 3 12C3 7.03 7.03 3 12 3C16.97 3 21 7.03 21 12Z" stroke="var(--gold-bright)" stroke-width="1.8"/></svg>
+      </div>
+      <h3>2. {% trans "Mahsulotni Qabul Qilish va Rasmga Olish (MUHIM)" %}</h3>
+      <div class="terms-card-content">
+        <p><strong>{% trans "Qadoqni ochishdan oldin tekshirish:" %}</strong> {% trans "Mahsulot kurer orqali yetib kelganida, upakovkani ochmasdan oldin kurer ishtirokida srazi rasm va videoga olib olishingiz shart." %}</p>
+        
+        <div class="info-box">
+          <span class="info-icon">📸</span>
+          <div>
+            <strong>{% trans "Shisha singanda yoki to'kilganda:" %}</strong>
+            <p>{% trans "Agar mahsulot yo'lda shikastlangan yoki to'kilgan bo'lsa, ochilmagan qadoqning rasm/videosini taqdim etgan holda 100% bepul almashtirib berish yoki pulingizni qaytarish kafolatlanadi." %}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Perfume Resting & Care Rule -->
+    <div class="terms-card reveal" style="--delay: 300ms">
+      <div class="terms-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 3V21M12 3L7 8M12 3L17 8M5 21H19" stroke="var(--gold-bright)" stroke-width="1.8"/></svg>
+      </div>
+      <h3>3. {% trans "Atirni Dam Oldirish va Saqlash Qoidasi" %}</h3>
+      <div class="terms-card-content">
+        <p><strong>{% trans "Transportirovkadan so'ng dam berish (Resting Rule):" %}</strong> {% trans "Atir tashish jarayonida tebranish sababli molekulalari vaqtincha beqarorlashadi. Mahsulotni qabul qilib olgach, uni salqin, qorong'u joyda 12-24 soat dam oldiring." %}</p>
+        <p>{% trans "Shunda atir notalari o'z o'rniga tushib, shleyfi va chidamliligi maksimal darajaga yetadi." %}</p>
+      </div>
+    </div>
+
+    <!-- Card 4: Guarantee & Returns -->
+    <div class="terms-card reveal" style="--delay: 400ms">
+      <div class="terms-card-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 22C17.5 22 22 17.5 22 12C22 6.5 17.5 2 12 2C6.5 2 2 6.5 2 12C2 17.5 6.5 22 12 22Z" stroke="var(--gold-bright)" stroke-width="1.8"/><path d="M12 8V13L16 15" stroke="var(--gold-bright)" stroke-width="1.8"/></svg>
+      </div>
+      <h3>4. {% trans "Qaytarish va Almashtirish Shartlari" %}</h3>
+      <div class="terms-card-content">
+        <p>{% trans "Parfyumeriya mahsulotlari gigiyena talablariga ko'ra ochilgan va ishlatilgan holatda qaytarib olinmaydi." %}</p>
+        <p>{% trans "Faqatgina zavod nuqsoni yoki rasmiy kurer yetkazishidagi shikastlanish rasm/video bilan tasdiqlanganda zudlik bilan almashtirib beriladi." %}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Back Action -->
+  <div class="terms-footer-action reveal">
+    <a href="{% url 'shop:home' %}" class="btn btn-gold btn-large">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>{% trans "Bosh sahifaga qaytish" %}</span>
+    </a>
+  </div>
+</section>
+
+<!-- 3D Canvas Interactive Perfume Animation Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("perfume3dCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let angleY = 0;
+    let angleX = 0;
+    let targetAngleX = 0;
+    let targetAngleY = 0;
+
+    const wrapper = document.getElementById("bottle3dWrapper");
+    if (wrapper) {
+      wrapper.addEventListener("mousemove", (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        targetAngleY = (x / rect.width) * 0.8;
+        targetAngleX = (-y / rect.height) * 0.5;
+      });
+      wrapper.addEventListener("mouseleave", () => {
+        targetAngleX = 0;
+        targetAngleY = 0;
+      });
+      wrapper.addEventListener("touchmove", (e) => {
+        if (e.touches.length > 0) {
+          const rect = wrapper.getBoundingClientRect();
+          const x = e.touches[0].clientX - rect.left - rect.width / 2;
+          const y = e.touches[0].clientY - rect.top - rect.height / 2;
+          targetAngleY = (x / rect.width) * 0.8;
+          targetAngleX = (-y / rect.height) * 0.5;
+        }
+      });
+    }
+
+    // 3D Gold Particles
+    const particles = [];
+    for (let i = 0; i < 45; i++) {
+      particles.push({
+        x: (Math.random() - 0.5) * 260,
+        y: (Math.random() - 0.5) * 260,
+        z: (Math.random() - 0.5) * 200,
+        size: Math.random() * 2.5 + 1,
+        speed: Math.random() * 0.02 + 0.01,
+      });
+    }
+
+    function render3dBottle() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      angleY += (targetAngleY + 0.008 - angleY) * 0.05;
+      angleX += (targetAngleX - angleX) * 0.05;
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2 + 10;
+
+      // Radial Gold Aura
+      const grad = ctx.createRadialGradient(cx, cy, 20, cx, cy, 150);
+      grad.addColorStop(0, "rgba(212, 175, 55, 0.25)");
+      grad.addColorStop(0.5, "rgba(212, 175, 55, 0.08)");
+      grad.addColorStop(1, "rgba(8, 21, 13, 0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 150, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Render 3D Gold Particles
+      particles.forEach((p) => {
+        p.z += p.speed * 20;
+        if (p.z > 150) p.z = -150;
+        const scale = 200 / (200 + p.z);
+        const px = cx + p.x * scale;
+        const py = cy + p.y * scale;
+
+        ctx.fillStyle = `rgba(252, 215, 101, ${0.45 * scale})`;
+        ctx.beginPath();
+        ctx.arc(px, py, p.size * scale, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Render 3D Stylized Perfume Bottle
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(angleY * 0.5);
+
+      // Shadow
+      ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+      ctx.beginPath();
+      ctx.ellipse(0, 85, 45, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Glass Bottle Body
+      const bGrad = ctx.createLinearGradient(-40, -50, 40, 70);
+      bGrad.addColorStop(0, "#183e29");
+      bGrad.addColorStop(0.4, "#0e2618");
+      bGrad.addColorStop(1, "#08150d");
+
+      ctx.fillStyle = bGrad;
+      ctx.strokeStyle = "rgba(212, 175, 55, 0.65)";
+      ctx.lineWidth = 2;
+
+      ctx.beginPath();
+      ctx.roundRect(-42, -35, 84, 115, 16);
+      ctx.fill();
+      ctx.stroke();
+
+      // Gold Label Plate
+      const lGrad = ctx.createLinearGradient(-28, 0, 28, 40);
+      lGrad.addColorStop(0, "#fcd765");
+      lGrad.addColorStop(0.5, "#d4af37");
+      lGrad.addColorStop(1, "#997a15");
+
+      ctx.fillStyle = lGrad;
+      ctx.beginPath();
+      ctx.roundRect(-28, -5, 56, 45, 6);
+      ctx.fill();
+
+      ctx.fillStyle = "#08150d";
+      ctx.font = "bold 9px serif";
+      ctx.textAlign = "center";
+      ctx.fillText("MYRON", 0, 16);
+      ctx.font = "6px sans-serif";
+      ctx.fillText("PARFUM", 0, 26);
+
+      // Gold Neck
+      ctx.fillStyle = lGrad;
+      ctx.fillRect(-12, -50, 24, 15);
+
+      // Gold Cap
+      ctx.beginPath();
+      ctx.roundRect(-18, -75, 36, 25, 6);
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      ctx.restore();
+
+      requestAnimationFrame(render3dBottle);
+    }
+
+    render3dBottle();
+  });
+</script>
+{% endblock %}

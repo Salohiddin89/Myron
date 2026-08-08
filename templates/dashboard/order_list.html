@@ -1,0 +1,75 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Buyurtmalar — MYRON Control Panel{% endblock %}
+{% block heading %}Buyurtmalar Boshqaruvi{% endblock %}
+
+{% block content %}
+<div class="status-tabs-nav mb-4">
+  <a href="{% url 'dashboard:order_list' %}" class="status-tab-item {% if not status %}active{% endif %}">
+    <span>Barchasi</span>
+    <small class="tab-badge">{{ total_orders_count }}</small>
+  </a>
+  {% for code, label in status_choices %}
+    <a href="?status={{ code }}" class="status-tab-item status-tab-{{ code }} {% if status == code %}active{% endif %}">
+      <span>{{ label }}</span>
+    </a>
+  {% endfor %}
+</div>
+
+<section class="panel">
+  <div class="panel-toolbar">
+    <form class="filters-form" method="get">
+      <div class="search-input-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="search" name="q" value="{{ q }}" placeholder="Mijoz, telefon yoki Telegram...">
+      </div>
+      {% if status %}<input type="hidden" name="status" value="{{ status }}">{% endif %}
+      <button class="btn btn-outline-sm" type="submit">Qidirish</button>
+    </form>
+  </div>
+
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Buyurtma #</th>
+          <th>Mijoz</th>
+          <th>Telefon</th>
+          <th>Jami Summa</th>
+          <th>Holatni O'zgartirish</th>
+          <th>Sana</th>
+          <th class="text-right">Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for order in page_obj %}
+        <tr>
+          <td><a href="{% url 'dashboard:order_detail' order.pk %}" class="order-id-tag">#{{ order.pk }}</a></td>
+          <td><strong>{{ order.full_name }}</strong></td>
+          <td><a href="tel:{{ order.phone }}" class="phone-link">{{ order.phone }}</a></td>
+          <td><span class="price-tag">${{ order.total_price }}</span></td>
+          <td>
+            <form action="{% url 'dashboard:order_quick_status' order.pk %}" method="post" class="inline-status-form">
+              {% csrf_token %}
+              <select name="status" onchange="this.form.submit()" class="select-sm status-select-{{ order.status }}">
+                {% for code, label in status_choices %}
+                  <option value="{{ code }}" {% if order.status == code %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+              </select>
+            </form>
+          </td>
+          <td><span class="date-tag">{{ order.created_at|date:"d.m.Y H:i" }}</span></td>
+          <td class="text-right">
+            <a href="{% url 'dashboard:order_detail' order.pk %}" class="btn btn-outline-xs" title="Batafsil">Ko'rish &rarr;</a>
+            <a href="{% url 'dashboard:order_receipt' order.pk %}" target="_blank" class="action-btn" title="Chekni chop etish">🖨️</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="7" class="empty">Birorta ham buyurtma topilmadi.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include "dashboard/pagination.html" %}
+</section>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ product.name }} — {{ SITE_NAME }}{% endblock %}
+
+{% block content %}
+<section class="product-detail-section">
+  <div class="breadcrumb reveal">
+    <a href="{% url 'shop:home' %}">{% trans "Bosh sahifa" %}</a> /
+    <a href="{% url 'shop:product_list' %}">{% trans "Katalog" %}</a> /
+    <span>{{ product.name }}</span>
+  </div>
+
+  <div class="product-detail-layout">
+    <div class="pd-gallery reveal">
+      <div class="pd-main-image pd-slider" data-interval="3000">
+        {% if product.is_new %}<span class="badge badge-new">{% trans "NEW" %}</span>{% endif %}
+        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="pd-slide active">
+        {% if product.image_2 %}<img src="{{ product.image_2_url }}" alt="{{ product.name }}" class="pd-slide">{% endif %}
+        {% for gi in product.gallery.all %}<img src="{{ gi.image_url }}" alt="{{ product.name }}" class="pd-slide">{% endfor %}
+      </div>
+      <div class="pd-thumbs">
+        <img src="{{ product.image_url }}" class="pd-thumb active">
+        {% if product.image_2 %}<img src="{{ product.image_2_url }}" class="pd-thumb">{% endif %}
+        {% for gi in product.gallery.all %}<img src="{{ gi.image_url }}" class="pd-thumb">{% endfor %}
+      </div>
+    </div>
+
+    <div class="pd-info reveal">
+      <span class="product-category">{{ product.brand }} · {{ product.gender_label }}</span>
+      <h1>{{ product.name }}</h1>
+
+      <div class="product-rating">
+        <span class="stars" style="--rating: {{ product.rating }}"></span>
+        <span class="reviews-count">{{ product.reviews_count }} {% trans "ta sharh" %}</span>
+      </div>
+
+      <div class="pd-price-row">
+        <span class="price" id="pdVariantPrice">${{ product.price }}</span>
+        {% if product.old_price %}<span class="old-price">${{ product.old_price }}</span>
+        <span class="badge badge-sale">-{{ product.discount_percent }}%</span>{% endif %}
+      </div>
+
+      <p class="pd-short-desc">{{ product.short_description }}</p>
+
+      <div class="pd-variant-picker" aria-label="{% trans 'Hajm tanlash' %}">
+        <span class="pd-variant-title">{% trans "Hajmni tanlang" %}</span>
+        <div class="pd-variant-options">
+          {% for variant in product.purchase_variants %}
+          <button type="button" class="pd-variant-option {% if forloop.first %}active{% endif %}"
+            data-variant-code="{{ variant.code }}" data-variant-price="{{ variant.price }}">
+            <span>{{ variant.label }}</span>
+            <strong>${{ variant.price }}</strong>
+          </button>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="pd-meta-grid">
+        <div><span>{% trans "Konsentratsiya" %}</span><strong>{{ product.concentration_label }}</strong></div>
+        <div><span>{% trans "Hajmi" %}</span><strong>{{ product.volume_ml }} ml</strong></div>
+        <div><span>{% trans "Toifa" %}</span><strong>{{ product.gender_label }}</strong></div>
+        <div><span>{% trans "Mavjudligi" %}</span><strong
+            class="{% if product.in_stock %}in-stock{% else %}out-stock{% endif %}">
+            {% if product.in_stock %}{% trans "Sotuvda bor" %}{% else %}{% trans "Tugagan" %}{% endif %}
+          </strong></div>
+      </div>
+
+      <div class="pd-actions">
+        <div class="qty-control large">
+          <button type="button" id="pdQtyMinus">-</button>
+          <span id="pdQtyValue">1</span>
+          <button type="button" id="pdQtyPlus">+</button>
+        </div>
+        <button class="btn btn-gold pd-add-cart" id="pdAddToCart" data-add-id="{{ product.id }}"
+          data-variant-code="full" {% if not product.in_stock %}disabled{% endif %}>
+          {% trans "Savatga qo'shish" %}
+        </button>
+      </div>
+
+      <div class="pd-tabs">
+        <div class="pd-tab-heads">
+          <button class="pd-tab-head active" data-tab="desc">{% trans "Tavsif" %}</button>
+          <button class="pd-tab-head" data-tab="comp">{% trans "Tarkibi" %}</button>
+        </div>
+        <div class="pd-tab-panel active" data-panel="desc">
+          <p>{{ product.description|linebreaksbr }}</p>
+        </div>
+        <div class="pd-tab-panel" data-panel="comp">
+          {% if product.composition %}
+          <p>{{ product.composition|linebreaksbr }}</p>
+          {% else %}
+          <p>{% trans "Ma'lumot kiritilmagan" %}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if related %}
+  <div class="related-section">
+    <div class="section-head reveal">
+      <span class="eyebrow">{% trans "SIZGA YOQISHI MUMKIN" %}</span>
+      <h2>{% trans "O'XSHASH ATIRLAR" %}</h2>
+    </div>
+    <div class="product-grid">
+      {% include "shop/_product_cards.html" with products=related %}
+    </div>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
