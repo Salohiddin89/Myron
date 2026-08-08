@@ -308,3 +308,6 @@ msgstr "Narx: yuqoridan pastga"
 
 msgid "Reyting"
 msgstr "Reyting"
+
+msgid "Filtrlash"
+msgstr "Filtrlash"
