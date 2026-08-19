@@ -1,59 +1,60 @@
 {% extends "dashboard/base.html" %}
+{% load i18n %}
 
-{% block title %}Sotuvlar Tahlili — MYRON Control Panel{% endblock %}
-{% block heading %}Moliyaviy va Sotuvlar Tahlili{% endblock %}
+{% block title %}{% trans "Sotuvlar tahlili" %} — MYRON {% trans "Boshqaruv paneli" %}{% endblock %}
+{% block heading %}{% trans "Moliyaviy va sotuvlar tahlili" %}{% endblock %}
 
 {% block content %}
 <section class="stats-grid mb-4">
   <article class="stat-card">
     <div class="stat-head">
-      <span>Muvaffaqiyatli Savdo</span>
+      <span>{% trans "Muvaffaqiyatli savdo" %}</span>
       <div class="stat-icon icon-green">💰</div>
     </div>
     <strong class="stat-value">${{ completed_revenue|floatformat:2 }}</strong>
-    <p class="stat-sub">Bajarilgan buyurtmalar summasi</p>
+    <p class="stat-sub">{% trans "Bajarilgan buyurtmalar summasi" %}</p>
   </article>
 
   <article class="stat-card">
     <div class="stat-head">
-      <span>Kutilayotgan Savdo</span>
+      <span>{% trans "Kutilayotgan savdo" %}</span>
       <div class="stat-icon icon-gold">⏳</div>
     </div>
     <strong class="stat-value">${{ pending_revenue|floatformat:2 }}</strong>
-    <p class="stat-sub">Jarayondagi buyurtmalar summasi</p>
+    <p class="stat-sub">{% trans "Jarayondagi buyurtmalar summasi" %}</p>
   </article>
 
   <article class="stat-card">
     <div class="stat-head">
-      <span>O'rtacha Chek Summasi</span>
+      <span>{% trans "O'rtacha chek summasi" %}</span>
       <div class="stat-icon icon-blue">📊</div>
     </div>
     <strong class="stat-value">${{ avg_order_value|floatformat:2 }}</strong>
-    <p class="stat-sub">Har bir haridorga to'g'ri keluvchi summa</p>
+    <p class="stat-sub">{% trans "Har bir xaridorga to'g'ri keluvchi summa" %}</p>
   </article>
 
   <article class="stat-card">
     <div class="stat-head">
-      <span>Jami Haridlar</span>
+      <span>{% trans "Jami xaridlar" %}</span>
       <div class="stat-icon icon-gold">🛍️</div>
     </div>
-    <strong class="stat-value">{{ total_orders }} ta</strong>
-    <p class="stat-sub">Barcha olingan buyurtmalar</p>
+    <strong class="stat-value">{{ total_orders }} {% trans "ta" %}</strong>
+    <p class="stat-sub">{% trans "Barcha olingan buyurtmalar" %}</p>
   </article>
 </section>
 
 <section class="split-grid">
   <div class="panel">
     <div class="panel-head">
-      <h2>Buyurtma Holatlari Bo'yicha Tahlil</h2>
+      <h2>{% trans "Buyurtma holatlari bo'yicha tahlil" %}</h2>
     </div>
     <div class="table-wrap">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Holat</th>
-            <th>Buyurtmalar Soni</th>
-            <th class="text-right">Umumiy Qiymati</th>
+            <th>{% trans "Holat" %}</th>
+            <th>{% trans "Buyurtmalar soni" %}</th>
+            <th class="text-right">{% trans "Umumiy qiymat" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -61,14 +62,14 @@
             <tr>
               <td>
                 <span class="badge-status status-{{ item.status }}">
-                  {{ item.status|upper }}
+                  {{ item.label }}
                 </span>
               </td>
-              <td><strong>{{ item.total }} ta</strong></td>
+              <td><strong>{{ item.total }} {% trans "ta" %}</strong></td>
               <td class="text-right"><strong class="price-tag">${{ item.total_sum|default:0|floatformat:2 }}</strong></td>
             </tr>
           {% empty %}
-            <tr><td colspan="3" class="empty">Tahlil qilish uchun ma'lumot yetarli emas.</td></tr>
+            <tr><td colspan="3" class="empty">{% trans "Tahlil qilish uchun ma'lumot yetarli emas." %}</td></tr>
           {% endfor %}
         </tbody>
       </table>
@@ -77,22 +78,22 @@
 
   <div class="panel">
     <div class="panel-head">
-      <h2>Eng Ko'p Zaxiraga Ega Atirlar</h2>
+      <h2>{% trans "Zaxirasi eng ko'p atirlar" %}</h2>
     </div>
     <div class="item-list">
       {% for product in top_products %}
         <div class="list-item">
           <div class="item-info">
-            <strong>{{ product.name_uz }}</strong>
+            <strong>{{ product.name }}</strong>
             <small>{{ product.brand }} ({{ product.get_gender_display }})</small>
           </div>
           <div class="item-badge good">
-            ${{ product.price }} / {{ product.stock }} dona
+            ${{ product.price }} / {{ product.stock }} {% trans "dona" %}
           </div>
         </div>
       {% empty %}
         <div class="empty-state">
-          <p>Mahsulotlar mavjud emas.</p>
+          <p>{% trans "Mahsulotlar mavjud emas." %}</p>
         </div>
       {% endfor %}
     </div>

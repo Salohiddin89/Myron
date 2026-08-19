@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils.translation import gettext_lazy as _
 from .models import Product, ProductImage
 
 
@@ -22,10 +23,10 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]
 
     fieldsets = (
-        ("Asosiy ma'lumot", {
+        (_("Asosiy ma'lumot"), {
             "fields": (("name_uz", "name_ru"), "slug", "brand", ("gender", "concentration"), "volume_ml")
         }),
-        ("Narx va ombor", {
+        (_("Narx va ombor"), {
             "fields": (
                 ("price", "old_price"),
                 "sell_by_ml",
@@ -33,24 +34,35 @@ class ProductAdmin(admin.ModelAdmin):
                 "stock",
             )
         }),
-        ("Rasmlar", {
-            "fields": ("image", "image_2")
+        (_("Rasmlar"), {
+            "fields": ("image", "box_image", "image_2")
         }),
-        ("Qisqa tavsif", {
+        (_("Qisqa tavsif"), {
             "fields": (("short_description_uz", "short_description_ru"),)
         }),
-        ("To'liq tavsif", {
+        (_("To'liq tavsif"), {
             "fields": (("description_uz", "description_ru"),)
         }),
-        ("Tarkibi / Состав", {
+        (_("Tarkibi / Sostav"), {
             "fields": (("composition_uz", "composition_ru"),)
         }),
-        ("Reyting va holat", {
-            "fields": (("rating", "reviews_count"), ("is_new", "is_bestseller", "is_active"))
+        (_("Aromat notalari"), {
+            "fields": (
+                ("top_notes_uz", "top_notes_ru"),
+                ("heart_notes_uz", "heart_notes_ru"),
+                ("base_notes_uz", "base_notes_ru"),
+            )
+        }),
+        (_("Reyting va holat"), {
+            "fields": (
+                ("rating", "reviews_count"),
+                ("show_user_rating", "show_when_to_wear"),
+                ("is_new", "is_bestseller", "is_active"),
+            )
         }),
     )
 
-    @admin.display(description="Rasm")
+    @admin.display(description=_("Rasm"))
     def thumb(self, obj):
         if obj.image:
             return format_html(

@@ -1,16 +1,31 @@
 {% extends "admin/base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'admin/css/custom_admin.css' %}">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block branding %}
 <div id="site-name">
   <a href="{% url 'admin:index' %}">
-    <span class="admin-logo">?</span> MYRON <small>ADMIN</small>
+    <span class="admin-logo">?</span> MYRON <small>{% trans "ADMIN" %}</small>
   </a>
 </div>
+{% endblock %}
+
+{% block userlinks %}
+  {{ block.super }}
+  {% get_current_language as CUR_LANG %}
+  <span class="admin-language-links" aria-label="{% trans 'Tilni tanlash' %}">
+    {% for code, label in LANGUAGES %}
+    <form action="{% url 'set_language' %}" method="post">
+      {% csrf_token %}
+      <input name="next" type="hidden" value="{{ request.get_full_path }}">
+      <input name="language" type="hidden" value="{{ code }}">
+      <button type="submit" class="{% if code == CUR_LANG %}active{% endif %}">{{ code|upper }}</button>
+    </form>
+    {% endfor %}
+  </span>
 {% endblock %}

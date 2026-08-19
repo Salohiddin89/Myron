@@ -1,15 +1,15 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8">
-  <title>MYRON — Buyurtma Cheki #{{ order.pk }}</title>
+  <title>MYRON — {% trans "Buyurtma cheki" %} #{{ order.pk }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@400;600;700&family=Marck+Script&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Manrope', sans-serif;
       color: #111;
       background: #f8f9fa;
       margin: 0;
@@ -31,7 +31,7 @@
       margin-bottom: 24px;
     }
     .receipt-header h1 {
-      font-family: 'Cinzel', serif;
+      font-family: 'Bodoni Moda', 'Cormorant Garamond', Georgia, serif;
       font-size: 2.2rem;
       margin: 0;
       color: #0d1710;
@@ -111,24 +111,24 @@
   <div class="receipt-card">
     <div class="receipt-header">
       <h1>MYRON</h1>
-      <p>Luxury Parfums — Harid Cheki</p>
+      <p>Luxury Parfums — {% trans "Xarid cheki" %}</p>
     </div>
 
     <div class="info-grid">
       <div class="info-box">
-        <strong>Buyurtma Raqami:</strong>
+        <strong>{% trans "Buyurtma raqami:" %}</strong>
         #{{ order.pk }}
       </div>
       <div class="info-box">
-        <strong>Sana:</strong>
+        <strong>{% trans "Sana:" %}</strong>
         {{ order.created_at|date:"d.m.Y H:i" }}
       </div>
       <div class="info-box">
-        <strong>Mijoz:</strong>
+        <strong>{% trans "Mijoz:" %}</strong>
         {{ order.full_name }}
       </div>
       <div class="info-box">
-        <strong>Telefon:</strong>
+        <strong>{% trans "Telefon:" %}</strong>
         {{ order.phone }}
       </div>
     </div>
@@ -136,11 +136,11 @@
     <table class="items-table">
       <thead>
         <tr>
-          <th>Atir Nomi</th>
-          <th>Hajm</th>
-          <th>Narx</th>
-          <th>Soni</th>
-          <th style="text-align:right;">Jami</th>
+          <th>{% trans "Atir nomi" %}</th>
+          <th>{% trans "Hajm" %}</th>
+          <th>{% trans "Narx" %}</th>
+          <th>{% trans "Soni" %}</th>
+          <th style="text-align:right;">{% trans "Jami" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -149,7 +149,7 @@
             <td><strong>{{ item.product_name }}</strong></td>
             <td>{{ item.variant_label }}</td>
             <td>${{ item.product_price }}</td>
-            <td>{{ item.quantity }} dona</td>
+            <td>{{ item.quantity }} {% trans "dona" %}</td>
             <td style="text-align:right;">${{ item.subtotal }}</td>
           </tr>
         {% endfor %}
@@ -157,12 +157,12 @@
     </table>
 
     <div class="total-row">
-      <span>Jami To'lov Summasi:</span>
+      <span>{% trans "Jami to'lov summasi:" %}</span>
       <span>${{ order.total_price }}</span>
     </div>
 
     <div class="print-actions">
-      <button class="btn-print" onclick="window.print();">🖨️ Chekni Chop Etish</button>
+      <button class="btn-print" onclick="window.print();">🖨️ {% trans "Chekni chop etish" %}</button>
     </div>
   </div>
 </body>

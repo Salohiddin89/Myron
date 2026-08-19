@@ -1,73 +1,74 @@
 {% extends "dashboard/base.html" %}
+{% load i18n %}
 
-{% block title %}Buyurtma #{{ order.pk }} — MYRON Control Panel{% endblock %}
-{% block heading %}Buyurtma Tafsilotlari #{{ order.pk }}{% endblock %}
+{% block title %}{% trans "Buyurtma" %} #{{ order.pk }} — MYRON {% trans "Boshqaruv paneli" %}{% endblock %}
+{% block heading %}{% trans "Buyurtma tafsilotlari" %} #{{ order.pk }}{% endblock %}
 
 {% block content %}
 <div class="mb-4">
-  <a href="{% url 'dashboard:order_list' %}" class="btn-link">&larr; Barcha buyurtmalarga qaytish</a>
+  <a href="{% url 'dashboard:order_list' %}" class="btn-link">&larr; {% trans "Barcha buyurtmalarga qaytish" %}</a>
 </div>
 
 <section class="split-grid">
   <div class="panel">
     <div class="panel-head">
-      <h2>Mijoz ma'lumotlari</h2>
+      <h2>{% trans "Mijoz ma'lumotlari" %}</h2>
       <span class="badge-status status-{{ order.status }}">{{ order.get_status_display }}</span>
     </div>
     
     <dl class="details-list">
       <div class="detail-row">
-        <dt>Mijoz ismi:</dt>
+        <dt>{% trans "Mijoz ismi:" %}</dt>
         <dd><strong>{{ order.full_name }}</strong></dd>
       </div>
       <div class="detail-row">
-        <dt>Telefon raqam:</dt>
+        <dt>{% trans "Telefon raqam:" %}</dt>
         <dd><a href="tel:{{ order.phone }}" class="phone-link">{{ order.phone }}</a></dd>
       </div>
       <div class="detail-row">
-        <dt>Telegram profil:</dt>
+        <dt>{% trans "Telegram profil:" %}</dt>
         <dd>{% if order.telegram_username %}<a href="https://t.me/{{ order.telegram_username|cut:'@' }}" target="_blank" class="btn-link">@{{ order.telegram_username|cut:'@' }}</a>{% else %}<span class="text-muted">-</span>{% endif %}</dd>
       </div>
       <div class="detail-row">
-        <dt>Qo'shimcha izoh:</dt>
-        <dd>{{ order.message|default:"Alohida izoh qoldirilmagan." }}</dd>
+        <dt>{% trans "Qo'shimcha izoh:" %}</dt>
+        <dd>{% if order.message %}{{ order.message }}{% else %}{% trans "Alohida izoh qoldirilmagan." %}{% endif %}</dd>
       </div>
       <div class="detail-row">
-        <dt>Jami buyurtma summasi:</dt>
+        <dt>{% trans "Jami buyurtma summasi:" %}</dt>
         <dd><strong class="price-highlight">${{ order.total_price }}</strong></dd>
       </div>
       <div class="detail-row">
-        <dt>Buyurtma berilgan sana:</dt>
+        <dt>{% trans "Buyurtma berilgan sana:" %}</dt>
         <dd><span class="date-tag">{{ order.created_at|date:"d.m.Y H:i" }}</span></dd>
       </div>
     </dl>
 
     <div class="status-change-box">
-      <h4>Buyurtma holatini o'zgartirish</h4>
+      <h4>{% trans "Buyurtma holatini o'zgartirish" %}</h4>
       <form class="status-form" method="post">
         {% csrf_token %}
         <div class="select-wrap mb-3">
           {{ form.status }}
         </div>
-        <button class="btn btn-gold" type="submit">Holatni saqlash</button>
+        <button class="btn btn-gold" type="submit">{% trans "Holatni saqlash" %}</button>
       </form>
     </div>
   </div>
 
   <div class="panel">
     <div class="panel-head">
-      <h2>Buyurtma qilingan atirlar</h2>
-      <span class="item-count-badge">{{ order.items.count }} xil mahsulot</span>
+      <h2>{% trans "Buyurtma qilingan atirlar" %}</h2>
+      <span class="item-count-badge">{{ order.items.count }} {% trans "xil mahsulot" %}</span>
     </div>
     <div class="table-wrap">
       <table class="data-table">
         <thead>
           <tr>
-            <th>Atir Nomi</th>
-            <th>Hajm</th>
-            <th>Dona narxi</th>
-            <th>Soni</th>
-            <th class="text-right">Jami</th>
+            <th>{% trans "Atir nomi" %}</th>
+            <th>{% trans "Hajm" %}</th>
+            <th>{% trans "Dona narxi" %}</th>
+            <th>{% trans "Soni" %}</th>
+            <th class="text-right">{% trans "Jami" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -76,7 +77,7 @@
             <td><strong>{{ item.product_name }}</strong></td>
             <td>{{ item.variant_label }}</td>
             <td>${{ item.product_price }}</td>
-            <td><span class="qty-pill">{{ item.quantity }} dona</span></td>
+            <td><span class="qty-pill">{{ item.quantity }} {% trans "dona" %}</span></td>
             <td class="text-right"><strong class="price-tag">${{ item.subtotal }}</strong></td>
           </tr>
         {% endfor %}

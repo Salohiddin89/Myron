@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 from .models import Order, OrderItem
 
 
@@ -24,7 +25,7 @@ class OrderAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
 
     fieldsets = (
-        ("Mijoz", {"fields": (("full_name", "phone"), "telegram_username", "message")}),
-        ("Buyurtma holati", {"fields": (("status", "total_price"), "telegram_notified")}),
-        ("Vaqt", {"fields": (("created_at", "updated_at"),)}),
+        (_("Mijoz"), {"fields": (("full_name", "phone"), "telegram_username", "message")}),
+        (_("Buyurtma holati"), {"fields": (("status", "total_price"), "telegram_notified")}),
+        (_("Vaqt"), {"fields": (("created_at", "updated_at"),)}),
     )

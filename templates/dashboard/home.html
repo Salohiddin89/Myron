@@ -1,44 +1,45 @@
 {% extends "dashboard/base.html" %}
+{% load i18n %}
 
-{% block title %}Dashboard — MYRON Control Panel{% endblock %}
-{% block heading %}Boshqaruv Paneli{% endblock %}
+{% block title %}{% trans "Dashboard" %} — MYRON {% trans "Boshqaruv paneli" %}{% endblock %}
+{% block heading %}{% trans "Boshqaruv paneli" %}{% endblock %}
 
 {% block content %}
 <section class="stats-grid">
   <article class="stat-card">
     <div class="stat-head">
-      <span>Jami Savdo</span>
+      <span>{% trans "Jami savdo" %}</span>
       <div class="stat-icon icon-gold">💰</div>
     </div>
     <strong class="stat-value">${{ stats.revenue|floatformat:2 }}</strong>
-    <p class="stat-sub">Barcha bajarilgan buyurtmalar</p>
+    <p class="stat-sub">{% trans "Barcha bajarilgan buyurtmalar" %}</p>
   </article>
 
   <article class="stat-card">
     <div class="stat-head">
-      <span>Buyurtmalar</span>
+      <span>{% trans "Buyurtmalar" %}</span>
       <div class="stat-icon icon-blue">📦</div>
     </div>
     <strong class="stat-value">{{ stats.orders }}</strong>
-    <p class="stat-sub"><span class="highlight-gold">{{ stats.new_orders }} ta</span> yangi buyurtma</p>
+    <p class="stat-sub"><span class="highlight-gold">{{ stats.new_orders }} {% trans "ta" %}</span> {% trans "yangi buyurtma" %}</p>
   </article>
 
   <article class="stat-card">
     <div class="stat-head">
-      <span>Katalog</span>
+      <span>{% trans "Katalog" %}</span>
       <div class="stat-icon icon-green">🛍️</div>
     </div>
     <strong class="stat-value">{{ stats.products }}</strong>
-    <p class="stat-sub"><span class="highlight-green">{{ stats.active_products }} ta</span> saytda faol</p>
+    <p class="stat-sub"><span class="highlight-green">{{ stats.active_products }} {% trans "ta" %}</span> {% trans "saytda faol" %}</p>
   </article>
 
   <article class="stat-card">
     <div class="stat-head">
-      <span>Kam qolganlar</span>
+      <span>{% trans "Kam qolganlar" %}</span>
       <div class="stat-icon icon-red">⚠️</div>
     </div>
     <strong class="stat-value">{{ low_stock|length }}</strong>
-    <p class="stat-sub">Omborda <= 5 dona</p>
+    <p class="stat-sub">{% trans "Omborda 5 donadan kam" %}</p>
   </article>
 </section>
 
@@ -46,20 +47,20 @@
   <div class="panel">
     <div class="panel-head">
       <div>
-        <h2>Oxirgi buyurtmalar</h2>
-        <small class="panel-subtitle">Eng so'nggi kelgan buyurtmalar ro'yxati</small>
+        <h2>{% trans "Oxirgi buyurtmalar" %}</h2>
+        <small class="panel-subtitle">{% trans "Eng so'nggi kelgan buyurtmalar ro'yxati" %}</small>
       </div>
-      <a href="{% url 'dashboard:order_list' %}" class="btn-link">Barchasini ko'rish &rarr;</a>
+      <a href="{% url 'dashboard:order_list' %}" class="btn-link">{% trans "Barchasini ko'rish" %} &rarr;</a>
     </div>
     <div class="table-wrap">
       <table class="data-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Mijoz</th>
-            <th>Telefon</th>
-            <th>Summa</th>
-            <th>Holat</th>
+            <th>{% trans "ID" %}</th>
+            <th>{% trans "Mijoz" %}</th>
+            <th>{% trans "Telefon" %}</th>
+            <th>{% trans "Summa" %}</th>
+            <th>{% trans "Holat" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -76,7 +77,7 @@
             </td>
           </tr>
         {% empty %}
-          <tr><td colspan="5" class="empty">Hozircha buyurtma yo'q.</td></tr>
+          <tr><td colspan="5" class="empty">{% trans "Hozircha buyurtma yo'q." %}</td></tr>
         {% endfor %}
         </tbody>
       </table>
@@ -86,26 +87,26 @@
   <div class="panel">
     <div class="panel-head">
       <div>
-        <h2>Omborda kam qolganlar</h2>
-        <small class="panel-subtitle">Zudlik bilan to'ldirish tavsiya etiladi</small>
+        <h2>{% trans "Omborda kam qolganlar" %}</h2>
+        <small class="panel-subtitle">{% trans "Zudlik bilan to'ldirish tavsiya etiladi" %}</small>
       </div>
-      <a href="{% url 'dashboard:product_list' %}" class="btn-link">Katalog &rarr;</a>
+      <a href="{% url 'dashboard:product_list' %}" class="btn-link">{% trans "Katalog" %} &rarr;</a>
     </div>
     <div class="item-list">
       {% for product in low_stock %}
         <a href="{% url 'dashboard:product_update' product.pk %}" class="list-item">
           <div class="item-info">
-            <strong>{{ product.name_uz }}</strong>
+            <strong>{{ product.name }}</strong>
             <small>{{ product.brand }}</small>
           </div>
           <div class="item-badge danger">
-            {{ product.stock }} dona
+            {{ product.stock }} {% trans "dona" %}
           </div>
         </a>
       {% empty %}
         <div class="empty-state">
           <span>✅</span>
-          <p>Barcha mahsulotlar omborda yetarli.</p>
+          <p>{% trans "Barcha mahsulotlar omborda yetarli." %}</p>
         </div>
       {% endfor %}
     </div>

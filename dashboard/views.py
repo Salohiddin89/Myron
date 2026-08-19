@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.db.models import Avg, Count, Q, Sum
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils.translation import gettext as _
+from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
 
 from orders.models import Order
@@ -21,6 +23,20 @@ def staff_required(view_func):
     return user_passes_test(_is_staff, login_url="dashboard:login")(view_func)
 
 
+def set_language_via_get(request):
+    lang = request.GET.get("lang")
+    next_url = request.GET.get("next") or reverse("dashboard:login")
+    if lang in ["uz", "ru"]:
+        from django.utils import translation
+        translation.activate(lang)
+        request.session["_language"] = lang
+        response = redirect(next_url)
+        response.set_cookie("django_language", lang)
+        return response
+    return redirect(next_url)
+
+
+@csrf_protect
 def dashboard_login(request):
     if request.user.is_authenticated and request.user.is_staff:
         return redirect("dashboard:home")
@@ -33,10 +49,15 @@ def dashboard_login(request):
             password=form.cleaned_data["password"],
         )
         if user and user.is_staff:
+            current_lang = getattr(request, "LANGUAGE_CODE", None)
             login(request, user)
+            if current_lang:
+                from django.utils import translation
+                translation.activate(current_lang)
+                request.session["_language"] = current_lang
             next_url = request.GET.get("next") or reverse("dashboard:home")
             return redirect(next_url)
-        messages.error(request, "Login yoki parol noto'g'ri, yoki foydalanuvchi staff emas.")
+        messages.error(request, _("Login yoki parol noto'g'ri, yoki foydalanuvchi staff emas."))
 
     return render(request, "dashboard/login.html", {"form": form})
 
@@ -88,7 +109,15 @@ def analytics_view(request):
     avg_order_value = Order.objects.exclude(status=Order.STATUS_CANCELLED).aggregate(avg=Avg("total_price"))["avg"] or 0
 
     gender_stats = Product.objects.values("gender").annotate(total_products=Count("id"), avg_price=Avg("price"))
-    status_breakdown = Order.objects.values("status").annotate(total=Count("id"), total_sum=Sum("total_price"))
+    status_breakdown = [
+        {
+            **row,
+            "label": dict(Order.STATUS_CHOICES).get(row["status"], row["status"]),
+        }
+        for row in Order.objects.values("status").annotate(
+            total=Count("id"), total_sum=Sum("total_price")
+        )
+    ]
     top_products = Product.objects.filter(is_active=True).order_by("-stock")[:5]
 
     return render(
@@ -149,9 +178,17 @@ def product_create(request):
     form = ProductForm(request.POST or None, request.FILES or None)
     if request.method == "POST" and form.is_valid():
         product = form.save()
-        messages.success(request, f"✨ '{product.name_uz}' atiri katalogga muvaffaqiyatli qo'shildi.")
+        messages.success(
+            request,
+            _("✨ '%(name)s' atiri katalogga muvaffaqiyatli qo'shildi.")
+            % {"name": product.name_uz},
+        )
         return redirect("dashboard:product_list")
-    return render(request, "dashboard/product_form.html", {"form": form, "title": "Yangi atir qo'shish"})
+    return render(
+        request,
+        "dashboard/product_form.html",
+        {"form": form, "title": _("Yangi atir qo'shish")},
+    )
 
 
 @staff_required
@@ -161,12 +198,19 @@ def product_update(request, pk):
     form = ProductForm(request.POST or None, request.FILES or None, instance=product)
     if request.method == "POST" and form.is_valid():
         product = form.save()
-        messages.success(request, f"✨ '{product.name_uz}' ma'lumotlari saqlandi.")
+        messages.success(
+            request,
+            _("✨ '%(name)s' ma'lumotlari saqlandi.") % {"name": product.name_uz},
+        )
         return redirect("dashboard:product_list")
     return render(
         request,
         "dashboard/product_form.html",
-        {"form": form, "product": product, "title": f"'{product.name_uz}'ni tahrirlash"},
+        {
+            "form": form,
+            "product": product,
+            "title": _("'%(name)s'ni tahrirlash") % {"name": product.name_uz},
+        },
     )
 
 
@@ -176,8 +220,14 @@ def product_toggle_active(request, pk):
     product = get_object_or_404(Product, pk=pk)
     product.is_active = not product.is_active
     product.save()
-    state_str = "faollashtirildi" if product.is_active else "yashirildi"
-    messages.success(request, f"'{product.name_uz}' mahsuloti {state_str}.")
+    state_str = _("faollashtirildi") if product.is_active else _("yashirildi")
+    messages.success(
+        request,
+        _("'%(name)s' mahsuloti %(state)s.") % {
+            "name": product.name_uz,
+            "state": state_str,
+        },
+    )
     referer = request.META.get("HTTP_REFERER")
     return redirect(referer if referer else "dashboard:product_list")
 
@@ -188,7 +238,10 @@ def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)
     product_name = product.name_uz
     product.delete()
-    messages.success(request, f"🗑️ '{product_name}' katalogdan o'chirildi.")
+    messages.success(
+        request,
+        _("🗑️ '%(name)s' katalogdan o'chirildi.") % {"name": product_name},
+    )
     return redirect("dashboard:product_list")
 
 
@@ -229,7 +282,11 @@ def order_detail(request, pk):
     form = OrderStatusForm(request.POST or None, instance=order)
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, f"⚡ Buyurtma #{order.pk} holati '{order.get_status_display()}'ga o'zgartirildi.")
+        messages.success(
+            request,
+            _("⚡ Buyurtma #%(number)s holati '%(status)s'ga o'zgartirildi.")
+            % {"number": order.pk, "status": order.get_status_display()},
+        )
         return redirect("dashboard:order_detail", pk=order.pk)
     return render(
         request,
@@ -250,7 +307,11 @@ def order_quick_status(request, pk):
     if new_status in dict(Order.STATUS_CHOICES):
         order.status = new_status
         order.save()
-        messages.success(request, f"⚡ Buyurtma #{order.pk} statusi '{order.get_status_display()}'ga yangilandi.")
+        messages.success(
+            request,
+            _("⚡ Buyurtma #%(number)s statusi '%(status)s'ga yangilandi.")
+            % {"number": order.pk, "status": order.get_status_display()},
+        )
     referer = request.META.get("HTTP_REFERER")
     return redirect(referer if referer else "dashboard:order_list")
 
@@ -268,7 +329,6 @@ def site_settings_view(request):
     form = SiteSettingsForm(request.POST or None, request.FILES or None, instance=settings_obj)
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(request, "✨ Sayt sozlamalari va rasmlari muvaffaqiyatli saqlandi.")
+        messages.success(request, _("✨ Sayt sozlamalari va rasmlari muvaffaqiyatli saqlandi."))
         return redirect("dashboard:settings")
     return render(request, "dashboard/settings.html", {"form": form, "settings_obj": settings_obj})
-

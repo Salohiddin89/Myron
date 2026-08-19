@@ -1,7 +1,8 @@
 {% extends "dashboard/base.html" %}
+{% load i18n %}
 
-{% block title %}Mahsulotlar — MYRON Control Panel{% endblock %}
-{% block heading %}Mahsulotlar Katalogi{% endblock %}
+{% block title %}{% trans "Mahsulotlar" %} — MYRON {% trans "Boshqaruv paneli" %}{% endblock %}
+{% block heading %}{% trans "Mahsulotlar katalogi" %}{% endblock %}
 
 {% block content %}
 <section class="panel">
@@ -12,51 +13,51 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="search" name="q" value="{{ q }}" placeholder="Nomi yoki brendi bo'yicha qidiruv...">
+        <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Nomi yoki brendi bo‘yicha qidiruv...' %}">
       </div>
 
       <div class="select-wrap">
         <select name="gender">
-          <option value="">Barcha jinslar</option>
+          <option value="">{% trans "Barcha jinslar" %}</option>
           {% for code, label in gender_choices %}
-          <option value="{{ code }}" {% if gender==code %}selected{% endif %}>{{ label }}</option>
+          <option value="{{ code }}" {% if gender == code %}selected{% endif %}>{{ label }}</option>
           {% endfor %}
         </select>
       </div>
 
       <div class="select-wrap">
         <select name="stock">
-          <option value="">Barcha ombor holati</option>
-          <option value="low" {% if stock_filter=="low" %}selected{% endif %}>⚠️ Kam qolgan (<=5)< /option>
-          <option value="out" {% if stock_filter=="out" %}selected{% endif %}>❌ Tugagan (0)</option>
+          <option value="">{% trans "Barcha ombor holati" %}</option>
+          <option value="low" {% if stock_filter == "low" %}selected{% endif %}>⚠️ {% trans "Kam qolgan (<=5)" %}</option>
+          <option value="out" {% if stock_filter == "out" %}selected{% endif %}>❌ {% trans "Tugagan (0)" %}</option>
         </select>
       </div>
 
       <div class="select-wrap">
         <select name="status">
-          <option value="">Barcha holatlar</option>
-          <option value="active" {% if status=="active" %}selected{% endif %}>Faol (Saytda ko'rinadi)</option>
-          <option value="inactive" {% if status=="inactive" %}selected{% endif %}>Yashirilgan</option>
+          <option value="">{% trans "Barcha holatlar" %}</option>
+          <option value="active" {% if status == "active" %}selected{% endif %}>{% trans "Faol (saytda ko‘rinadi)" %}</option>
+          <option value="inactive" {% if status == "inactive" %}selected{% endif %}>{% trans "Yashirilgan" %}</option>
         </select>
       </div>
 
-      <button class="btn btn-outline-sm" type="submit">Qidirish</button>
+      <button class="btn btn-outline-sm" type="submit">{% trans "Qidirish" %}</button>
     </form>
-    <a class="btn btn-gold-sm" href="{% url 'dashboard:product_create' %}">+ Yangi atir qo'shish</a>
+    <a class="btn btn-gold-sm" href="{% url 'dashboard:product_create' %}">+ {% trans "Yangi atir qo‘shish" %}</a>
   </div>
 
   <div class="table-wrap">
     <table class="data-table">
       <thead>
         <tr>
-          <th>Rasm</th>
-          <th>Nomi</th>
-          <th>Brend</th>
-          <th>Jins</th>
-          <th>Narx</th>
-          <th>Ombor</th>
-          <th>Holat (Tezkor)</th>
-          <th class="text-right">Amallar</th>
+          <th>{% trans "Rasm" %}</th>
+          <th>{% trans "Nomi" %}</th>
+          <th>{% trans "Brend" %}</th>
+          <th>{% trans "Jins" %}</th>
+          <th>{% trans "Narx" %}</th>
+          <th>{% trans "Ombor" %}</th>
+          <th>{% trans "Holat (tezkor)" %}</th>
+          <th class="text-right">{% trans "Amallar" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -65,7 +66,7 @@
           <td>
             <div class="product-thumb-wrap">
               {% if product.image %}
-              <img class="thumb" src="{{ product.image_url }}" alt="{{ product.name_uz }}">
+              <img class="thumb" src="{{ product.image_url }}" alt="{{ product.name }}">
               {% else %}
               <div class="thumb-placeholder">💧</div>
               {% endif %}
@@ -73,7 +74,7 @@
           </td>
           <td>
             <div class="product-name-info">
-              <strong>{{ product.name_uz }}</strong>
+              <strong>{{ product.name }}</strong>
               <small>{{ product.volume_ml }} ml</small>
             </div>
           </td>
@@ -83,7 +84,7 @@
           <td>
             <span
               class="stock-pill {% if product.stock == 0 %}out{% elif product.stock <= 5 %}low{% else %}good{% endif %}">
-              {{ product.stock }} dona
+              {{ product.stock }} {% trans "dona" %}
             </span>
           </td>
           <td>
@@ -91,22 +92,22 @@
               {% csrf_token %}
               <button type="submit"
                 class="badge-status-btn {% if product.is_active %}status-completed{% else %}status-cancelled{% endif %}"
-                title="Holatni o'zgartirish uchun bosing">
-                {% if product.is_active %}👁️ Faol{% else %}🙈 Yashirilgan{% endif %}
+                title="{% trans 'Holatni o‘zgartirish uchun bosing' %}">
+                {% if product.is_active %}👁️ {% trans "Faol" %}{% else %}🙈 {% trans "Yashirilgan" %}{% endif %}
               </button>
             </form>
           </td>
           <td class="actions-cell text-right">
-            <a class="action-btn edit" href="{% url 'dashboard:product_update' product.pk %}" title="Tahrirlash">
+            <a class="action-btn edit" href="{% url 'dashboard:product_update' product.pk %}" title="{% trans 'Tahrirlash' %}" aria-label="{% trans 'Tahrirlash' %}">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                 <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
               </svg>
             </a>
             <form method="post" action="{% url 'dashboard:product_delete' product.pk %}" style="display:inline;"
-              onsubmit="return confirm('Rostdan ham {{ product.name_uz }} mahsulotini o\'chirmoqchimisiz?');">
+              onsubmit="return confirm('{% blocktrans with name=product.name %}Rostdan ham {{ name }} mahsulotini o‘chirmoqchimisiz?{% endblocktrans %}');">
               {% csrf_token %}
-              <button class="action-btn delete" type="submit" title="O'chirish">
+              <button class="action-btn delete" type="submit" title="{% trans 'O‘chirish' %}" aria-label="{% trans 'O‘chirish' %}">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -117,7 +118,7 @@
         </tr>
         {% empty %}
         <tr>
-          <td colspan="8" class="empty">Birorta ham mahsulot topilmadi.</td>
+          <td colspan="8" class="empty">{% trans "Birorta ham mahsulot topilmadi." %}</td>
         </tr>
         {% endfor %}
       </tbody>

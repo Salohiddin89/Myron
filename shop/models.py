@@ -1,10 +1,11 @@
 import os
+import re
 import stat
 
 from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
-from django.utils.translation import get_language
+from django.utils.translation import get_language, gettext, gettext_lazy as _
 
 
 def _clear_readonly_and_unlock(file_field):
@@ -60,13 +61,31 @@ def _safe_image_url(image_field, fallback_path="shop/img/product-placeholder.png
 
 
 class Product(models.Model):
+    VOTE_TYPE_RATING = "rating"
+    VOTE_TYPE_WEAR = "wear"
+    RATING_VOTE_CHOICES = (
+        ("love", _("Love")),
+        ("like", _("Like")),
+        ("ok", _("OK")),
+        ("dislike", _("Dislike")),
+        ("hate", _("Hate")),
+    )
+    WEAR_VOTE_CHOICES = (
+        ("winter", _("Winter")),
+        ("spring", _("Spring")),
+        ("summer", _("Summer")),
+        ("fall", _("Fall")),
+        ("day", _("Day")),
+        ("night", _("Night")),
+    )
+
     GENDER_WOMEN = "women"
     GENDER_MEN = "men"
     GENDER_UNISEX = "unisex"
     GENDER_CHOICES = [
-        (GENDER_WOMEN, "Ayollar / Женский"),
-        (GENDER_MEN, "Erkaklar / Мужской"),
-        (GENDER_UNISEX, "Unisex / Унисекс"),
+        (GENDER_WOMEN, _("Ayollar")),
+        (GENDER_MEN, _("Erkaklar")),
+        (GENDER_UNISEX, _("Unisex")),
     ]
     GENDER_LABELS_UZ = {
         GENDER_WOMEN: "Ayollar",
@@ -84,10 +103,10 @@ class Product(models.Model):
     CONCENTRATION_EDT = "edt"
     CONCENTRATION_EDC = "edc"
     CONCENTRATION_CHOICES = [
-        (CONCENTRATION_PARFUM, "Extrait de Parfum"),
-        (CONCENTRATION_EDP, "Eau de Parfum"),
-        (CONCENTRATION_EDT, "Eau de Toilette"),
-        (CONCENTRATION_EDC, "Eau de Cologne"),
+        (CONCENTRATION_PARFUM, _("Parfyum ekstrakti")),
+        (CONCENTRATION_EDP, _("Parfyum suvi")),
+        (CONCENTRATION_EDT, _("Tualet suvi")),
+        (CONCENTRATION_EDC, _("Odekolon")),
     ]
     CONCENTRATION_LABELS_UZ = {
         CONCENTRATION_PARFUM: "Parfyum ekstrakti",
@@ -104,80 +123,112 @@ class Product(models.Model):
 
     slug = models.SlugField(max_length=160, unique=True, blank=True)
 
-    name_uz = models.CharField("Nomi (UZ)", max_length=150)
-    name_ru = models.CharField("Название (RU)", max_length=150, blank=True)
+    name_uz = models.CharField(_("Nomi (UZ)"), max_length=150)
+    name_ru = models.CharField(_("Название (RU)"), max_length=150, blank=True)
 
-    brand = models.CharField("Brend", max_length=100, default="MYRON", blank=True)
+    brand = models.CharField(_("Brend"), max_length=100, default="MYRON", blank=True)
 
     gender = models.CharField(
-        "Toifa", max_length=10, choices=GENDER_CHOICES, default=GENDER_UNISEX
+        _("Toifa"), max_length=10, choices=GENDER_CHOICES, default=GENDER_UNISEX
     )
     concentration = models.CharField(
-        "Konsentratsiya",
+        _("Konsentratsiya"),
         max_length=10,
         choices=CONCENTRATION_CHOICES,
         default=CONCENTRATION_EDP,
     )
 
-    volume_ml = models.PositiveIntegerField("Hajmi (ml)", default=50)
+    volume_ml = models.PositiveIntegerField(_("Hajmi (ml)"), default=50)
 
-    price = models.DecimalField("Narxi ($)", max_digits=10, decimal_places=2)
+    price = models.DecimalField(_("Narxi ($)"), max_digits=10, decimal_places=2)
     old_price = models.DecimalField(
-        "Eski narxi ($)", max_digits=10, decimal_places=2, blank=True, null=True
+        _("Eski narxi ($)"), max_digits=10, decimal_places=2, blank=True, null=True
     )
-    sell_by_ml = models.BooleanField("Ml bo'yicha sotiladi", default=False)
+    sell_by_ml = models.BooleanField(_("Ml bo'yicha sotiladi"), default=False)
     price_10ml = models.DecimalField(
-        "10 ml narxi ($)", max_digits=10, decimal_places=2, blank=True, null=True
+        _("10 ml narxi ($)"), max_digits=10, decimal_places=2, blank=True, null=True
     )
     price_20ml = models.DecimalField(
-        "20 ml narxi ($)", max_digits=10, decimal_places=2, blank=True, null=True
+        _("20 ml narxi ($)"), max_digits=10, decimal_places=2, blank=True, null=True
     )
     price_30ml = models.DecimalField(
-        "30 ml narxi ($)", max_digits=10, decimal_places=2, blank=True, null=True
+        _("30 ml narxi ($)"), max_digits=10, decimal_places=2, blank=True, null=True
     )
     price_40ml = models.DecimalField(
-        "40 ml narxi ($)", max_digits=10, decimal_places=2, blank=True, null=True
+        _("40 ml narxi ($)"), max_digits=10, decimal_places=2, blank=True, null=True
     )
     price_50ml = models.DecimalField(
-        "50 ml narxi ($)", max_digits=10, decimal_places=2, blank=True, null=True
+        _("50 ml narxi ($)"), max_digits=10, decimal_places=2, blank=True, null=True
     )
 
-    image = models.ImageField("Asosiy rasm", upload_to="products/")
+    image = models.ImageField(_("Asosiy rasm"), upload_to="products/")
+    box_image = models.ImageField(
+        _("Karobka rasmi"),
+        upload_to="products/boxes/",
+        blank=True,
+        null=True,
+        help_text=_("Kursor mahsulot ustiga kelganda ko'rsatiladigan karobka rasmi."),
+    )
     image_2 = models.ImageField(
-        "Qo'shimcha rasm", upload_to="products/", blank=True, null=True
+        _("Qo'shimcha rasm"), upload_to="products/", blank=True, null=True
     )
 
     short_description_uz = models.CharField(
-        "Qisqa tavsif (UZ)", max_length=220, blank=True
+        _("Qisqa tavsif (UZ)"), max_length=220, blank=True
     )
     short_description_ru = models.CharField(
-        "Краткое описание (RU)", max_length=220, blank=True
+        _("Краткое описание (RU)"), max_length=220, blank=True
     )
 
-    description_uz = models.TextField("To'liq tavsif (UZ)", blank=True)
-    description_ru = models.TextField("Полное описание (RU)", blank=True)
+    description_uz = models.TextField(_("To'liq tavsif (UZ)"), blank=True)
+    description_ru = models.TextField(_("Полное описание (RU)"), blank=True)
 
     composition_uz = models.TextField(
-        "Tarkibi / sastavi (UZ)",
+        _("Tarkibi / sastavi (UZ)"),
         blank=True,
-        help_text="Masalan: Bergamot, Yosemik yog'och, Amber, Musk",
+        help_text=_("Masalan: Bergamot, Yosemik yog'och, Amber, Musk"),
     )
-    composition_ru = models.TextField("Состав (RU)", blank=True)
+    composition_ru = models.TextField(_("Состав (RU)"), blank=True)
 
-    rating = models.DecimalField("Reyting", max_digits=2, decimal_places=1, default=5.0)
-    reviews_count = models.PositiveIntegerField("Sharhlar soni", default=0)
+    top_notes_uz = models.TextField(
+        _("Yuqori nota (UZ)"),
+        blank=True,
+        help_text=_("Masalan: Bergamot, limon, pushti murch. Vergul yoki yangi qatorda yozing."),
+    )
+    top_notes_ru = models.TextField(_("Верхняя нота (RU)"), blank=True)
+    heart_notes_uz = models.TextField(
+        _("O'rta nota (UZ)"),
+        blank=True,
+        help_text=_("Masalan: Atirgul, yasmin, dolchin. Vergul yoki yangi qatorda yozing."),
+    )
+    heart_notes_ru = models.TextField(_("Средняя нота (RU)"), blank=True)
+    base_notes_uz = models.TextField(
+        _("Bazaviy nota (UZ)"),
+        blank=True,
+        help_text=_("Masalan: Vanil, amber, mushk. Vergul yoki yangi qatorda yozing."),
+    )
+    base_notes_ru = models.TextField(_("Базовая нота (RU)"), blank=True)
 
-    is_new = models.BooleanField("Yangi mahsulot", default=False)
-    is_bestseller = models.BooleanField("Ko'p sotilgan", default=False)
-    is_active = models.BooleanField("Faol (saytda ko'rinadi)", default=True)
-    stock = models.PositiveIntegerField("Ombordagi soni", default=50)
+    rating = models.DecimalField(_("Reyting"), max_digits=2, decimal_places=1, default=5.0)
+    reviews_count = models.PositiveIntegerField(_("Sharhlar soni"), default=0)
+
+    is_new = models.BooleanField(_("Yangi mahsulot"), default=False)
+    is_bestseller = models.BooleanField(_("Ko'p sotilgan"), default=False)
+    show_user_rating = models.BooleanField(
+        _("Foydalanuvchi reytingi blokini ko'rsatish"), default=True
+    )
+    show_when_to_wear = models.BooleanField(
+        _("Qachon foydalanish blokini ko'rsatish"), default=True
+    )
+    is_active = models.BooleanField(_("Faol (saytda ko'rinadi)"), default=True)
+    stock = models.PositiveIntegerField(_("Ombordagi soni"), default=50)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = "Atir / Parfyum"
-        verbose_name_plural = "Atirlar / Parfyумлар"
+        verbose_name = _("Atir / Parfyum")
+        verbose_name_plural = _("Atirlar / Parfyumlar")
         ordering = ["-created_at"]
 
     def __str__(self):
@@ -208,6 +259,10 @@ class Product(models.Model):
         return _safe_image_url(self.image_2)
 
     @property
+    def box_image_url(self):
+        return _safe_image_url(self.box_image)
+
+    @property
     def name(self):
         return self.name_ru if get_language() == "ru" and self.name_ru else self.name_uz
 
@@ -228,6 +283,44 @@ class Product(models.Model):
         if get_language() == "ru" and self.composition_ru:
             return self.composition_ru
         return self.composition_uz
+
+    @property
+    def top_notes(self):
+        if get_language() == "ru" and self.top_notes_ru:
+            return self.top_notes_ru
+        return self.top_notes_uz
+
+    @property
+    def heart_notes(self):
+        if get_language() == "ru" and self.heart_notes_ru:
+            return self.heart_notes_ru
+        return self.heart_notes_uz
+
+    @property
+    def base_notes(self):
+        if get_language() == "ru" and self.base_notes_ru:
+            return self.base_notes_ru
+        return self.base_notes_uz
+
+    @staticmethod
+    def _split_note_items(value):
+        return [
+            item.strip()
+            for item in re.split(r"[,;\n]+", value or "")
+            if item.strip()
+        ]
+
+    @property
+    def top_note_items(self):
+        return self._split_note_items(self.top_notes)
+
+    @property
+    def heart_note_items(self):
+        return self._split_note_items(self.heart_notes)
+
+    @property
+    def base_note_items(self):
+        return self._split_note_items(self.base_notes)
 
     @property
     def gender_label(self):
@@ -268,7 +361,8 @@ class Product(models.Model):
 
     @property
     def full_variant_label(self):
-        return f"To'liq flakon ({self.volume_ml} ml)"
+        label = gettext("To'liq flakon")
+        return f"{label} ({self.volume_ml} ml)"
 
     @property
     def purchase_variants(self):
@@ -311,51 +405,85 @@ class Product(models.Model):
         return self.purchase_variants[0]
 
 
+class ProductVote(models.Model):
+    product = models.ForeignKey(
+        Product, related_name="votes", on_delete=models.CASCADE
+    )
+    visitor_key = models.CharField(max_length=128)
+    vote_type = models.CharField(
+        max_length=12,
+        choices=(
+            (Product.VOTE_TYPE_RATING, _("User Rating")),
+            (Product.VOTE_TYPE_WEAR, _("When to wear")),
+        ),
+    )
+    choice = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("product", "visitor_key", "vote_type"),
+                name="unique_product_vote_visitor_type",
+            )
+        ]
+        indexes = [
+            models.Index(
+                fields=("product", "vote_type", "choice"),
+                name="shop_product_vote_lookup_idx",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.product.name_uz}: {self.vote_type}/{self.choice}"
+
+
 class ProductImage(models.Model):
     """Optional extra gallery images for a product."""
 
     product = models.ForeignKey(
         Product, related_name="gallery", on_delete=models.CASCADE
     )
-    image = models.ImageField("Rasm", upload_to="products/gallery/")
+    image = models.ImageField(_("Rasm"), upload_to="products/gallery/")
 
     @property
     def image_url(self):
         return _safe_image_url(self.image)
 
     class Meta:
-        verbose_name = "Qo'shimcha rasm"
-        verbose_name_plural = "Qo'shimcha rasmlar"
+        verbose_name = _("Qo'shimcha rasm")
+        verbose_name_plural = _("Qo'shimcha rasmlar")
 
     def __str__(self):
         return f"{self.product.name_uz} rasmi"
 
 
 class SiteSettings(models.Model):
-    site_name = models.CharField("Sayt nomi", max_length=100, default="MYRON")
+    site_name = models.CharField(_("Sayt nomi"), max_length=100, default="MYRON")
     phone = models.CharField(
-        "Telefon raqami", max_length=50, default="+998 90 123 45 67"
+        _("Telefon raqami"), max_length=50, default="+998 90 123 45 67"
     )
     instagram_url = models.URLField(
-        "Instagram havola", default="https://instagram.com/myron_perfume", blank=True
+        _("Instagram havola"), default="https://instagram.com/myron_perfume", blank=True
     )
     telegram_url = models.URLField(
-        "Telegram havola", default="https://t.me/myron_perfume", blank=True
+        _("Telegram havola"), default="https://t.me/myron_perfume", blank=True
     )
 
     hero_image = models.ImageField(
-        "Bosh sahifa rasmi (Hero)", upload_to="site/", blank=True, null=True
+        _("Bosh sahifa rasmi (Hero)"), upload_to="site/", blank=True, null=True
     )
     about_image_1 = models.ImageField(
-        "Biz haqimizda 1-rasm", upload_to="site/", blank=True, null=True
+        _("Biz haqimizda 1-rasm"), upload_to="site/", blank=True, null=True
     )
     about_image_2 = models.ImageField(
-        "Biz haqimizda 2-rasm", upload_to="site/", blank=True, null=True
+        _("Biz haqimizda 2-rasm"), upload_to="site/", blank=True, null=True
     )
 
     class Meta:
-        verbose_name = "Sayt Sozlamalari"
-        verbose_name_plural = "Sayt Sozlamalari"
+        verbose_name = _("Sayt Sozlamalari")
+        verbose_name_plural = _("Sayt Sozlamalari")
 
     def __str__(self):
         return "Sayt Sozlamalari"

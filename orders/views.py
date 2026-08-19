@@ -65,7 +65,7 @@ def create_order(request):
         OrderItem.objects.create(
             order=order,
             product=item["product"],
-            product_name=item["product"].name_uz,
+            product_name=item["product"].name,
             product_price=item["variant_price"],
             variant_label=item["variant_label"],
             variant_volume_ml=item["variant_volume_ml"],

@@ -9,7 +9,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
 {% block extra_css %}{% endblock %}
@@ -44,7 +44,7 @@
     <div class="header-actions">
       <form class="header-search" action="{% url 'shop:product_list' %}" method="get">
         <input type="text" name="q" placeholder="{% trans 'Atir izlash...' %}" value="{{ request.GET.q }}">
-        <button type="submit" aria-label="Search">
+        <button type="submit" aria-label="{% trans 'Qidirish' %}">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </form>
@@ -54,22 +54,17 @@
         <div class="lang-dropdown" id="langDropdown">
           {% get_current_language as CUR_LANG %}
           {% for code, label in LANGUAGES %}
-            <form action="{% url 'set_language' %}" method="post">
-              {% csrf_token %}
-              <input name="next" type="hidden" value="{{ request.get_full_path }}">
-              <input name="language" type="hidden" value="{{ code }}">
-              <button type="submit" class="{% if code == CUR_LANG %}active{% endif %}">{{ label }}</button>
-            </form>
+            <a href="{% url 'dashboard:set_lang' %}?lang={{ code }}&next={{ request.get_full_path|urlencode }}" class="{% if code == CUR_LANG %}active{% endif %}">{{ label }}</a>
           {% endfor %}
         </div>
       </div>
 
-      <button class="icon-btn cart-btn" id="cartToggle" aria-label="Cart">
+      <button class="icon-btn cart-btn" id="cartToggle" aria-label="{% trans 'Savat' %}">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 4H5L6.68 14.39A2 2 0 0 0 8.65 16H18.42A2 2 0 0 0 20.39 14.45L22 6H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20" r="1.4" fill="currentColor"/><circle cx="18" cy="20" r="1.4" fill="currentColor"/></svg>
         <span class="cart-count" id="cartCount">{{ cart_count }}</span>
       </button>
 
-      <button class="icon-btn burger" id="burgerBtn" aria-label="Menu">
+      <button class="icon-btn burger" id="burgerBtn" aria-label="{% trans 'Menyu' %}">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -191,11 +186,11 @@
       </p>
       <div class="contact-social-list">
         <a href="{{ SITE_INSTAGRAM }}" target="_blank" class="contact-social-item">
-          <img src="{% static 'shop/img/instagram.png' %}" alt="Instagram" class="contact-social-img">
+          <img src="{% static 'shop/img/instagram.png' %}" alt="{% trans 'Instagram' %}" class="contact-social-img">
           <span>Instagram</span>
         </a>
         <a href="{{ SITE_TELEGRAM }}" target="_blank" class="contact-social-item">
-          <img src="{% static 'shop/img/telegram.png' %}" alt="Telegram" class="contact-social-img">
+          <img src="{% static 'shop/img/telegram.png' %}" alt="{% trans 'Telegram' %}" class="contact-social-img">
           <span>Telegram</span>
         </a>
       </div>

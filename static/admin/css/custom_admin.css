@@ -24,7 +24,7 @@
   --default-button-bg:#d4af37;
   --default-button-hover-bg:#a5822a;
   --selected-row:#eef3ee;
-  --font-family-primary:'Poppins','Segoe UI',sans-serif;
+  --font-family-primary:'Manrope','Segoe UI',sans-serif;
 }
 
 body{font-family:var(--font-family-primary);}
@@ -34,7 +34,7 @@ body{font-family:var(--font-family-primary);}
   color:var(--header-color);
   border-bottom:2px solid var(--admin-gold);
 }
-#site-name a{color:var(--admin-gold-light);font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;letter-spacing:.03em;}
+#site-name a{color:var(--admin-gold-light);font-family:'Bodoni Moda','Cormorant Garamond',Georgia,serif;font-weight:500;font-size:1.3rem;letter-spacing:.03em;}
 #site-name a small{font-family:var(--font-family-primary);font-size:.6rem;letter-spacing:.3em;color:var(--admin-gold);margin-left:6px;}
 .admin-logo{color:var(--admin-gold);margin-right:6px;}
 
@@ -67,3 +67,25 @@ a:hover{color:var(--admin-gold-light) !important;}
 .object-tools a:hover{background:var(--admin-green-900);}
 
 table thead th{background:#efeae0;}
+#user-tools .admin-language-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 10px;
+}
+#user-tools .admin-language-links form { display: inline-flex; margin: 0; }
+#user-tools .admin-language-links button {
+  padding: 2px 5px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 4px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 700;
+}
+#user-tools .admin-language-links button.active,
+#user-tools .admin-language-links button:hover {
+  border-color: #d4af37;
+  color: #d4af37;
+}

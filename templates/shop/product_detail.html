@@ -1,51 +1,69 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{{ product.name }} — {{ SITE_NAME }}{% endblock %}
+{% block title %}{{ product.name }} - {{ SITE_NAME }}{% endblock %}
 
 {% block content %}
 <section class="product-detail-section">
   <div class="breadcrumb reveal">
-    <a href="{% url 'shop:home' %}">{% trans "Bosh sahifa" %}</a> /
-    <a href="{% url 'shop:product_list' %}">{% trans "Katalog" %}</a> /
-    <span>{{ product.name }}</span>
+    <a href="{% url 'shop:home' %}">{% trans "Bosh sahifa" %}</a>
+    <span>/</span>
+    <a href="{% url 'shop:product_list' %}">{% trans "Katalog" %}</a>
+    <span>/</span>
+    <strong>{{ product.name }}</strong>
   </div>
 
   <div class="product-detail-layout">
     <div class="pd-gallery reveal">
       <div class="pd-main-image pd-slider" data-interval="3000">
         {% if product.is_new %}<span class="badge badge-new">{% trans "NEW" %}</span>{% endif %}
-        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="pd-slide active">
+        <img id="pdMainImg" src="{{ product.image_url }}" alt="{{ product.name }}" class="pd-slide active">
+        {% if product.box_image %}<img src="{{ product.box_image_url }}" alt="{{ product.name }} - {% trans 'karobka' %}" class="pd-slide">{% endif %}
         {% if product.image_2 %}<img src="{{ product.image_2_url }}" alt="{{ product.name }}" class="pd-slide">{% endif %}
         {% for gi in product.gallery.all %}<img src="{{ gi.image_url }}" alt="{{ product.name }}" class="pd-slide">{% endfor %}
+        <div class="pd-gallery-shine"></div>
       </div>
-      <div class="pd-thumbs">
-        <img src="{{ product.image_url }}" class="pd-thumb active">
-        {% if product.image_2 %}<img src="{{ product.image_2_url }}" class="pd-thumb">{% endif %}
-        {% for gi in product.gallery.all %}<img src="{{ gi.image_url }}" class="pd-thumb">{% endfor %}
+      <div class="pd-thumbs" aria-label="{% trans 'Mahsulot rasmlari' %}">
+        <img src="{{ product.image_url }}" data-src="{{ product.image_url }}" alt="{{ product.name }}" class="pd-thumb active">
+        {% if product.box_image %}<img src="{{ product.box_image_url }}" data-src="{{ product.box_image_url }}" alt="{{ product.name }} - {% trans 'karobka' %}" class="pd-thumb">{% endif %}
+        {% if product.image_2 %}<img src="{{ product.image_2_url }}" data-src="{{ product.image_2_url }}" alt="{{ product.name }}" class="pd-thumb">{% endif %}
+        {% for gi in product.gallery.all %}<img src="{{ gi.image_url }}" data-src="{{ gi.image_url }}" alt="{{ product.name }}" class="pd-thumb">{% endfor %}
       </div>
     </div>
 
     <div class="pd-info reveal">
-      <span class="product-category">{{ product.brand }} · {{ product.gender_label }}</span>
+      <div class="pd-brandline">
+        <span class="product-category">{{ product.brand }}</span>
+        <span class="pd-dot"></span>
+        <span class="product-category">{{ product.gender_label }}</span>
+        <span class="pd-stock-pill {% if not product.in_stock %}is-out{% endif %}">
+          {% if product.in_stock %}{% trans "Sotuvda" %}{% else %}{% trans "Tugagan" %}{% endif %}
+        </span>
+      </div>
       <h1>{{ product.name }}</h1>
 
-      <div class="product-rating">
+      <div class="pd-rating-summary">
         <span class="stars" style="--rating: {{ product.rating }}"></span>
-        <span class="reviews-count">{{ product.reviews_count }} {% trans "ta sharh" %}</span>
+        <strong>{{ product.rating }}</strong>
+        <span class="reviews-count">{{ product.reviews_count }} {% trans "sharh" %}</span>
       </div>
 
       <div class="pd-price-row">
         <span class="price" id="pdVariantPrice">${{ product.price }}</span>
-        {% if product.old_price %}<span class="old-price">${{ product.old_price }}</span>
-        <span class="badge badge-sale">-{{ product.discount_percent }}%</span>{% endif %}
+        {% if product.old_price %}
+        <span class="old-price">${{ product.old_price }}</span>
+        <span class="badge badge-sale">-{{ product.discount_percent }}%</span>
+        {% endif %}
       </div>
 
-      <p class="pd-short-desc">{{ product.short_description }}</p>
+      {% if product.short_description %}<p class="pd-short-desc">{{ product.short_description }}</p>{% endif %}
 
-      <div class="pd-variant-picker" aria-label="{% trans 'Hajm tanlash' %}">
-        <span class="pd-variant-title">{% trans "Hajmni tanlang" %}</span>
-        <div class="pd-variant-options">
+      <div class="pd-purchase-block">
+        <div class="pd-section-label">
+          <span>{% trans "Hajmni tanlang" %}</span>
+          <small>{% trans "Sizga mos flakon" %}</small>
+        </div>
+        <div class="pd-variant-options" aria-label="{% trans 'Hajm tanlash' %}">
           {% for variant in product.purchase_variants %}
           <button type="button" class="pd-variant-option {% if forloop.first %}active{% endif %}"
             data-variant-code="{{ variant.code }}" data-variant-price="{{ variant.price }}">
@@ -58,44 +76,172 @@
 
       <div class="pd-meta-grid">
         <div><span>{% trans "Konsentratsiya" %}</span><strong>{{ product.concentration_label }}</strong></div>
-        <div><span>{% trans "Hajmi" %}</span><strong>{{ product.volume_ml }} ml</strong></div>
         <div><span>{% trans "Toifa" %}</span><strong>{{ product.gender_label }}</strong></div>
-        <div><span>{% trans "Mavjudligi" %}</span><strong
-            class="{% if product.in_stock %}in-stock{% else %}out-stock{% endif %}">
-            {% if product.in_stock %}{% trans "Sotuvda bor" %}{% else %}{% trans "Tugagan" %}{% endif %}
-          </strong></div>
+        <div><span>{% trans "To'liq hajm" %}</span><strong>{{ product.volume_ml }} ml</strong></div>
+        <div><span>{% trans "Holati" %}</span><strong class="{% if product.in_stock %}in-stock{% else %}out-stock{% endif %}">{% if product.in_stock %}{% trans "Sotuvda bor" %}{% else %}{% trans "Tugagan" %}{% endif %}</strong></div>
       </div>
 
       <div class="pd-actions">
-        <div class="qty-control large">
-          <button type="button" id="pdQtyMinus">-</button>
+        <div class="qty-control large" aria-label="{% trans 'Miqdor' %}">
+          <button type="button" id="pdQtyMinus" aria-label="{% trans 'Kamaytirish' %}">-</button>
           <span id="pdQtyValue">1</span>
-          <button type="button" id="pdQtyPlus">+</button>
+          <button type="button" id="pdQtyPlus" aria-label="{% blocktrans %}Ko'paytirish{% endblocktrans %}">+</button>
         </div>
         <button class="btn btn-gold pd-add-cart" id="pdAddToCart" data-add-id="{{ product.id }}"
           data-variant-code="full" {% if not product.in_stock %}disabled{% endif %}>
           {% trans "Savatga qo'shish" %}
+          <span aria-hidden="true">&rarr;</span>
         </button>
       </div>
 
-      <div class="pd-tabs">
+      <section class="pd-tabs pd-info-tabs">
+        <div class="pd-tabs-heading">
+          <span class="eyebrow">{% trans "MAHSULOT HAQIDA" %}</span>
+          <p>{% trans "Tavsif va tarkibni batafsil ko'ring." %}</p>
+        </div>
         <div class="pd-tab-heads">
-          <button class="pd-tab-head active" data-tab="desc">{% trans "Tavsif" %}</button>
+          {% if product.top_notes or product.heart_notes or product.base_notes %}
+          <button class="pd-tab-head active" data-tab="notes">{% trans "Hid notalari" %}</button>
+          {% endif %}
+          <button class="pd-tab-head {% if not product.top_notes and not product.heart_notes and not product.base_notes %}active{% endif %}" data-tab="desc">{% trans "Tavsif" %}</button>
           <button class="pd-tab-head" data-tab="comp">{% trans "Tarkibi" %}</button>
         </div>
-        <div class="pd-tab-panel active" data-panel="desc">
+
+        {% if product.top_notes or product.heart_notes or product.base_notes %}
+        <div class="pd-tab-panel active" data-panel="notes">
+          <div class="pd-note-list">
+            {% if product.top_notes %}
+            <div class="pd-note-row pd-note-top">
+              <span class="pd-note-step">01</span>
+              <div class="pd-note-row-content">
+                <span class="pd-note-kicker">{% trans "Yuqori nota" %}</span>
+                <div class="pd-note-chips">
+                  {% for note in product.top_note_items %}<span>{{ note }}</span>{% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% if product.heart_notes %}
+            <div class="pd-note-row pd-note-heart">
+              <span class="pd-note-step">02</span>
+              <div class="pd-note-row-content">
+                <span class="pd-note-kicker">{% trans "O'rta nota" %}</span>
+                <div class="pd-note-chips">
+                  {% for note in product.heart_note_items %}<span>{{ note }}</span>{% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% if product.base_notes %}
+            <div class="pd-note-row pd-note-base">
+              <span class="pd-note-step">03</span>
+              <div class="pd-note-row-content">
+                <span class="pd-note-kicker">{% trans "Bazaviy nota" %}</span>
+                <div class="pd-note-chips">
+                  {% for note in product.base_note_items %}<span>{{ note }}</span>{% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+        <div class="pd-tab-panel {% if not product.top_notes and not product.heart_notes and not product.base_notes %}active{% endif %}" data-panel="desc">
           <p>{{ product.description|linebreaksbr }}</p>
         </div>
         <div class="pd-tab-panel" data-panel="comp">
-          {% if product.composition %}
-          <p>{{ product.composition|linebreaksbr }}</p>
-          {% else %}
-          <p>{% trans "Ma'lumot kiritilmagan" %}</p>
-          {% endif %}
+          <p>{% if product.composition %}{{ product.composition|linebreaksbr }}{% else %}{% trans "Ma'lumot kiritilmagan" %}{% endif %}</p>
         </div>
-      </div>
+      </section>
     </div>
   </div>
+
+  {% if product.show_user_rating or product.show_when_to_wear %}
+  <section class="pd-votes-section reveal" data-vote-url="{% url 'shop:product_vote' product.slug %}"
+    data-saved-label="{% trans 'Tanlovingiz saqlandi' %}"
+    data-cleared-label="{% trans 'Tanlov bekor qilindi' %}"
+    data-error-label="{% trans "Tanlovni saqlab bo'lmadi" %}">
+    <div class="pd-votes-heading">
+      <span class="eyebrow">{% trans "FOYDALANUVCHILAR TANLOVI" %}</span>
+      <h2>{% trans "SIZNING TANLOVINGIZ" %}</h2>
+      <p>{% trans "Har bir tanlov shu atir haqidagi umumiy kayfiyatni ko'rsatadi." %}</p>
+    </div>
+
+    <div class="pd-vote-grid">
+      {% if product.show_user_rating %}
+      <section class="pd-vote-group" data-vote-type="rating">
+        <div class="pd-vote-group-head">
+          <div class="pd-vote-title-wrap">
+            <span class="pd-vote-symbol tone-love">&#9829;</span>
+            <div><h3>{% trans "Foydalanuvchi bahosi" %}</h3><span>{% trans "Bu atir sizda qanday taassurot qoldirdi?" %}</span></div>
+          </div>
+          <strong class="pd-vote-total" data-vote-total>{{ rating_total }}</strong>
+        </div>
+        <div class="pd-vote-options rating-options">
+          {% for option in rating_options %}
+          <button type="button" class="pd-vote-option tone-{{ option.code }} {% if option.selected %}is-selected{% endif %}"
+            data-vote-choice="{{ option.code }}" aria-pressed="{{ option.selected|yesno:'true,false' }}">
+            <span class="pd-vote-icon" aria-hidden="true">
+              {% if option.code == "love" %}
+              <span class="pd-vote-face-emoji">&#x1F60D;</span>
+              {% elif option.code == "like" %}
+              <span class="pd-vote-face-emoji">&#x1F60A;</span>
+              {% elif option.code == "ok" %}
+              <span class="pd-vote-face-emoji">&#x1F610;</span>
+              {% elif option.code == "dislike" %}
+              <span class="pd-vote-face-emoji">&#x1F615;</span>
+              {% else %}
+              <span class="pd-vote-face-emoji">&#x1F621;</span>
+              {% endif %}
+            </span>
+            <span class="pd-vote-label">{{ option.label }}</span>
+            <span class="pd-vote-count" data-vote-count>{{ option.count }}</span>
+          </button>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      {% if product.show_when_to_wear %}
+      <section class="pd-vote-group" data-vote-type="wear">
+        <div class="pd-vote-group-head">
+          <div class="pd-vote-title-wrap">
+            <span class="pd-vote-symbol tone-day">&#9684;</span>
+            <div><h3>{% trans "Qachon foydalanish" %}</h3><span>{% trans "Qaysi vaqtda yoki faslda mos?" %}</span></div>
+          </div>
+          <strong class="pd-vote-total" data-vote-total>{{ wear_total }}</strong>
+        </div>
+        <div class="pd-vote-options wear-options">
+          {% for option in wear_options %}
+          <button type="button" class="pd-vote-option tone-{{ option.code }} {% if option.selected %}is-selected{% endif %}"
+            data-vote-choice="{{ option.code }}" aria-pressed="{{ option.selected|yesno:'true,false' }}">
+            <span class="pd-vote-icon" aria-hidden="true">
+              {% if option.code == "winter" %}
+              <svg viewBox="0 0 48 48"><path d="M24 7v34M9 15l30 18M9 33l30-18M15 9l9 9 9-9M15 39l9-9 9 9"/></svg>
+              {% elif option.code == "spring" %}
+              <svg viewBox="0 0 48 48"><path d="M39 9C22 9 11 18 11 36c10 0 23-6 28-27Z"/><path d="M11 36c8-10 15-16 24-21"/></svg>
+              {% elif option.code == "summer" %}
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="8"/><path d="M24 5v7m0 24v7M5 24h7m24 0h7M10.5 10.5l5 5m17 17 5 5m0-27-5 5m-17 17-5 5"/></svg>
+              {% elif option.code == "fall" %}
+              <svg viewBox="0 0 48 48"><path d="M37 10C21 10 12 18 12 33c8 1 20-4 25-23Z"/><path d="M12 33c7-7 13-12 21-17M15 39c5-5 10-8 16-11"/></svg>
+              {% elif option.code == "day" %}
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="9"/><path d="M24 5v6m0 26v6M5 24h6m26 0h6M10.5 10.5l4.5 4.5m18 18 4.5 4.5m0-27-4.5 4.5m-18 18L10.5 37"/></svg>
+              {% else %}
+              <svg viewBox="0 0 48 48"><path d="M31 7c-8 3-13 11-11 20 2 9 10 14 19 12-5 5-14 6-21 1C8 35 6 25 11 16c4-7 12-10 20-9Z"/><path d="M35 10v7m-3.5-3.5h7M37 27v5m-2.5-2.5h5"/></svg>
+              {% endif %}
+            </span>
+            <span class="pd-vote-label">{{ option.label }}</span>
+            <span class="pd-vote-count" data-vote-count>{{ option.count }}</span>
+          </button>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </div>
+    <span class="pd-vote-status" aria-live="polite"></span>
+  </section>
+  {% endif %}
 
   {% if related %}
   <div class="related-section">

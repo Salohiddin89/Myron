@@ -1,12 +1,13 @@
 {% extends "dashboard/base.html" %}
+{% load i18n %}
 
-{% block title %}Buyurtmalar — MYRON Control Panel{% endblock %}
-{% block heading %}Buyurtmalar Boshqaruvi{% endblock %}
+{% block title %}{% trans "Buyurtmalar" %} — MYRON {% trans "Boshqaruv paneli" %}{% endblock %}
+{% block heading %}{% trans "Buyurtmalar boshqaruvi" %}{% endblock %}
 
 {% block content %}
 <div class="status-tabs-nav mb-4">
   <a href="{% url 'dashboard:order_list' %}" class="status-tab-item {% if not status %}active{% endif %}">
-    <span>Barchasi</span>
+    <span>{% trans "Barchasi" %}</span>
     <small class="tab-badge">{{ total_orders_count }}</small>
   </a>
   {% for code, label in status_choices %}
@@ -21,10 +22,10 @@
     <form class="filters-form" method="get">
       <div class="search-input-wrap">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="search" name="q" value="{{ q }}" placeholder="Mijoz, telefon yoki Telegram...">
+        <input type="search" name="q" value="{{ q }}" placeholder="{% trans 'Mijoz, telefon yoki Telegram...' %}">
       </div>
       {% if status %}<input type="hidden" name="status" value="{{ status }}">{% endif %}
-      <button class="btn btn-outline-sm" type="submit">Qidirish</button>
+      <button class="btn btn-outline-sm" type="submit">{% trans "Qidirish" %}</button>
     </form>
   </div>
 
@@ -32,13 +33,13 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th>Buyurtma #</th>
-          <th>Mijoz</th>
-          <th>Telefon</th>
-          <th>Jami Summa</th>
-          <th>Holatni O'zgartirish</th>
-          <th>Sana</th>
-          <th class="text-right">Amallar</th>
+          <th>{% trans "Buyurtma #" %}</th>
+          <th>{% trans "Mijoz" %}</th>
+          <th>{% trans "Telefon" %}</th>
+          <th>{% trans "Jami summa" %}</th>
+          <th>{% trans "Holatni o'zgartirish" %}</th>
+          <th>{% trans "Sana" %}</th>
+          <th class="text-right">{% trans "Amallar" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -60,12 +61,12 @@
           </td>
           <td><span class="date-tag">{{ order.created_at|date:"d.m.Y H:i" }}</span></td>
           <td class="text-right">
-            <a href="{% url 'dashboard:order_detail' order.pk %}" class="btn btn-outline-xs" title="Batafsil">Ko'rish &rarr;</a>
-            <a href="{% url 'dashboard:order_receipt' order.pk %}" target="_blank" class="action-btn" title="Chekni chop etish">🖨️</a>
+            <a href="{% url 'dashboard:order_detail' order.pk %}" class="btn btn-outline-xs" title="{% trans 'Batafsil' %}">{% trans "Ko'rish" %} &rarr;</a>
+            <a href="{% url 'dashboard:order_receipt' order.pk %}" target="_blank" class="action-btn" title="{% trans 'Chekni chop etish' %}" aria-label="{% trans 'Chekni chop etish' %}">🖨️</a>
           </td>
         </tr>
       {% empty %}
-        <tr><td colspan="7" class="empty">Birorta ham buyurtma topilmadi.</td></tr>
+        <tr><td colspan="7" class="empty">{% trans "Birorta ham buyurtma topilmadi." %}</td></tr>
       {% endfor %}
       </tbody>
     </table>

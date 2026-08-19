@@ -1,17 +1,27 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MYRON Control Panel — Kirish</title>
+  <title>MYRON {% trans "Boshqaruv paneli" %} — {% trans "Kirish" %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Cormorant+Garamond:wght@600;700&family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
 </head>
 <body class="login-page">
   <div class="login-glow"></div>
+  <div class="login-lang-wrapper">
+    <div class="admin-language-switch" aria-label="{% trans 'Tilni tanlash' %}">
+      {% get_current_language as CUR_LANG %}
+      {% for code, label in LANGUAGES %}
+      <a href="{% url 'dashboard:set_lang' %}?lang={{ code }}&next={{ request.get_full_path|urlencode }}" class="lang-btn {% if code == CUR_LANG %}active{% endif %}">
+        {% if code == 'uz' %}<span class="flag-icon">🇺🇿</span> O'zbek{% else %}<span class="flag-icon">🇷🇺</span> Русский{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
   <form class="login-card" method="post">
     {% csrf_token %}
     <div class="login-header">
@@ -24,7 +34,7 @@
         </svg>
       </span>
       <h1>MYRON</h1>
-      <span class="sub-heading">ADMINISTRATOR KIRISHI</span>
+    <span class="sub-heading">{% trans "ADMINISTRATOR KIRISHI" %}</span>
     </div>
 
     {% if messages %}
@@ -36,7 +46,7 @@
     {% endif %}
 
     <div class="form-group mb-3">
-      <label for="{{ form.username.id_for_label }}">Foydalanuvchi nomi</label>
+      <label for="{{ form.username.id_for_label }}">{% trans "Foydalanuvchi nomi" %}</label>
       <div class="input-control">
         {{ form.username }}
       </div>
@@ -44,14 +54,14 @@
     </div>
 
     <div class="form-group mb-4">
-      <label for="{{ form.password.id_for_label }}">Maxfiy Parol</label>
+      <label for="{{ form.password.id_for_label }}">{% trans "Maxfiy parol" %}</label>
       <div class="input-control">
         {{ form.password }}
       </div>
       {% if form.password.errors %}<div class="field-error-list">{{ form.password.errors }}</div>{% endif %}
     </div>
 
-    <button type="submit" class="btn btn-gold btn-block">Tizimga Kirish &rarr;</button>
+    <button type="submit" class="btn btn-gold btn-block">{% trans "Tizimga kirish" %} &rarr;</button>
   </form>
 </body>
 </html>

@@ -1,313 +1,1797 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# MYRON Perfume Uzbek Translations
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: MYRON 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-05 09:53+0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-08-19 22:36+0500\n"
+"PO-Revision-Date: 2026-08-06 20:00+0500\n"
+"Last-Translator: MYRON Team\n"
+"Language-Team: Uzbek\n"
+"Language: uz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-msgid "Ism familiyangizni kiriting"
-msgstr "Ism familiyangizni kiriting"
+#: .\config\urls.py:9
+msgid "MYRON - Boshqaruv paneli"
+msgstr "MYRON - Boshqaruv paneli"
 
-msgid "Telefon raqamingizni kiriting"
-msgstr "Telefon raqamingizni kiriting"
+#: .\config\urls.py:10
+msgid "MYRON Admin"
+msgstr "MYRON Admin"
 
-msgid "Savatingiz bo'sh"
-msgstr "Savatingiz bo'sh"
+#: .\config\urls.py:11
+msgid "Do'kon boshqaruvi"
+msgstr "Do'kon boshqaruvi"
 
-msgid "Premium atirlar do'koni"
-msgstr "Premium atirlar do'koni"
+#: .\dashboard\forms.py:9
+msgid "Login"
+msgstr "Login"
 
-msgid ""
-"Premium sifatli atirlar вЂ” eng nozik hidlar orqali oК»z shaxsiyatingizni "
-"ifodalang."
-msgstr ""
-"Premium sifatli atirlar вЂ” eng nozik hidlar orqali oК»z shaxsiyatingizni "
-"ifodalang."
+#: .\dashboard\forms.py:10
+msgid "Parol"
+msgstr "Parol"
 
-msgid "PERFUME"
-msgstr "PERFUME"
+#: .\dashboard\views.py:40
+msgid "Login yoki parol noto'g'ri, yoki foydalanuvchi staff emas."
+msgstr "Login yoki parol noto'g'ri, yoki foydalanuvchi staff emas."
 
-msgid "Bosh sahifa"
-msgstr "Bosh sahifa"
+#: .\dashboard\views.py:163
+#, python-format
+msgid "✨ '%(name)s' atiri katalogga muvaffaqiyatli qo'shildi."
+msgstr "✨ '%(name)s' atiri katalogga muvaffaqiyatli qo'shildi."
 
-msgid "Katalog"
-msgstr "Katalog"
+#: .\dashboard\views.py:170
+#| msgid "Savatga qo'shish"
+msgid "Yangi atir qo'shish"
+msgstr "Yangi atir qo'shish"
 
-msgid "Erkaklar"
-msgstr "Erkaklar"
+#: .\dashboard\views.py:183
+#, python-format
+msgid "✨ '%(name)s' ma'lumotlari saqlandi."
+msgstr "✨ '%(name)s' ma'lumotlari saqlandi."
 
-msgid "Ayollar"
-msgstr "Ayollar"
+#: .\dashboard\views.py:192
+#, python-format
+msgid "'%(name)s'ni tahrirlash"
+msgstr "'%(name)s'ni tahrirlash"
 
-msgid "Unisex"
-msgstr "Unisex"
+#: .\dashboard\views.py:203
+msgid "faollashtirildi"
+msgstr "faollashtirildi"
 
-msgid "Biz haqimizda"
-msgstr "Biz haqimizda"
+#: .\dashboard\views.py:203
+msgid "yashirildi"
+msgstr "yashirildi"
 
-msgid "Aloqa"
-msgstr "Aloqa"
+#: .\dashboard\views.py:206
+#, python-format
+msgid "'%(name)s' mahsuloti %(state)s."
+msgstr "'%(name)s' mahsuloti %(state)s."
 
-msgid "Atir izlash..."
-msgstr "Atir izlash..."
+#: .\dashboard\views.py:223
+#, python-format
+msgid "🗑️ '%(name)s' katalogdan o'chirildi."
+msgstr "🗑️ '%(name)s' katalogdan o'chirildi."
 
-msgid "Savat"
-msgstr "Savat"
+#: .\dashboard\views.py:267
+#, python-format
+msgid "⚡ Buyurtma #%(number)s holati '%(status)s'ga o'zgartirildi."
+msgstr "⚡ Buyurtma #%(number)s holati '%(status)s'ga o'zgartirildi."
 
-msgid "Buyurtma berish"
-msgstr "Buyurtma berish"
+#: .\dashboard\views.py:292
+#, python-format
+msgid "⚡ Buyurtma #%(number)s statusi '%(status)s'ga yangilandi."
+msgstr "⚡ Buyurtma #%(number)s statusi '%(status)s'ga yangilandi."
 
-msgid "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz."
-msgstr "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz."
+#: .\dashboard\views.py:312
+msgid "✨ Sayt sozlamalari va rasmlari muvaffaqiyatli saqlandi."
+msgstr "✨ Sayt sozlamalari va rasmlari muvaffaqiyatli saqlandi."
 
+#: .\orders\admin.py:28 .\templates\dashboard\home.html:60
+#: .\templates\dashboard\order_list.html:37
+msgid "Mijoz"
+msgstr "Mijoz"
+
+#: .\orders\admin.py:29
+#| msgid "Buyurtma berish"
+msgid "Buyurtma holati"
+msgstr "Buyurtma holati"
+
+#: .\orders\admin.py:30
+msgid "Vaqt"
+msgstr "Vaqt"
+
+#: .\orders\models.py:13
+#| msgid "Yangilari"
+msgid "Yangi"
+msgstr "Yangi"
+
+#: .\orders\models.py:14
+#| msgid "Ha, tasdiqlayman"
+msgid "Tasdiqlangan"
+msgstr "Tasdiqlangan"
+
+#: .\orders\models.py:15
+msgid "Yuborilgan"
+msgstr "Yuborilgan"
+
+#: .\orders\models.py:16
+msgid "Bajarilgan"
+msgstr "Bajarilgan"
+
+#: .\orders\models.py:17
+msgid "Bekor qilingan"
+msgstr "Bekor qilingan"
+
+#: .\orders\models.py:20 .\templates\base.html:100
 msgid "Ism familiya"
 msgstr "Ism familiya"
 
-msgid "Ism familiyangiz"
-msgstr "Ism familiyangiz"
-
+#: .\orders\models.py:21 .\templates\base.html:103
 msgid "Telefon raqam"
 msgstr "Telefon raqam"
 
+#: .\orders\models.py:22
+#| msgid "Telegram username (ixtiyoriy)"
+msgid "Telegram username"
+msgstr "Telegram username"
+
+#: .\orders\models.py:23
+msgid "Xabar / Izoh"
+msgstr "Xabar / Izoh"
+
+#: .\orders\models.py:25 .\templates\shop\product_detail.html:81
+msgid "Holati"
+msgstr "Holati"
+
+#: .\orders\models.py:26
+msgid "Jami summa ($)"
+msgstr "Jami summa ($)"
+
+#: .\orders\models.py:28
+msgid "Telegramga yuborildi"
+msgstr "Telegramga yuborildi"
+
+#: .\orders\models.py:34 .\orders\models.py:39
+#: .\templates\dashboard\base.html:147
+#: .\templates\dashboard\order_detail.html:4
+#| msgid "Buyurtma berish"
+msgid "Buyurtma"
+msgstr "Buyurtma"
+
+#: .\orders\models.py:35 .\templates\dashboard\base.html:70
+#: .\templates\dashboard\home.html:20 .\templates\dashboard\order_list.html:4
+#| msgid "Buyurtma berish"
+msgid "Buyurtmalar"
+msgstr "Buyurtmalar"
+
+#: .\orders\models.py:51
+msgid "Mahsulot nomi"
+msgstr "Mahsulot nomi"
+
+#: .\orders\models.py:52 .\shop\models.py:143
+msgid "Narxi ($)"
+msgstr "Narxi ($)"
+
+#: .\orders\models.py:53
+msgid "Tanlangan hajm"
+msgstr "Tanlangan hajm"
+
+#: .\orders\models.py:53 .\shop\models.py:364
+msgid "To'liq flakon"
+msgstr "To'liq flakon"
+
+#: .\orders\models.py:54
+msgid "Hajm (ml)"
+msgstr "Hajm (ml)"
+
+#: .\orders\models.py:55 .\templates\dashboard\order_detail.html:70
+#: .\templates\dashboard\order_receipt.html:142
+msgid "Soni"
+msgstr "Soni"
+
+#: .\orders\models.py:58
+#| msgid "Buyurtma berish"
+msgid "Buyurtma tarkibi"
+msgstr "Buyurtma tarkibi"
+
+#: .\orders\models.py:59
+#| msgid "Buyurtma berish"
+msgid "Buyurtma tarkiblari"
+msgstr "Buyurtma tarkiblari"
+
+#: .\orders\views.py:46
+msgid "Ism familiyangizni kiriting"
+msgstr "Ism familiyangizni kiriting"
+
+#: .\orders\views.py:48
+msgid "Telefon raqamingizni kiriting"
+msgstr "Telefon raqamingizni kiriting"
+
+#: .\orders\views.py:52 .\templates\shop\_cart_drawer.html:38
+msgid "Savatingiz bo'sh"
+msgstr "Savatingiz bo'sh"
+
+#: .\shop\admin.py:26
+msgid "Asosiy ma'lumot"
+msgstr "Asosiy ma'lumot"
+
+#: .\shop\admin.py:29
+msgid "Narx va ombor"
+msgstr "Narx va ombor"
+
+#: .\shop\admin.py:37
+msgid "Rasmlar"
+msgstr "Rasmlar"
+
+#: .\shop\admin.py:40
+msgid "Qisqa tavsif"
+msgstr "Qisqa tavsif"
+
+#: .\shop\admin.py:43
+#| msgid "Tavsif"
+msgid "To'liq tavsif"
+msgstr "To'liq tavsif"
+
+#: .\shop\admin.py:46
+#| msgid "Tarkibi"
+msgid "Tarkibi / Sostav"
+msgstr "Tarkibi / Sostav"
+
+#: .\shop\admin.py:49
+msgid "Aromat notalari"
+msgstr "Aromat notalari"
+
+#: .\shop\admin.py:56
+#| msgid "Reyting"
+msgid "Reyting va holat"
+msgstr "Reyting va holat"
+
+#: .\shop\admin.py:65 .\shop\models.py:448
+#: .\templates\dashboard\product_list.html:53
+msgid "Rasm"
+msgstr "Rasm"
+
+#: .\shop\models.py:67
+msgid "Love"
+msgstr "Love"
+
+#: .\shop\models.py:68
+msgid "Like"
+msgstr "Like"
+
+#: .\shop\models.py:69
+msgid "OK"
+msgstr "OK"
+
+#: .\shop\models.py:70
+msgid "Dislike"
+msgstr "Dislike"
+
+#: .\shop\models.py:71
+msgid "Hate"
+msgstr "Hate"
+
+#: .\shop\models.py:74
+msgid "Winter"
+msgstr "Winter"
+
+#: .\shop\models.py:75
+msgid "Spring"
+msgstr "Spring"
+
+#: .\shop\models.py:76
+msgid "Summer"
+msgstr "Summer"
+
+#: .\shop\models.py:77
+msgid "Fall"
+msgstr "Fall"
+
+#: .\shop\models.py:78
+msgid "Day"
+msgstr "Day"
+
+#: .\shop\models.py:79
+msgid "Night"
+msgstr "Night"
+
+#: .\shop\models.py:86 .\templates\base.html:38 .\templates\base.html:169
+msgid "Ayollar"
+msgstr "Ayollar"
+
+#: .\shop\models.py:87 .\templates\base.html:37 .\templates\base.html:170
+msgid "Erkaklar"
+msgstr "Erkaklar"
+
+#: .\shop\models.py:88 .\templates\base.html:39 .\templates\base.html:171
+msgid "Unisex"
+msgstr "Unisex"
+
+#: .\shop\models.py:106
+msgid "Parfyum ekstrakti"
+msgstr "Parfyum ekstrakti"
+
+#: .\shop\models.py:107
+msgid "Parfyum suvi"
+msgstr "Parfyum suvi"
+
+#: .\shop\models.py:108
+msgid "Tualet suvi"
+msgstr "Tualet suvi"
+
+#: .\shop\models.py:109
+msgid "Odekolon"
+msgstr "Odekolon"
+
+#: .\shop\models.py:126
+msgid "Nomi (UZ)"
+msgstr "Nomi (UZ)"
+
+#: .\shop\models.py:127
+msgid "Название (RU)"
+msgstr "Название (RU)"
+
+#: .\shop\models.py:129 .\templates\dashboard\product_list.html:55
+msgid "Brend"
+msgstr "Brend"
+
+#: .\shop\models.py:132 .\templates\shop\product_detail.html:79
+msgid "Toifa"
+msgstr "Toifa"
+
+#: .\shop\models.py:135 .\templates\shop\product_detail.html:78
+msgid "Konsentratsiya"
+msgstr "Konsentratsiya"
+
+#: .\shop\models.py:141
+#| msgid "Hajmi"
+msgid "Hajmi (ml)"
+msgstr "Hajmi (ml)"
+
+#: .\shop\models.py:145
+msgid "Eski narxi ($)"
+msgstr "Eski narxi ($)"
+
+#: .\shop\models.py:147
+msgid "Ml bo'yicha sotiladi"
+msgstr "Ml bo'yicha sotiladi"
+
+#: .\shop\models.py:149
+msgid "10 ml narxi ($)"
+msgstr "10 ml narxi ($)"
+
+#: .\shop\models.py:152
+msgid "20 ml narxi ($)"
+msgstr "20 ml narxi ($)"
+
+#: .\shop\models.py:155
+msgid "30 ml narxi ($)"
+msgstr "30 ml narxi ($)"
+
+#: .\shop\models.py:158
+msgid "40 ml narxi ($)"
+msgstr "40 ml narxi ($)"
+
+#: .\shop\models.py:161
+msgid "50 ml narxi ($)"
+msgstr "50 ml narxi ($)"
+
+#: .\shop\models.py:164
+msgid "Asosiy rasm"
+msgstr "Asosiy rasm"
+
+#: .\shop\models.py:166
+msgid "Karobka rasmi"
+msgstr "Karobka rasmi"
+
+#: .\shop\models.py:170
+msgid "Kursor mahsulot ustiga kelganda ko'rsatiladigan karobka rasmi."
+msgstr "Kursor mahsulot ustiga kelganda ko'rsatiladigan karobka rasmi."
+
+#: .\shop\models.py:173 .\shop\models.py:455
+msgid "Qo'shimcha rasm"
+msgstr "Qo'shimcha rasm"
+
+#: .\shop\models.py:177
+msgid "Qisqa tavsif (UZ)"
+msgstr "Qisqa tavsif (UZ)"
+
+#: .\shop\models.py:180
+msgid "Краткое описание (RU)"
+msgstr "Краткое описание (RU)"
+
+#: .\shop\models.py:183
+msgid "To'liq tavsif (UZ)"
+msgstr "To'liq tavsif (UZ)"
+
+#: .\shop\models.py:184
+msgid "Полное описание (RU)"
+msgstr "Полное описание (RU)"
+
+#: .\shop\models.py:187
+msgid "Tarkibi / sastavi (UZ)"
+msgstr "Tarkibi / sastavi (UZ)"
+
+#: .\shop\models.py:189
+msgid "Masalan: Bergamot, Yosemik yog'och, Amber, Musk"
+msgstr "Masalan: Bergamot, Yosemik yog'och, Amber, Musk"
+
+#: .\shop\models.py:191
+msgid "Состав (RU)"
+msgstr "Состав (RU)"
+
+#: .\shop\models.py:194
+msgid "Yuqori nota (UZ)"
+msgstr "Yuqori nota (UZ)"
+
+#: .\shop\models.py:196
+msgid ""
+"Masalan: Bergamot, limon, pushti murch. Vergul yoki yangi qatorda yozing."
+msgstr "Masalan: Bergamot, limon, pushti murch. Vergul yoki yangi qatorda yozing."
+
+#: .\shop\models.py:198
+msgid "Верхняя нота (RU)"
+msgstr "Верхняя нота (RU)"
+
+#: .\shop\models.py:200
+msgid "O'rta nota (UZ)"
+msgstr "O'rta nota (UZ)"
+
+#: .\shop\models.py:202
+msgid "Masalan: Atirgul, yasmin, dolchin. Vergul yoki yangi qatorda yozing."
+msgstr "Masalan: Atirgul, yasmin, dolchin. Vergul yoki yangi qatorda yozing."
+
+#: .\shop\models.py:204
+msgid "Средняя нота (RU)"
+msgstr "Средняя нота (RU)"
+
+#: .\shop\models.py:206
+msgid "Bazaviy nota (UZ)"
+msgstr "Bazaviy nota (UZ)"
+
+#: .\shop\models.py:208
+msgid "Masalan: Vanil, amber, mushk. Vergul yoki yangi qatorda yozing."
+msgstr "Masalan: Vanil, amber, mushk. Vergul yoki yangi qatorda yozing."
+
+#: .\shop\models.py:210
+msgid "Базовая нота (RU)"
+msgstr "Базовая нота (RU)"
+
+#: .\shop\models.py:212 .\templates\shop\product_list.html:85
+msgid "Reyting"
+msgstr "Reyting"
+
+#: .\shop\models.py:213
+msgid "Sharhlar soni"
+msgstr "Sharhlar soni"
+
+#: .\shop\models.py:215 .\templates\dashboard\base.html:29
+#: .\templates\dashboard\base.html:115
+#| msgid "ta mahsulot"
+msgid "Yangi mahsulot"
+msgstr "Yangi mahsulot"
+
+#: .\shop\models.py:216
+msgid "Ko'p sotilgan"
+msgstr "Ko'p sotilgan"
+
+#: .\shop\models.py:218
+msgid "Foydalanuvchi reytingi blokini ko'rsatish"
+msgstr "Foydalanuvchi reytingi blokini ko'rsatish"
+
+#: .\shop\models.py:221
+msgid "Qachon foydalanish blokini ko'rsatish"
+msgstr "Qachon foydalanish blokini ko'rsatish"
+
+#: .\shop\models.py:223
+msgid "Faol (saytda ko'rinadi)"
+msgstr "Faol (saytda ko'rinadi)"
+
+#: .\shop\models.py:224
+msgid "Ombordagi soni"
+msgstr "Ombordagi soni"
+
+#: .\shop\models.py:230
+msgid "Atir / Parfyum"
+msgstr "Atir / Parfyum"
+
+#: .\shop\models.py:231
+msgid "Atirlar / Parfyumlar"
+msgstr "Atirlar / Parfyumlar"
+
+#: .\shop\models.py:416
+msgid "User Rating"
+msgstr "User Rating"
+
+#: .\shop\models.py:417
+msgid "When to wear"
+msgstr "When to wear"
+
+#: .\shop\models.py:456
+msgid "Qo'shimcha rasmlar"
+msgstr "Qo'shimcha rasmlar"
+
+#: .\shop\models.py:463
+msgid "Sayt nomi"
+msgstr "Sayt nomi"
+
+#: .\shop\models.py:465 .\templates\dashboard\settings.html:25
+#| msgid "Telefon raqam"
+msgid "Telefon raqami"
+msgstr "Telefon raqami"
+
+#: .\shop\models.py:468
+msgid "Instagram havola"
+msgstr "Instagram havola"
+
+#: .\shop\models.py:471
+msgid "Telegram havola"
+msgstr "Telegram havola"
+
+#: .\shop\models.py:475
+#| msgid "Bosh sahifa"
+msgid "Bosh sahifa rasmi (Hero)"
+msgstr "Bosh sahifa rasmi (Hero)"
+
+#: .\shop\models.py:478
+#| msgid "Biz haqimizda"
+msgid "Biz haqimizda 1-rasm"
+msgstr "Biz haqimizda 1-rasm"
+
+#: .\shop\models.py:481
+#| msgid "Biz haqimizda"
+msgid "Biz haqimizda 2-rasm"
+msgstr "Biz haqimizda 2-rasm"
+
+#: .\shop\models.py:485 .\shop\models.py:486
+msgid "Sayt Sozlamalari"
+msgstr "Sayt Sozlamalari"
+
+#: .\shop\views.py:235
+msgid "Tanlov noto'g'ri."
+msgstr "Tanlov noto'g'ri."
+
+#: .\shop\views.py:240
+msgid "Reyting o'chirilgan."
+msgstr "Reyting o'chirilgan."
+
+#: .\shop\views.py:245
+msgid "Qachon foydalanish o'chirilgan."
+msgstr "Qachon foydalanish o'chirilgan."
+
+#: .\templates\admin\base_site.html:13
+msgid "ADMIN"
+msgstr "ADMIN"
+
+#: .\templates\admin\base_site.html:21 .\templates\dashboard\base.html:103
+#: .\templates\dashboard\login.html:15
+#| msgid "Filtrni tozalash"
+msgid "Tilni tanlash"
+msgstr "Tilni tanlash"
+
+#: .\templates\base.html:7
+msgid "Premium atirlar do'koni"
+msgstr "Premium atirlar do'koni"
+
+#: .\templates\base.html:8
+#| msgid ""
+#| "Premium sifatli atirlar вЂ” eng nozik hidlar orqali oК»z shaxsiyatingizni "
+#| "ifodalang."
+msgid ""
+"Premium sifatli atirlar — eng nozik hidlar orqali oʻz shaxsiyatingizni "
+"ifodalang."
+msgstr "Premium sifatli atirlar — eng nozik hidlar orqali oʻz shaxsiyatingizni ifodalang."
+
+#: .\templates\base.html:31 .\templates\base.html:160
+msgid "PERFUME"
+msgstr "PERFUME"
+
+#: .\templates\base.html:35 .\templates\shop\product_detail.html:9
+msgid "Bosh sahifa"
+msgstr "Bosh sahifa"
+
+#: .\templates\base.html:36 .\templates\dashboard\home.html:29
+#: .\templates\dashboard\home.html:93 .\templates\shop\product_detail.html:11
+#: .\templates\shop\product_list.html:4
+msgid "Katalog"
+msgstr "Katalog"
+
+#: .\templates\base.html:40
+msgid "Biz haqimizda"
+msgstr "Biz haqimizda"
+
+#: .\templates\base.html:41 .\templates\base.html:187
+msgid "Aloqa"
+msgstr "Aloqa"
+
+#: .\templates\base.html:46
+msgid "Atir izlash..."
+msgstr "Atir izlash..."
+
+#: .\templates\base.html:47 .\templates\dashboard\order_list.html:28
+#: .\templates\dashboard\product_list.html:44
+msgid "Qidirish"
+msgstr "Qidirish"
+
+#: .\templates\base.html:67 .\templates\base.html:85
+msgid "Savat"
+msgstr "Savat"
+
+#: .\templates\base.html:72 .\templates\dashboard\base.html:17
+msgid "Menyu"
+msgstr "Menyu"
+
+#: .\templates\base.html:97 .\templates\shop\_cart_drawer.html:28
+msgid "Buyurtma berish"
+msgstr "Buyurtma berish"
+
+#: .\templates\base.html:98
+msgid "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz."
+msgstr "Ma'lumotlaringizni to'ldiring, biz siz bilan tez orada bog'lanamiz."
+
+#: .\templates\base.html:101
+msgid "Ism familiyangiz"
+msgstr "Ism familiyangiz"
+
+#: .\templates\base.html:106
 msgid "Telegram username (ixtiyoriy)"
 msgstr "Telegram username (ixtiyoriy)"
 
+#: .\templates\base.html:109
 msgid "Xabar qoldirish (ixtiyoriy)"
 msgstr "Xabar qoldirish (ixtiyoriy)"
 
+#: .\templates\base.html:110
 msgid "Bu yerga yozing..."
 msgstr "Bu yerga yozing..."
 
+#: .\templates\base.html:113 .\templates\shop\_cart_drawer.html:25
 msgid "Jami:"
 msgstr "Jami:"
 
+#: .\templates\base.html:119
 msgid "Buyurtmani tasdiqlash"
 msgstr "Buyurtmani tasdiqlash"
 
+#: .\templates\base.html:126
 msgid "Buyurtmani tasdiqlaysizmi?"
 msgstr "Buyurtmani tasdiqlaysizmi?"
 
+#: .\templates\base.html:128
 msgid "Yo'q"
 msgstr "Yo'q"
 
+#: .\templates\base.html:129
 msgid "Ha, tasdiqlayman"
 msgstr "Ha, tasdiqlayman"
 
+#: .\templates\base.html:138
 msgid "Buyurtmangiz qabul qilindi!"
 msgstr "Buyurtmangiz qabul qilindi!"
 
+#: .\templates\base.html:139
 msgid "Tez orada operatorlarimiz siz bilan bog'lanadi."
 msgstr "Tez orada operatorlarimiz siz bilan bog'lanadi."
 
-msgid "Yopish"
-msgstr "Yopish"
-
+#: .\templates\base.html:162
 msgid ""
 "Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni "
 "yuksaltiring."
-msgstr ""
-"Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni "
-"yuksaltiring."
+msgstr "Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni yuksaltiring."
 
+#: .\templates\base.html:166
 msgid "Do'kon"
 msgstr "Do'kon"
 
+#: .\templates\base.html:168
 msgid "Barcha atirlar"
 msgstr "Barcha atirlar"
 
+#: .\templates\base.html:172
 msgid "Yangi kelganlar"
 msgstr "Yangi kelganlar"
 
-msgid "Mijozlarga xizmat"
-msgstr "Mijozlarga xizmat"
+#: .\templates\base.html:177
+msgid "Xaridorlarga"
+msgstr "Xaridorlarga"
 
-msgid "Biz bilan bog'lanish"
-msgstr "Biz bilan bog'lanish"
+#: .\templates\base.html:181
+#| msgid "Qaytarish shartlari"
+msgid "Xarid va yetkazib berish shartlari"
+msgstr "Xarid va yetkazib berish shartlari"
 
-msgid "Yetkazib berish"
-msgstr "Yetkazib berish"
+#: .\templates\base.html:194
+msgid "Instagram"
+msgstr "Instagram"
 
-msgid "Qaytarish shartlari"
-msgstr "Qaytarish shartlari"
+#: .\templates\base.html:198
+#| msgid "Telefon raqam"
+msgid "Telegram"
+msgstr "Telegram"
 
-msgid "Maxfiylik siyosati"
-msgstr "Maxfiylik siyosati"
-
+#: .\templates\base.html:205
 msgid "Perfume. Barcha huquqlar himoyalangan."
 msgstr "Perfume. Barcha huquqlar himoyalangan."
 
+#: .\templates\dashboard\analytics.html:4 .\templates\dashboard\base.html:62
+msgid "Sotuvlar tahlili"
+msgstr "Sotuvlar tahlili"
+
+#: .\templates\dashboard\analytics.html:4 .\templates\dashboard\base.html:7
+#: .\templates\dashboard\home.html:4 .\templates\dashboard\home.html:5
+#: .\templates\dashboard\login.html:7 .\templates\dashboard\order_detail.html:4
+#: .\templates\dashboard\order_list.html:4
+#: .\templates\dashboard\product_form.html:4
+#: .\templates\dashboard\product_list.html:4
+#: .\templates\dashboard\settings.html:4
+msgid "Boshqaruv paneli"
+msgstr "Boshqaruv paneli"
+
+#: .\templates\dashboard\analytics.html:5
+msgid "Moliyaviy va sotuvlar tahlili"
+msgstr "Moliyaviy va sotuvlar tahlili"
+
+#: .\templates\dashboard\analytics.html:11
+msgid "Muvaffaqiyatli savdo"
+msgstr "Muvaffaqiyatli savdo"
+
+#: .\templates\dashboard\analytics.html:15
+msgid "Bajarilgan buyurtmalar summasi"
+msgstr "Bajarilgan buyurtmalar summasi"
+
+#: .\templates\dashboard\analytics.html:20
+msgid "Kutilayotgan savdo"
+msgstr "Kutilayotgan savdo"
+
+#: .\templates\dashboard\analytics.html:24
+msgid "Jarayondagi buyurtmalar summasi"
+msgstr "Jarayondagi buyurtmalar summasi"
+
+#: .\templates\dashboard\analytics.html:29
+msgid "O'rtacha chek summasi"
+msgstr "O'rtacha chek summasi"
+
+#: .\templates\dashboard\analytics.html:33
+msgid "Har bir xaridorga to'g'ri keluvchi summa"
+msgstr "Har bir xaridorga to'g'ri keluvchi summa"
+
+#: .\templates\dashboard\analytics.html:38
+msgid "Jami xaridlar"
+msgstr "Jami xaridlar"
+
+#: .\templates\dashboard\analytics.html:41
+#: .\templates\dashboard\analytics.html:68 .\templates\dashboard\home.html:24
+#: .\templates\dashboard\home.html:33
+msgid "ta"
+msgstr "ta"
+
+#: .\templates\dashboard\analytics.html:42
+#| msgid "Barcha atirlar"
+msgid "Barcha olingan buyurtmalar"
+msgstr "Barcha olingan buyurtmalar"
+
+#: .\templates\dashboard\analytics.html:49
+msgid "Buyurtma holatlari bo'yicha tahlil"
+msgstr "Buyurtma holatlari bo'yicha tahlil"
+
+#: .\templates\dashboard\analytics.html:55 .\templates\dashboard\home.html:63
+msgid "Holat"
+msgstr "Holat"
+
+#: .\templates\dashboard\analytics.html:56
+#| msgid "Buyurtma berish"
+msgid "Buyurtmalar soni"
+msgstr "Buyurtmalar soni"
+
+#: .\templates\dashboard\analytics.html:57
+msgid "Umumiy qiymat"
+msgstr "Umumiy qiymat"
+
+#: .\templates\dashboard\analytics.html:72
+msgid "Tahlil qilish uchun ma'lumot yetarli emas."
+msgstr "Tahlil qilish uchun ma'lumot yetarli emas."
+
+#: .\templates\dashboard\analytics.html:81
+msgid "Zaxirasi eng ko'p atirlar"
+msgstr "Zaxirasi eng ko'p atirlar"
+
+#: .\templates\dashboard\analytics.html:91 .\templates\dashboard\home.html:103
+#: .\templates\dashboard\order_detail.html:80
+#: .\templates\dashboard\order_receipt.html:152
+#: .\templates\dashboard\product_list.html:87
+msgid "dona"
+msgstr "dona"
+
+#: .\templates\dashboard\analytics.html:96
+msgid "Mahsulotlar mavjud emas."
+msgstr "Mahsulotlar mavjud emas."
+
+#: .\templates\dashboard\base.html:49
+msgid "BOSHQARUV PANEL"
+msgstr "BOSHQARUV PANEL"
+
+#: .\templates\dashboard\base.html:52
+msgid "Yopish"
+msgstr "Yopish"
+
+#: .\templates\dashboard\base.html:58 .\templates\dashboard\base.html:100
+#: .\templates\dashboard\home.html:4
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\templates\dashboard\base.html:66 .\templates\dashboard\product_list.html:4
+#| msgid "ta mahsulot"
+msgid "Mahsulotlar"
+msgstr "Mahsulotlar"
+
+#: .\templates\dashboard\base.html:74 .\templates\dashboard\settings.html:4
+msgid "Sayt sozlamalari"
+msgstr "Sayt sozlamalari"
+
+#: .\templates\dashboard\base.html:78
+#| msgid "Kolleksiyani ko'rish"
+msgid "Saytni ko'rish"
+msgstr "Saytni ko'rish"
+
+#: .\templates\dashboard\base.html:87
+msgid "Admin"
+msgstr "Admin"
+
+#: .\templates\dashboard\base.html:90
+msgid "Chiqish"
+msgstr "Chiqish"
+
+#: .\templates\dashboard\base.html:99
+msgid "Yashirin boshqaruv tizimi"
+msgstr "Yashirin boshqaruv tizimi"
+
+#: .\templates\dashboard\base.html:139
+msgid "Bosh"
+msgstr "Bosh"
+
+#: .\templates\dashboard\base.html:143
+#| msgid "ta mahsulot"
+msgid "Mahsulot"
+msgstr "Mahsulot"
+
+#: .\templates\dashboard\base.html:151
+msgid "Tahlil"
+msgstr "Tahlil"
+
+#: .\templates\dashboard\base.html:155
+msgid "Sozlama"
+msgstr "Sozlama"
+
+#: .\templates\dashboard\home.html:11
+msgid "Jami savdo"
+msgstr "Jami savdo"
+
+#: .\templates\dashboard\home.html:15
+#| msgid "Barcha atirlar"
+msgid "Barcha bajarilgan buyurtmalar"
+msgstr "Barcha bajarilgan buyurtmalar"
+
+#: .\templates\dashboard\home.html:24
+msgid "yangi buyurtma"
+msgstr "yangi buyurtma"
+
+#: .\templates\dashboard\home.html:33
+msgid "saytda faol"
+msgstr "saytda faol"
+
+#: .\templates\dashboard\home.html:38
+#| msgid "Yangi kelganlar"
+msgid "Kam qolganlar"
+msgstr "Kam qolganlar"
+
+#: .\templates\dashboard\home.html:42
+msgid "Omborda 5 donadan kam"
+msgstr "Omborda 5 donadan kam"
+
+#: .\templates\dashboard\home.html:50
+msgid "Oxirgi buyurtmalar"
+msgstr "Oxirgi buyurtmalar"
+
+#: .\templates\dashboard\home.html:51
+msgid "Eng so'nggi kelgan buyurtmalar ro'yxati"
+msgstr "Eng so'nggi kelgan buyurtmalar ro'yxati"
+
+#: .\templates\dashboard\home.html:53
+#| msgid "Barcha atirlarni ko'rish"
+msgid "Barchasini ko'rish"
+msgstr "Barchasini ko'rish"
+
+#: .\templates\dashboard\home.html:59
+msgid "ID"
+msgstr "ID"
+
+#: .\templates\dashboard\home.html:61 .\templates\dashboard\order_list.html:38
+#| msgid "Telefon raqam"
+msgid "Telefon"
+msgstr "Telefon"
+
+#: .\templates\dashboard\home.html:62
+msgid "Summa"
+msgstr "Summa"
+
+#: .\templates\dashboard\home.html:80
+msgid "Hozircha buyurtma yo'q."
+msgstr "Hozircha buyurtma yo'q."
+
+#: .\templates\dashboard\home.html:90
+msgid "Omborda kam qolganlar"
+msgstr "Omborda kam qolganlar"
+
+#: .\templates\dashboard\home.html:91
+msgid "Zudlik bilan to'ldirish tavsiya etiladi"
+msgstr "Zudlik bilan to'ldirish tavsiya etiladi"
+
+#: .\templates\dashboard\home.html:109
+msgid "Barcha mahsulotlar omborda yetarli."
+msgstr "Barcha mahsulotlar omborda yetarli."
+
+#: .\templates\dashboard\login.html:7
+msgid "Kirish"
+msgstr "Kirish"
+
+#: .\templates\dashboard\login.html:38
+msgid "ADMINISTRATOR KIRISHI"
+msgstr "ADMINISTRATOR KIRISHI"
+
+#: .\templates\dashboard\login.html:50
+msgid "Foydalanuvchi nomi"
+msgstr "Foydalanuvchi nomi"
+
+#: .\templates\dashboard\login.html:58
+msgid "Maxfiy parol"
+msgstr "Maxfiy parol"
+
+#: .\templates\dashboard\login.html:65
+msgid "Tizimga kirish"
+msgstr "Tizimga kirish"
+
+#: .\templates\dashboard\order_detail.html:5
+#| msgid "Buyurtmani tasdiqlash"
+msgid "Buyurtma tafsilotlari"
+msgstr "Buyurtma tafsilotlari"
+
+#: .\templates\dashboard\order_detail.html:9
+msgid "Barcha buyurtmalarga qaytish"
+msgstr "Barcha buyurtmalarga qaytish"
+
+#: .\templates\dashboard\order_detail.html:15
+msgid "Mijoz ma'lumotlari"
+msgstr "Mijoz ma'lumotlari"
+
+#: .\templates\dashboard\order_detail.html:21
+msgid "Mijoz ismi:"
+msgstr "Mijoz ismi:"
+
+#: .\templates\dashboard\order_detail.html:25
+#| msgid "Telefon raqam"
+msgid "Telefon raqam:"
+msgstr "Telefon raqam:"
+
+#: .\templates\dashboard\order_detail.html:29
+msgid "Telegram profil:"
+msgstr "Telegram profil:"
+
+#: .\templates\dashboard\order_detail.html:33
+msgid "Qo'shimcha izoh:"
+msgstr "Qo'shimcha izoh:"
+
+#: .\templates\dashboard\order_detail.html:34
+msgid "Alohida izoh qoldirilmagan."
+msgstr "Alohida izoh qoldirilmagan."
+
+#: .\templates\dashboard\order_detail.html:37
+msgid "Jami buyurtma summasi:"
+msgstr "Jami buyurtma summasi:"
+
+#: .\templates\dashboard\order_detail.html:41
+#| msgid "Buyurtma berish"
+msgid "Buyurtma berilgan sana:"
+msgstr "Buyurtma berilgan sana:"
+
+#: .\templates\dashboard\order_detail.html:47
+msgid "Buyurtma holatini o'zgartirish"
+msgstr "Buyurtma holatini o'zgartirish"
+
+#: .\templates\dashboard\order_detail.html:53
+#| msgid "Filtrni tozalash"
+msgid "Holatni saqlash"
+msgstr "Holatni saqlash"
+
+#: .\templates\dashboard\order_detail.html:60
+#| msgid "Buyurtmani tasdiqlash"
+msgid "Buyurtma qilingan atirlar"
+msgstr "Buyurtma qilingan atirlar"
+
+#: .\templates\dashboard\order_detail.html:61
+#| msgid "ta mahsulot"
+msgid "xil mahsulot"
+msgstr "xil mahsulot"
+
+#: .\templates\dashboard\order_detail.html:67
+#: .\templates\dashboard\order_receipt.html:139
+msgid "Atir nomi"
+msgstr "Atir nomi"
+
+#: .\templates\dashboard\order_detail.html:68
+#: .\templates\dashboard\order_receipt.html:140
+#| msgid "Hajmi"
+msgid "Hajm"
+msgstr "Hajm"
+
+#: .\templates\dashboard\order_detail.html:69
+msgid "Dona narxi"
+msgstr "Dona narxi"
+
+#: .\templates\dashboard\order_detail.html:71
+#: .\templates\dashboard\order_receipt.html:143
+#| msgid "Jami:"
+msgid "Jami"
+msgstr "Jami"
+
+#: .\templates\dashboard\order_list.html:5
+#| msgid "Buyurtma berish"
+msgid "Buyurtmalar boshqaruvi"
+msgstr "Buyurtmalar boshqaruvi"
+
+#: .\templates\dashboard\order_list.html:10 .\templates\shop\home.html:48
+#: .\templates\shop\home.html:80 .\templates\shop\product_list.html:24
+#: .\templates\shop\product_list.html:55
+msgid "Barchasi"
+msgstr "Barchasi"
+
+#: .\templates\dashboard\order_list.html:25
+msgid "Mijoz, telefon yoki Telegram..."
+msgstr "Mijoz, telefon yoki Telegram..."
+
+#: .\templates\dashboard\order_list.html:36
+#| msgid "Buyurtma berish"
+msgid "Buyurtma #"
+msgstr "Buyurtma #"
+
+#: .\templates\dashboard\order_list.html:39
+msgid "Jami summa"
+msgstr "Jami summa"
+
+#: .\templates\dashboard\order_list.html:40
+#| msgid "Kolleksiyani ko'rish"
+msgid "Holatni o'zgartirish"
+msgstr "Holatni o'zgartirish"
+
+#: .\templates\dashboard\order_list.html:41
+msgid "Sana"
+msgstr "Sana"
+
+#: .\templates\dashboard\order_list.html:42
+#: .\templates\dashboard\product_list.html:60
+#| msgid "Ayollar"
+msgid "Amallar"
+msgstr "Amallar"
+
+#: .\templates\dashboard\order_list.html:64
+msgid "Batafsil"
+msgstr "Batafsil"
+
+#: .\templates\dashboard\order_list.html:64
+msgid "Ko'rish"
+msgstr "Ko'rish"
+
+#: .\templates\dashboard\order_list.html:65
+#: .\templates\dashboard\order_receipt.html:165
+msgid "Chekni chop etish"
+msgstr "Chekni chop etish"
+
+#: .\templates\dashboard\order_list.html:69
+msgid "Birorta ham buyurtma topilmadi."
+msgstr "Birorta ham buyurtma topilmadi."
+
+#: .\templates\dashboard\order_receipt.html:6
+#| msgid "Buyurtma berish"
+msgid "Buyurtma cheki"
+msgstr "Buyurtma cheki"
+
+#: .\templates\dashboard\order_receipt.html:114
+msgid "Xarid cheki"
+msgstr "Xarid cheki"
+
+#: .\templates\dashboard\order_receipt.html:119
+#| msgid "Buyurtma berish"
+msgid "Buyurtma raqami:"
+msgstr "Buyurtma raqami:"
+
+#: .\templates\dashboard\order_receipt.html:123
+msgid "Sana:"
+msgstr "Sana:"
+
+#: .\templates\dashboard\order_receipt.html:127
+msgid "Mijoz:"
+msgstr "Mijoz:"
+
+#: .\templates\dashboard\order_receipt.html:131
+#| msgid "Telefon raqam"
+msgid "Telefon:"
+msgstr "Telefon:"
+
+#: .\templates\dashboard\order_receipt.html:141
+#: .\templates\dashboard\product_list.html:57
+msgid "Narx"
+msgstr "Narx"
+
+#: .\templates\dashboard\order_receipt.html:160
+msgid "Jami to'lov summasi:"
+msgstr "Jami to'lov summasi:"
+
+#: .\templates\dashboard\pagination.html:5
+#: .\templates\shop\_product_cards.html:24
+msgid "Oldingi"
+msgstr "Oldingi"
+
+#: .\templates\dashboard\pagination.html:9
+#: .\templates\shop\_product_cards.html:25
+msgid "Keyingi"
+msgstr "Keyingi"
+
+#: .\templates\dashboard\product_form.html:9
+msgid "Katalogga qaytish"
+msgstr "Katalogga qaytish"
+
+#: .\templates\dashboard\product_form.html:46
+msgid "Bekor qilish"
+msgstr "Bekor qilish"
+
+#: .\templates\dashboard\product_form.html:47
+msgid "Saqlash"
+msgstr "Saqlash"
+
+#: .\templates\dashboard\product_list.html:5
+msgid "Mahsulotlar katalogi"
+msgstr "Mahsulotlar katalogi"
+
+#: .\templates\dashboard\product_list.html:16
+msgid "Nomi yoki brendi bo‘yicha qidiruv..."
+msgstr "Nomi yoki brendi bo‘yicha qidiruv..."
+
+#: .\templates\dashboard\product_list.html:21
+#| msgid "Barcha atirlar"
+msgid "Barcha jinslar"
+msgstr "Barcha jinslar"
+
+#: .\templates\dashboard\product_list.html:30
+#| msgid "Barcha atirlar"
+msgid "Barcha ombor holati"
+msgstr "Barcha ombor holati"
+
+#: .\templates\dashboard\product_list.html:31
+msgid "Kam qolgan (<=5)"
+msgstr "Kam qolgan (<=5)"
+
+#: .\templates\dashboard\product_list.html:32
+#| msgid "Tugagan"
+msgid "Tugagan (0)"
+msgstr "Tugagan (0)"
+
+#: .\templates\dashboard\product_list.html:38
+#| msgid "Barcha atirlar"
+msgid "Barcha holatlar"
+msgstr "Barcha holatlar"
+
+#: .\templates\dashboard\product_list.html:39
+msgid "Faol (saytda ko‘rinadi)"
+msgstr "Faol (saytda ko‘rinadi)"
+
+#: .\templates\dashboard\product_list.html:40
+#: .\templates\dashboard\product_list.html:96
+msgid "Yashirilgan"
+msgstr "Yashirilgan"
+
+#: .\templates\dashboard\product_list.html:46
+msgid "Yangi atir qo‘shish"
+msgstr "Yangi atir qo‘shish"
+
+#: .\templates\dashboard\product_list.html:54
+msgid "Nomi"
+msgstr "Nomi"
+
+#: .\templates\dashboard\product_list.html:56
+msgid "Jins"
+msgstr "Jins"
+
+#: .\templates\dashboard\product_list.html:58
+msgid "Ombor"
+msgstr "Ombor"
+
+#: .\templates\dashboard\product_list.html:59
+msgid "Holat (tezkor)"
+msgstr "Holat (tezkor)"
+
+#: .\templates\dashboard\product_list.html:95
+msgid "Holatni o‘zgartirish uchun bosing"
+msgstr "Holatni o‘zgartirish uchun bosing"
+
+#: .\templates\dashboard\product_list.html:96
+msgid "Faol"
+msgstr "Faol"
+
+#: .\templates\dashboard\product_list.html:101
+#| msgid "Filtrlash"
+msgid "Tahrirlash"
+msgstr "Tahrirlash"
+
+#: .\templates\dashboard\product_list.html:108
+#, python-format
+msgid "Rostdan ham %(name)s mahsulotini o‘chirmoqchimisiz?"
+msgstr "Rostdan ham %(name)s mahsulotini o‘chirmoqchimisiz?"
+
+#: .\templates\dashboard\product_list.html:110
+msgid "O‘chirish"
+msgstr "O‘chirish"
+
+#: .\templates\dashboard\product_list.html:121
+msgid "Birorta ham mahsulot topilmadi."
+msgstr "Birorta ham mahsulot topilmadi."
+
+#: .\templates\dashboard\settings.html:5
+msgid "Sayt sozlamalari va rasmlar"
+msgstr "Sayt sozlamalari va rasmlar"
+
+#: .\templates\dashboard\settings.html:11
+msgid "Asosiy sahifa va aloqa sozlamalari"
+msgstr "Asosiy sahifa va aloqa sozlamalari"
+
+#: .\templates\dashboard\settings.html:12
+msgid "Bosh sahifa, Biz haqimizda rasmlari va aloqa ma'lumotlarini tahrirlang"
+msgstr "Bosh sahifa, Biz haqimizda rasmlari va aloqa ma'lumotlarini tahrirlang"
+
+#: .\templates\dashboard\settings.html:20
+msgid "Aloqa ma'lumotlari va ijtimoiy tarmoqlar"
+msgstr "Aloqa ma'lumotlari va ijtimoiy tarmoqlar"
+
+#: .\templates\dashboard\settings.html:21
+msgid "Sayt footeri va aloqa bo‘limlarida ko‘rinadigan ma’lumotlar"
+msgstr "Sayt footeri va aloqa bo‘limlarida ko‘rinadigan ma’lumotlar"
+
+#: .\templates\dashboard\settings.html:31
+msgid "Instagram URL havolasi"
+msgstr "Instagram URL havolasi"
+
+#: .\templates\dashboard\settings.html:37
+msgid "Telegram URL havolasi"
+msgstr "Telegram URL havolasi"
+
+#: .\templates\dashboard\settings.html:43
+msgid "Bosh sahifa va \"Biz haqimizda\" rasmlari"
+msgstr "Bosh sahifa va \"Biz haqimizda\" rasmlari"
+
+#: .\templates\dashboard\settings.html:44
+msgid ""
+"Yangi rasm tanlasangiz, saytdagi standart rasmlar o‘rniga shu rasmlar "
+"ko‘rsatiladi"
+msgstr "Yangi rasm tanlasangiz, saytdagi standart rasmlar o‘rniga shu rasmlar ko‘rsatiladi"
+
+#: .\templates\dashboard\settings.html:49
+msgid "Bosh sahifa asosiy rasmi (Hero banner)"
+msgstr "Bosh sahifa asosiy rasmi (Hero banner)"
+
+#: .\templates\dashboard\settings.html:53
+msgid "Hero rasmi"
+msgstr "Hero rasmi"
+
+#: .\templates\dashboard\settings.html:54
+#: .\templates\dashboard\settings.html:77
+#: .\templates\dashboard\settings.html:100
+msgid "Hozirgi rasm"
+msgstr "Hozirgi rasm"
+
+#: .\templates\dashboard\settings.html:58
+msgid "Standart Hero rasmi"
+msgstr "Standart Hero rasmi"
+
+#: .\templates\dashboard\settings.html:59
+#: .\templates\dashboard\settings.html:82
+#: .\templates\dashboard\settings.html:105
+msgid "Standart rasm"
+msgstr "Standart rasm"
+
+#: .\templates\dashboard\settings.html:64
+msgid "Tavsiya etiladi: 600x600px shaffof fonli PNG yoki JPG"
+msgstr "Tavsiya etiladi: 600x600px shaffof fonli PNG yoki JPG"
+
+#: .\templates\dashboard\settings.html:72
+msgid "\"Biz haqimizda\" asosiy rasmi (About 1)"
+msgstr "\"Biz haqimizda\" asosiy rasmi (About 1)"
+
+#: .\templates\dashboard\settings.html:76
+msgid "About 1 rasmi"
+msgstr "About 1 rasmi"
+
+#: .\templates\dashboard\settings.html:81
+msgid "Standart About 1 rasmi"
+msgstr "Standart About 1 rasmi"
+
+#: .\templates\dashboard\settings.html:87
+msgid "Tavsiya etiladi: 500x600px yuqori sifatli JPG/PNG"
+msgstr "Tavsiya etiladi: 500x600px yuqori sifatli JPG/PNG"
+
+#: .\templates\dashboard\settings.html:95
+msgid "\"Biz haqimizda\" kichik muallaq rasmi (About 2)"
+msgstr "\"Biz haqimizda\" kichik muallaq rasmi (About 2)"
+
+#: .\templates\dashboard\settings.html:99
+msgid "About 2 rasmi"
+msgstr "About 2 rasmi"
+
+#: .\templates\dashboard\settings.html:104
+msgid "Standart About 2 rasmi"
+msgstr "Standart About 2 rasmi"
+
+#: .\templates\dashboard\settings.html:110
+msgid "Tavsiya etiladi: 300x300px quticha yoki flakon rasmi"
+msgstr "Tavsiya etiladi: 300x300px quticha yoki flakon rasmi"
+
+#: .\templates\dashboard\settings.html:118
+msgid "Sozlamalarni saqlash"
+msgstr "Sozlamalarni saqlash"
+
+#: .\templates\shop\_cart_drawer.html:19
+#| msgid "Filtrni tozalash"
+msgid "Olib tashlash"
+msgstr "Olib tashlash"
+
+#: .\templates\shop\_product_cards.html:4
+#: .\templates\shop\product_detail.html:19
 msgid "NEW"
 msgstr "NEW"
 
+#: .\templates\shop\_product_cards.html:7
+msgid "Sevimlilar"
+msgstr "Sevimlilar"
+
+#: .\templates\shop\_product_cards.html:33
+#: .\templates\shop\product_detail.html:92
 msgid "Savatga qo'shish"
 msgstr "Savatga qo'shish"
 
+#: .\templates\shop\_product_cards.html:50
+#: .\templates\shop\product_detail.html:21
+#: .\templates\shop\product_detail.html:28
+msgid "karobka"
+msgstr "karobka"
+
+#: .\templates\shop\_product_cards.html:55
 msgid "Hech qanday atir topilmadi. Filtrlarni o'zgartirib ko'ring."
 msgstr "Hech qanday atir topilmadi. Filtrlarni o'zgartirib ko'ring."
 
+#: .\templates\shop\delivery_terms.html:4
+#| msgid "Qaytarish shartlari"
+msgid "Xarid va Yetkazib Berish Shartlari"
+msgstr "Xarid va Yetkazib Berish Shartlari"
+
+#: .\templates\shop\delivery_terms.html:12
+#: .\templates\shop\delivery_terms.html:103
+#| msgid "Bosh sahifa"
+msgid "Bosh sahifaga qaytish"
+msgstr "Bosh sahifaga qaytish"
+
+#: .\templates\shop\delivery_terms.html:14
+msgid "SHARTLAR VA KAFOLAT"
+msgstr "SHARTLAR VA KAFOLAT"
+
+#: .\templates\shop\delivery_terms.html:15
+msgid "XARID VA YETKAZIB BERISH SHARTLARI"
+msgstr "XARID VA YETKAZIB BERISH SHARTLARI"
+
+#: .\templates\shop\delivery_terms.html:16
+msgid ""
+"Har bir xaridingiz xavfsiz, sifatli va kafolatlangan bo'lishi biz uchun "
+"ustuvor vazifadir."
+msgstr "Har bir xaridingiz xavfsiz, sifatli va kafolatlangan bo'lishi biz uchun ustuvor vazifadir."
+
+#: .\templates\shop\delivery_terms.html:25
+#| msgid "100%% originallik va sifat kafolati"
+msgid "100%% Sifat & Original Kafolati"
+msgstr "100%% Sifat & Original Kafolati"
+
+#: .\templates\shop\delivery_terms.html:29
+msgid "MYRON Premium Standarti"
+msgstr "MYRON Premium Standarti"
+
+#: .\templates\shop\delivery_terms.html:30
+msgid ""
+"Biz atirlaringiz mukammal holatda va asl iforini saqlagan holda sizga yetib "
+"borishiga mas'ulmiz."
+msgstr "Biz atirlaringiz mukammal holatda va asl iforini saqlagan holda sizga yetib borishiga mas'ulmiz."
+
+#: .\templates\shop\delivery_terms.html:41
+msgid "Yetkazib Berish Tartibi va Taksi Xizmati"
+msgstr "Yetkazib Berish Tartibi va Taksi Xizmati"
+
+#: .\templates\shop\delivery_terms.html:43
+msgid "Rasmiy kurerlik yetkazib berish:"
+msgstr "Rasmiy kurerlik yetkazib berish:"
+
+#: .\templates\shop\delivery_terms.html:43
+msgid ""
+"Do'konimiz tomonidan rasman topshirilgan kurerlik xizmatlari orqali "
+"yetkazilgan barcha buyurtmalar to'liq bizning javobgarligimizda bo'ladi."
+msgstr "Do'konimiz tomonidan rasman topshirilgan kurerlik xizmatlari orqali yetkazilgan barcha buyurtmalar to'liq bizning javobgarligimizda bo'ladi."
+
+#: .\templates\shop\delivery_terms.html:48
+msgid "Mijoz tomonidan shaxsiy taksi chaqirilganda:"
+msgstr "Mijoz tomonidan shaxsiy taksi chaqirilganda:"
+
+#: .\templates\shop\delivery_terms.html:49
+msgid ""
+"Agar siz buyurtmani o'zingiz chaqirgan taksi yoki shaxsiy kurer orqali olib "
+"ketishni (dastafka qildirishni) so'rasangiz, topshirilgandan so'ng yo'ldagi "
+"mahsulot holati, singanligi yoki yo'qolishiga MYRON do'koni javobgar "
+"bo'lmaydi."
+msgstr "Agar siz buyurtmani o'zingiz chaqirgan taksi yoki shaxsiy kurer orqali olib ketishni (dastafka qildirishni) so'rasangiz, topshirilgandan so'ng yo'ldagi mahsulot holati, singanligi yoki yo'qolishiga MYRON do'koni javobgar bo'lmaydi."
+
+#: .\templates\shop\delivery_terms.html:60
+msgid "Mahsulotni Qabul Qilish va Rasmga Olish (MUHIM)"
+msgstr "Mahsulotni Qabul Qilish va Rasmga Olish (MUHIM)"
+
+#: .\templates\shop\delivery_terms.html:62
+msgid "Qadoqni ochishdan oldin tekshirish:"
+msgstr "Qadoqni ochishdan oldin tekshirish:"
+
+#: .\templates\shop\delivery_terms.html:62
+msgid ""
+"Mahsulot kurer orqali yetib kelganida, upakovkani ochmasdan oldin kurer "
+"ishtirokida srazi rasm va videoga olib olishingiz shart."
+msgstr "Mahsulot kurer orqali yetib kelganida, upakovkani ochmasdan oldin kurer ishtirokida srazi rasm va videoga olib olishingiz shart."
+
+#: .\templates\shop\delivery_terms.html:67
+msgid "Shisha singanda yoki to'kilganda:"
+msgstr "Shisha singanda yoki to'kilganda:"
+
+#: .\templates\shop\delivery_terms.html:68
+#, python-format
+msgid ""
+"Agar mahsulot yo'lda shikastlangan yoki to'kilgan bo'lsa, ochilmagan "
+"qadoqning rasm/videosini taqdim etgan holda 100%% bepul almashtirib berish "
+"yoki pulingizni qaytarish kafolatlanadi."
+msgstr "Agar mahsulot yo'lda shikastlangan yoki to'kilgan bo'lsa, ochilmagan qadoqning rasm/videosini taqdim etgan holda 100%% bepul almashtirib berish yoki pulingizni qaytarish kafolatlanadi."
+
+#: .\templates\shop\delivery_terms.html:79
+msgid "Atirni Dam Oldirish va Saqlash Qoidasi"
+msgstr "Atirni Dam Oldirish va Saqlash Qoidasi"
+
+#: .\templates\shop\delivery_terms.html:81
+msgid "Transportirovkadan so'ng dam berish (Resting Rule):"
+msgstr "Transportirovkadan so'ng dam berish (Resting Rule):"
+
+#: .\templates\shop\delivery_terms.html:81
+msgid ""
+"Atir tashish jarayonida tebranish sababli molekulalari vaqtincha "
+"beqarorlashadi. Mahsulotni qabul qilib olgach, uni salqin, qorong'u joyda "
+"12-24 soat dam oldiring."
+msgstr "Atir tashish jarayonida tebranish sababli molekulalari vaqtincha beqarorlashadi. Mahsulotni qabul qilib olgach, uni salqin, qorong'u joyda 12-24 soat dam oldiring."
+
+#: .\templates\shop\delivery_terms.html:82
+msgid ""
+"Shunda atir notalari o'z o'rniga tushib, shleyfi va chidamliligi maksimal "
+"darajaga yetadi."
+msgstr "Shunda atir notalari o'z o'rniga tushib, shleyfi va chidamliligi maksimal darajaga yetadi."
+
+#: .\templates\shop\delivery_terms.html:91
+#| msgid "Qaytarish shartlari"
+msgid "Qaytarish va Almashtirish Shartlari"
+msgstr "Qaytarish va Almashtirish Shartlari"
+
+#: .\templates\shop\delivery_terms.html:93
+msgid ""
+"Parfyumeriya mahsulotlari gigiyena talablariga ko'ra ochilgan va ishlatilgan "
+"holatda qaytarib olinmaydi."
+msgstr "Parfyumeriya mahsulotlari gigiyena talablariga ko'ra ochilgan va ishlatilgan holatda qaytarib olinmaydi."
+
+#: .\templates\shop\delivery_terms.html:94
+msgid ""
+"Faqatgina zavod nuqsoni yoki rasmiy kurer yetkazishidagi shikastlanish rasm/"
+"video bilan tasdiqlanganda zudlik bilan almashtirib beriladi."
+msgstr "Faqatgina zavod nuqsoni yoki rasmiy kurer yetkazishidagi shikastlanish rasm/video bilan tasdiqlanganda zudlik bilan almashtirib beriladi."
+
+#: .\templates\shop\home.html:10
 msgid "EKSKLYUZIV KOLLEKSIYA"
 msgstr "EKSKLYUZIV KOLLEKSIYA"
 
+#: .\templates\shop\home.html:11
 msgid "O'ZINGIZGA XOS"
 msgstr "O'ZINGIZGA XOS"
 
+#: .\templates\shop\home.html:11
 msgid "HIDNI KASHF ETING"
 msgstr "HIDNI KASHF ETING"
 
+#: .\templates\shop\home.html:13
 msgid ""
 "Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali "
 "betakror shaxsiyatingizni namoyon eting."
-msgstr ""
-"Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali "
-"betakror shaxsiyatingizni namoyon eting."
+msgstr "Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali betakror shaxsiyatingizni namoyon eting."
 
+#: .\templates\shop\home.html:14
 msgid "Kolleksiyani ko'rish"
 msgstr "Kolleksiyani ko'rish"
 
+#: .\templates\shop\home.html:34 .\templates\shop\product_list.html:9
 msgid "BIZNING KOLLEKSIYA"
 msgstr "BIZNING KOLLEKSIYA"
 
+#: .\templates\shop\home.html:35 .\templates\shop\product_list.html:10
 msgid "O'ZINGIZGA MOS HIDNI TOPING"
 msgstr "O'ZINGIZGA MOS HIDNI TOPING"
 
+#: .\templates\shop\home.html:41 .\templates\shop\product_list.html:17
+msgid "FILTR"
+msgstr "FILTR"
+
+#: .\templates\shop\home.html:44 .\templates\shop\product_list.html:20
+msgid "TOIFA"
+msgstr "TOIFA"
+
+#: .\templates\shop\home.html:60 .\templates\shop\product_list.html:36
+msgid "NARX ORALIG'I"
+msgstr "NARX ORALIG'I"
+
+#: .\templates\shop\home.html:76 .\templates\shop\product_list.html:51
+msgid "KONSENTRATSIYA"
+msgstr "KONSENTRATSIYA"
+
+#: .\templates\shop\home.html:91
+msgid "Filtrlash"
+msgstr "Filtrlash"
+
+#: .\templates\shop\home.html:97 .\templates\shop\product_list.html:73
 msgid "BARCHASI"
 msgstr "BARCHASI"
 
+#: .\templates\shop\home.html:98 .\templates\shop\product_list.html:74
 msgid "AYOLLAR"
 msgstr "AYOLLAR"
 
+#: .\templates\shop\home.html:99 .\templates\shop\product_list.html:75
 msgid "ERKAKLAR"
 msgstr "ERKAKLAR"
 
+#: .\templates\shop\home.html:100 .\templates\shop\product_list.html:76
+msgid "UNISEX"
+msgstr "UNISEX"
+
+#: .\templates\shop\home.html:110
 msgid "Barcha atirlarni ko'rish"
 msgstr "Barcha atirlarni ko'rish"
 
+#: .\templates\shop\home.html:131
 msgid "BIZ HAQIMIZDA"
 msgstr "BIZ HAQIMIZDA"
 
+#: .\templates\shop\home.html:132
 msgid "NOZIK ATIRLAR SAN'ATI"
 msgstr "NOZIK ATIRLAR SAN'ATI"
 
+#: .\templates\shop\home.html:133
+#| msgid ""
+#| "MYRON'da biz atir shunchaki hid emas вЂ” u bir bayonot, bir hissiyot, bir "
+#| "xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara "
+#| "ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga "
+#| "tengsiz sifat va nafosat bag'ishlaydi."
 msgid ""
-"MYRON'da biz atir shunchaki hid emas вЂ” u bir bayonot, bir hissiyot, bir "
+"MYRON'da biz atir shunchaki hid emas — u bir bayonot, bir hissiyot, bir "
 "xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara "
 "ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz "
 "sifat va nafosat bag'ishlaydi."
-msgstr ""
-"MYRON'da biz atir shunchaki hid emas вЂ” u bir bayonot, bir hissiyot, bir "
-"xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara "
-"ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz "
-"sifat va nafosat bag'ishlaydi."
+msgstr "MYRON'da biz atir shunchaki hid emas — u bir bayonot, bir hissiyot, bir xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz sifat va nafosat bag'ishlaydi."
 
+#: .\templates\shop\home.html:138
 msgid "SIFATLI TARKIB"
 msgstr "SIFATLI TARKIB"
 
+#: .\templates\shop\home.html:139
 msgid "Dunyoning eng sara joylaridan yetkazilgan"
 msgstr "Dunyoning eng sara joylaridan yetkazilgan"
 
+#: .\templates\shop\home.html:143
 msgid "MOHIR USTALAR"
 msgstr "MOHIR USTALAR"
 
+#: .\templates\shop\home.html:144
 msgid "Professional parfyumerlar tomonidan yaratilgan"
 msgstr "Professional parfyumerlar tomonidan yaratilgan"
 
+#: .\templates\shop\home.html:148
 msgid "HASHAMATLI TAJRIBA"
 msgstr "HASHAMATLI TAJRIBA"
 
+#: .\templates\shop\home.html:149
 msgid "Nafis qadoqlash va nozik detallar"
 msgstr "Nafis qadoqlash va nozik detallar"
 
+#: .\templates\shop\home.html:153
 msgid "KAFOLAT"
 msgstr "KAFOLAT"
 
+#: .\templates\shop\home.html:154
 #, python-format
 msgid "100%% originallik va sifat kafolati"
 msgstr "100%% originallik va sifat kafolati"
 
-msgid "ta sharh"
-msgstr "ta sharh"
+#: .\templates\shop\product_detail.html:26
+msgid "Mahsulot rasmlari"
+msgstr "Mahsulot rasmlari"
 
-msgid "Konsentratsiya"
-msgstr "Konsentratsiya"
+#: .\templates\shop\product_detail.html:40
+#| msgid "Sotuvda bor"
+msgid "Sotuvda"
+msgstr "Sotuvda"
 
-msgid "Hajmi"
-msgstr "Hajmi"
-
-msgid "Toifa"
-msgstr "Toifa"
-
-msgid "Mavjudligi"
-msgstr "Mavjudligi"
-
-msgid "Sotuvda bor"
-msgstr "Sotuvda bor"
-
+#: .\templates\shop\product_detail.html:40
+#: .\templates\shop\product_detail.html:81
 msgid "Tugagan"
 msgstr "Tugagan"
 
+#: .\templates\shop\product_detail.html:48
+#| msgid "ta sharh"
+msgid "sharh"
+msgstr "sharh"
+
+#: .\templates\shop\product_detail.html:63
+msgid "Hajmni tanlang"
+msgstr "Hajmni tanlang"
+
+#: .\templates\shop\product_detail.html:64
+msgid "Sizga mos flakon"
+msgstr "Sizga mos flakon"
+
+#: .\templates\shop\product_detail.html:66
+msgid "Hajm tanlash"
+msgstr "Hajm tanlash"
+
+#: .\templates\shop\product_detail.html:80
+msgid "To'liq hajm"
+msgstr "To'liq hajm"
+
+#: .\templates\shop\product_detail.html:81
+msgid "Sotuvda bor"
+msgstr "Sotuvda bor"
+
+#: .\templates\shop\product_detail.html:85
+msgid "Miqdor"
+msgstr "Miqdor"
+
+#: .\templates\shop\product_detail.html:86
+msgid "Kamaytirish"
+msgstr "Kamaytirish"
+
+#: .\templates\shop\product_detail.html:88
+msgid "Ko'paytirish"
+msgstr "Ko'paytirish"
+
+#: .\templates\shop\product_detail.html:99
+msgid "MAHSULOT HAQIDA"
+msgstr "MAHSULOT HAQIDA"
+
+#: .\templates\shop\product_detail.html:100
+msgid "Tavsif va tarkibni batafsil ko'ring."
+msgstr "Tavsif va tarkibni batafsil ko'ring."
+
+#: .\templates\shop\product_detail.html:104
+msgid "Hid notalari"
+msgstr "Hid notalari"
+
+#: .\templates\shop\product_detail.html:106
 msgid "Tavsif"
 msgstr "Tavsif"
 
+#: .\templates\shop\product_detail.html:107
 msgid "Tarkibi"
 msgstr "Tarkibi"
 
+#: .\templates\shop\product_detail.html:117
+msgid "Yuqori nota"
+msgstr "Yuqori nota"
+
+#: .\templates\shop\product_detail.html:128
+msgid "O'rta nota"
+msgstr "O'rta nota"
+
+#: .\templates\shop\product_detail.html:139
+msgid "Bazaviy nota"
+msgstr "Bazaviy nota"
+
+#: .\templates\shop\product_detail.html:154
 msgid "Ma'lumot kiritilmagan"
 msgstr "Ma'lumot kiritilmagan"
 
+#: .\templates\shop\product_detail.html:162
+msgid "Tanlovingiz saqlandi"
+msgstr "Tanlovingiz saqlandi"
+
+#: .\templates\shop\product_detail.html:163
+msgid "Tanlov bekor qilindi"
+msgstr "Tanlov bekor qilindi"
+
+#: .\templates\shop\product_detail.html:164
+msgid "Tanlovni saqlab bo'lmadi"
+msgstr "Tanlovni saqlab bo'lmadi"
+
+#: .\templates\shop\product_detail.html:166
+msgid "FOYDALANUVCHILAR TANLOVI"
+msgstr "FOYDALANUVCHILAR TANLOVI"
+
+#: .\templates\shop\product_detail.html:167
+msgid "SIZNING TANLOVINGIZ"
+msgstr "SIZNING TANLOVINGIZ"
+
+#: .\templates\shop\product_detail.html:168
+msgid "Har bir tanlov shu atir haqidagi umumiy kayfiyatni ko'rsatadi."
+msgstr "Har bir tanlov shu atir haqidagi umumiy kayfiyatni ko'rsatadi."
+
+#: .\templates\shop\product_detail.html:177
+msgid "Foydalanuvchi bahosi"
+msgstr "Foydalanuvchi bahosi"
+
+#: .\templates\shop\product_detail.html:177
+msgid "Bu atir sizda qanday taassurot qoldirdi?"
+msgstr "Bu atir sizda qanday taassurot qoldirdi?"
+
+#: .\templates\shop\product_detail.html:211
+msgid "Qachon foydalanish"
+msgstr "Qachon foydalanish"
+
+#: .\templates\shop\product_detail.html:211
+msgid "Qaysi vaqtda yoki faslda mos?"
+msgstr "Qaysi vaqtda yoki faslda mos?"
+
+#: .\templates\shop\product_detail.html:249
 msgid "SIZGA YOQISHI MUMKIN"
 msgstr "SIZGA YOQISHI MUMKIN"
 
+#: .\templates\shop\product_detail.html:250
 msgid "O'XSHASH ATIRLAR"
 msgstr "O'XSHASH ATIRLAR"
 
-msgid "FILTR"
-msgstr "FILTR"
-
-msgid "TOIFA"
-msgstr "TOIFA"
-
-msgid "Barchasi"
-msgstr "Barchasi"
-
-msgid "NARX ORALIG'I"
-msgstr "NARX ORALIG'I"
-
-msgid "KONSENTRATSIYA"
-msgstr "KONSENTRATSIYA"
-
+#: .\templates\shop\product_list.html:66
 msgid "Filtrni tozalash"
 msgstr "Filtrni tozalash"
 
+#: .\templates\shop\product_list.html:79
 msgid "ta mahsulot"
 msgstr "ta mahsulot"
 
+#: .\templates\shop\product_list.html:81
 msgid "Ommabop"
 msgstr "Ommabop"
 
+#: .\templates\shop\product_list.html:82
 msgid "Yangilari"
 msgstr "Yangilari"
 
+#: .\templates\shop\product_list.html:83
 msgid "Narx: pastdan yuqoriga"
 msgstr "Narx: pastdan yuqoriga"
 
+#: .\templates\shop\product_list.html:84
 msgid "Narx: yuqoridan pastga"
 msgstr "Narx: yuqoridan pastga"
 
-msgid "Reyting"
-msgstr "Reyting"
+#~ msgid "Mijozlarga xizmat"
+#~ msgstr "Mijozlarga xizmat"
 
-msgid "Filtrlash"
-msgstr "Filtrlash"
+#~ msgid "Biz bilan bog'lanish"
+#~ msgstr "Biz bilan bog'lanish"
+
+#~ msgid "Yetkazib berish"
+#~ msgstr "Yetkazib berish"
+
+#~ msgid "Maxfiylik siyosati"
+#~ msgstr "Maxfiylik siyosati"
+
+#~ msgid "Mavjudligi"
+#~ msgstr "Mavjudligi"

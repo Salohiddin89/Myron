@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.dashboard_home, name="home"),
     path("kirish/", views.dashboard_login, name="login"),
     path("chiqish/", views.dashboard_logout, name="logout"),
+    path("set-lang/", views.set_language_via_get, name="set_lang"),
     path("tahlil/", views.analytics_view, name="analytics"),
     path("mahsulotlar/", views.product_list, name="product_list"),
     path("mahsulotlar/yangi/", views.product_create, name="product_create"),

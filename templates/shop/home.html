@@ -97,7 +97,7 @@
         <button type="button" class="tab active" data-gender="all">{% trans "BARCHASI" %}</button>
         <button type="button" class="tab" data-gender="women">{% trans "AYOLLAR" %}</button>
         <button type="button" class="tab" data-gender="men">{% trans "ERKAKLAR" %}</button>
-        <button type="button" class="tab" data-gender="unisex">UNISEX</button>
+        <button type="button" class="tab" data-gender="unisex">{% trans "UNISEX" %}</button>
       </div>
 
       <div class="product-grid" id="productGrid">
@@ -116,15 +116,15 @@
   <div class="about-inner">
     <div class="about-media reveal">
       {% if site_settings.about_image_1 %}
-      <img src="{{ site_settings.about_image_1.url }}" alt="MYRON Perfume" class="about-img-main">
+      <img src="{{ site_settings.about_image_1.url }}" alt="{{ SITE_NAME }} Perfume" class="about-img-main">
       {% else %}
-      <img src="{% static 'shop/img/about-1.png' %}" alt="MYRON Perfume" class="about-img-main">
+      <img src="{% static 'shop/img/about-1.png' %}" alt="{{ SITE_NAME }} Perfume" class="about-img-main">
       {% endif %}
 
       {% if site_settings.about_image_2 %}
-      <img src="{{ site_settings.about_image_2.url }}" alt="MYRON box" class="about-img-float">
+      <img src="{{ site_settings.about_image_2.url }}" alt="{{ SITE_NAME }} box" class="about-img-float">
       {% else %}
-      <img src="{% static 'shop/img/about-2.png' %}" alt="MYRON box" class="about-img-float">
+      <img src="{% static 'shop/img/about-2.png' %}" alt="{{ SITE_NAME }} box" class="about-img-float">
       {% endif %}
     </div>
     <div class="about-text reveal">

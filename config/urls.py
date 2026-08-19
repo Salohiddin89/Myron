@@ -4,9 +4,11 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.urls import include, path
 
-admin.site.site_header = "MYRON — Boshqaruv paneli"
-admin.site.site_title = "MYRON Admin"
-admin.site.index_title = "Do'kon boshqaruvi"
+from django.utils.translation import gettext_lazy as _
+
+admin.site.site_header = _("MYRON - Boshqaruv paneli")
+admin.site.site_title = _("MYRON Admin")
+admin.site.index_title = _("Do'kon boshqaruvi")
 
 
 def redirect_dashboard_alias(request, remaining=""):

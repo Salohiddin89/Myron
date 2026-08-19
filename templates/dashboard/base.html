@@ -1,59 +1,81 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}MYRON Control Panel{% endblock %}</title>
+  <title>{% block title %}MYRON {% trans "Boshqaruv paneli" %}{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'dashboard/css/dashboard.css' %}">
 </head>
 <body>
+
+  <!-- Mobile Top Bar -->
+  <header class="mobile-topbar" id="mobileTopbar">
+    <button class="burger-btn" id="burgerBtn" aria-label="{% trans 'Menyu' %}">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="mobile-brand" href="{% url 'dashboard:home' %}">
+      <svg viewBox="0 0 40 40" fill="none" width="26" height="26" stroke="currentColor">
+        <path d="M15 6H25V10L28 13V16H12V13L15 10V6Z" stroke-width="1.6" stroke-linejoin="round"/>
+        <rect x="11" y="16" width="18" height="19" rx="2.5" stroke-width="1.6"/>
+        <path d="M11 22H29" stroke-width="1.2"/>
+        <circle cx="20" cy="26" r="3" stroke-width="1.2"/>
+      </svg>
+      <span>MYRON</span>
+    </a>
+    <a class="btn btn-gold-sm mobile-add-btn" href="{% url 'dashboard:product_create' %}" aria-label="{% trans 'Yangi mahsulot' %}">+</a>
+  </header>
+
+  <!-- Sidebar overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <div class="admin-shell">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-head">
         <a class="brand" href="{% url 'dashboard:home' %}">
           <span class="brand-icon">
-            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 6H25V10L28 13V16H12V13L15 10V6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <rect x="11" y="16" width="18" height="19" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
-              <path d="M11 22H29" stroke="currentColor" stroke-width="1.2"/>
-              <circle cx="20" cy="26" r="3" stroke="currentColor" stroke-width="1.2"/>
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+              <path d="M15 6H25V10L28 13V16H12V13L15 10V6Z" stroke-width="1.6" stroke-linejoin="round"/>
+              <rect x="11" y="16" width="18" height="19" rx="2.5" stroke-width="1.6"/>
+              <path d="M11 22H29" stroke-width="1.2"/>
+              <circle cx="20" cy="26" r="3" stroke-width="1.2"/>
             </svg>
           </span>
           <div class="brand-info">
             <strong>MYRON</strong>
-            <small>BOSHQARUV PANEL</small>
+            <small>{% trans "BOSHQARUV PANEL" %}</small>
           </div>
         </a>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="{% trans 'Yopish' %}">&#x2715;</button>
       </div>
 
       <nav class="sidebar-nav">
         <a href="{% url 'dashboard:home' %}" class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
-          <span>Dashboard</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <span>{% trans "Dashboard" %}</span>
         </a>
         <a href="{% url 'dashboard:analytics' %}" class="nav-item {% if request.resolver_match.url_name == 'analytics' %}active{% endif %}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-          <span>Sotuvlar Tahlili</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>{% trans "Sotuvlar tahlili" %}</span>
         </a>
         <a href="{% url 'dashboard:product_list' %}" class="nav-item {% if 'product' in request.resolver_match.url_name %}active{% endif %}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-          <span>Mahsulotlar</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>{% trans "Mahsulotlar" %}</span>
         </a>
         <a href="{% url 'dashboard:order_list' %}" class="nav-item {% if 'order' in request.resolver_match.url_name %}active{% endif %}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-          <span>Buyurtmalar</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <span>{% trans "Buyurtmalar" %}</span>
         </a>
         <a href="{% url 'dashboard:settings' %}" class="nav-item {% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-          <span>Sayt Sozlamalari</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>{% trans "Sayt sozlamalari" %}</span>
         </a>
         <a href="{% url 'shop:home' %}" target="_blank" class="nav-item external">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          <span>Saytni ko'rish</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>{% trans "Saytni ko'rish" %}</span>
         </a>
       </nav>
 
@@ -62,11 +84,11 @@
           <div class="avatar">{{ request.user.username|slice:":1"|upper }}</div>
           <div class="user-details">
             <strong>{{ request.user.username }}</strong>
-            <span class="badge-staff">Admin</span>
+            <span class="badge-staff">{% trans "Admin" %}</span>
           </div>
         </div>
-        <a class="logout-btn" href="{% url 'dashboard:logout' %}" title="Chiqish">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        <a class="logout-btn" href="{% url 'dashboard:logout' %}" title="{% trans 'Chiqish' %}" aria-label="{% trans 'Chiqish' %}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </a>
       </div>
     </aside>
@@ -74,12 +96,20 @@
     <main class="content">
       <header class="topbar">
         <div class="topbar-title">
-          <span class="eyebrow">Yashirin Boshqaruv Tizimi</span>
-          <h1>{% block heading %}Dashboard{% endblock %}</h1>
+          <span class="eyebrow">{% trans "Yashirin boshqaruv tizimi" %}</span>
+          <h1>{% block heading %}{% trans "Dashboard" %}{% endblock %}</h1>
         </div>
         <div class="topbar-actions">
+          <div class="admin-language-switch" aria-label="{% trans 'Tilni tanlash' %}">
+            {% get_current_language as CUR_LANG %}
+            {% for code, label in LANGUAGES %}
+            <a href="{% url 'dashboard:set_lang' %}?lang={{ code }}&next={{ request.get_full_path|urlencode }}" class="lang-btn {% if code == CUR_LANG %}active{% endif %}">
+              {% if code == 'uz' %}<span class="flag-icon">🇺🇿</span> UZ{% else %}<span class="flag-icon">🇷🇺</span> RU{% endif %}
+            </a>
+            {% endfor %}
+          </div>
           <a class="btn btn-gold-sm" href="{% url 'dashboard:product_create' %}">
-            <span>+ Yangi mahsulot</span>
+            <span>+ {% trans "Yangi mahsulot" %}</span>
           </a>
         </div>
       </header>
@@ -88,7 +118,7 @@
         <div class="messages">
           {% for message in messages %}
             <div class="message {{ message.tags }}">
-              <span class="msg-icon">✨</span>
+              <span class="msg-icon">&#x2728;</span>
               <span>{{ message }}</span>
             </div>
           {% endfor %}
@@ -98,5 +128,62 @@
       {% block content %}{% endblock %}
     </main>
   </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav">
+    <a href="{% url 'dashboard:home' %}" class="mob-nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span>{% trans "Bosh" %}</span>
+    </a>
+    <a href="{% url 'dashboard:product_list' %}" class="mob-nav-item {% if 'product' in request.resolver_match.url_name %}active{% endif %}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span>{% trans "Mahsulot" %}</span>
+    </a>
+    <a href="{% url 'dashboard:order_list' %}" class="mob-nav-item {% if 'order' in request.resolver_match.url_name %}active{% endif %}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <span>{% trans "Buyurtma" %}</span>
+    </a>
+    <a href="{% url 'dashboard:analytics' %}" class="mob-nav-item {% if request.resolver_match.url_name == 'analytics' %}active{% endif %}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>{% trans "Tahlil" %}</span>
+    </a>
+    <a href="{% url 'dashboard:settings' %}" class="mob-nav-item {% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>{% trans "Sozlama" %}</span>
+    </a>
+  </nav>
+
+  <script>
+    const burgerBtn = document.getElementById('burgerBtn');
+    const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    if (burgerBtn) burgerBtn.addEventListener('click', openSidebar);
+    if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+    if (overlay) overlay.addEventListener('click', closeSidebar);
+
+    // Close sidebar when a nav link inside is tapped on mobile
+    if (sidebar) {
+      sidebar.querySelectorAll('.nav-item').forEach(function(link) {
+        link.addEventListener('click', function() {
+          if (window.innerWidth <= 900) {
+            closeSidebar();
+          }
+        });
+      });
+    }
+  </script>
 </body>
 </html>

@@ -420,6 +420,68 @@
   );
 
   /* ---------------------------------------------------------------
+     Product detail community votes
+  --------------------------------------------------------------- */
+  const pdVotesSection = document.querySelector(".pd-votes-section");
+  if (pdVotesSection) {
+    const voteButtons = pdVotesSection.querySelectorAll(".pd-vote-option");
+    const voteStatus = pdVotesSection.querySelector(".pd-vote-status");
+    const voteUrl = pdVotesSection.dataset.voteUrl;
+    const voteErrorLabel = pdVotesSection.dataset.errorLabel || "Tanlovni saqlab bo'lmadi";
+
+    function setVoteStatus(message, isError) {
+      if (!voteStatus) return;
+      voteStatus.textContent = message || "";
+      voteStatus.classList.toggle("is-error", Boolean(isError));
+      voteStatus.classList.toggle("is-visible", Boolean(message));
+    }
+
+    voteButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        if (this.disabled || !voteUrl) return;
+        const group = this.closest(".pd-vote-group");
+        const voteType = group ? group.dataset.voteType : "";
+        const choice = this.dataset.voteChoice || "";
+        if (!voteType || !choice) return;
+
+        voteButtons.forEach((item) => { item.disabled = true; });
+        group.classList.add("is-saving");
+        setVoteStatus("");
+
+        postJSON(voteUrl, { vote_type: voteType, choice: choice }).then((response) => {
+          if (!response.ok || !response.body || !response.body.ok) {
+            setVoteStatus(voteErrorLabel, true);
+            return;
+          }
+
+          const counts = response.body.counts || {};
+          group.querySelectorAll(".pd-vote-option").forEach((item) => {
+            const itemChoice = item.dataset.voteChoice || "";
+            const selected = response.body.selected === itemChoice;
+            item.classList.toggle("is-selected", selected);
+            item.setAttribute("aria-pressed", selected ? "true" : "false");
+            const count = item.querySelector("[data-vote-count]");
+            if (count) count.textContent = String(counts[itemChoice] || 0);
+          });
+
+          const total = group.querySelector("[data-vote-total]");
+          if (total) total.textContent = String(response.body.total || 0);
+          setVoteStatus(
+            response.body.selected
+              ? (pdVotesSection.dataset.savedLabel || "Tanlovingiz saqlandi")
+              : (pdVotesSection.dataset.clearedLabel || "Tanlov bekor qilindi")
+          );
+        }).catch(() => {
+          setVoteStatus(voteErrorLabel, true);
+        }).finally(() => {
+          voteButtons.forEach((item) => { item.disabled = false; });
+          group.classList.remove("is-saving");
+        });
+      });
+    });
+  }
+
+  /* ---------------------------------------------------------------
      Shared price range visuals
   --------------------------------------------------------------- */
   function initPriceRangeVisual(wrap) {

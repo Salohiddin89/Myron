@@ -4,7 +4,7 @@
   {% if product.is_new %}<span class="badge badge-new">{% trans "NEW" %}</span>
   {% elif product.discount_percent %}<span class="badge badge-sale">-{{ product.discount_percent }}%</span>{% endif %}
 
-  <button class="wishlist-btn" aria-label="Wishlist" type="button">
+  <button class="wishlist-btn" aria-label="{% trans 'Sevimlilar' %}" type="button">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
       <path
         d="M12 20.5C12 20.5 3.5 15.4 3.5 9.4C3.5 6.4 5.9 4 8.9 4C10.6 4 12 4.8 12 4.8C12 4.8 13.4 4 15.1 4C18.1 4 20.5 6.4 20.5 9.4C20.5 15.4 12 20.5 12 20.5Z"
@@ -21,8 +21,8 @@
         class="slider-img">{% endfor %}
     </a>
     {% if product.image_2 or product.gallery.exists %}
-    <button type="button" class="slider-arrow slider-prev" aria-label="Previous">‹</button>
-    <button type="button" class="slider-arrow slider-next" aria-label="Next">›</button>
+    <button type="button" class="slider-arrow slider-prev" aria-label="{% trans 'Oldingi' %}">‹</button>
+    <button type="button" class="slider-arrow slider-next" aria-label="{% trans 'Keyingi' %}">›</button>
     <div class="slider-dots">
       <span class="slider-dot active"></span>
       {% if product.image_2 %}<span class="slider-dot"></span>{% endif %}
@@ -44,6 +44,12 @@
       {% if product.old_price %}<span class="old-price">${{ product.old_price }}</span>{% endif %}
     </div>
   </div>
+
+  {% if product.box_image %}
+  <div class="product-box-overlay" aria-hidden="true">
+    <img src="{{ product.box_image_url }}" alt="{{ product.name }} - {% trans 'karobka' %}" loading="lazy">
+  </div>
+  {% endif %}
 </div>
 {% empty %}
 <p class="no-products">{% trans "Hech qanday atir topilmadi. Filtrlarni o'zgartirib ko'ring." %}</p>
