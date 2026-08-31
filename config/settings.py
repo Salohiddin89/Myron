@@ -20,10 +20,14 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = os.environ.get(
+    "DJANGO_ALLOWED_HOSTS",
+    "myronperfume.pythonanywhere.com,www.myronperfume.pythonanywhere.com,127.0.0.1,localhost,*"
+).split(",")
+
 CSRF_TRUSTED_ORIGINS = os.environ.get(
     "DJANGO_CSRF_TRUSTED_ORIGINS",
-    "http://127.0.0.1:8000,http://localhost:8000,http://192.168.1.52:8000",
+    "https://myronperfume.pythonanywhere.com,https://www.myronperfume.pythonanywhere.com,http://127.0.0.1:8000,http://localhost:8000"
 ).split(",")
 CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = False
