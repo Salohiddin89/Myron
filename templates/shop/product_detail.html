@@ -5,7 +5,7 @@
 
 {% block content %}
 <section class="product-detail-section">
-  <div class="breadcrumb reveal">
+  <div class="breadcrumb reveal" data-dir="up">
     <a href="{% url 'shop:home' %}">{% trans "Bosh sahifa" %}</a>
     <span>/</span>
     <a href="{% url 'shop:product_list' %}">{% trans "Katalog" %}</a>
@@ -14,24 +14,32 @@
   </div>
 
   <div class="product-detail-layout">
-    <div class="pd-gallery reveal">
-      <div class="pd-main-image pd-slider" data-interval="3000">
+    <div class="pd-gallery reveal" data-dir="left">
+      <div class="pd-main-image pd-slider" id="pdGallerySlider" data-interval="3000">
         {% if product.is_new %}<span class="badge badge-new">{% trans "NEW" %}</span>{% endif %}
+        
+        <!-- Order: 1. Main image, 2. Secondary image (image_2), 3. Box image, 4. Additional gallery -->
         <img id="pdMainImg" src="{{ product.image_url }}" alt="{{ product.name }}" class="pd-slide active">
+        {% if product.image_2 %}<img src="{{ product.image_2_url }}" alt="{{ product.name }} 2" class="pd-slide">{% endif %}
         {% if product.box_image %}<img src="{{ product.box_image_url }}" alt="{{ product.name }} - {% trans 'karobka' %}" class="pd-slide">{% endif %}
-        {% if product.image_2 %}<img src="{{ product.image_2_url }}" alt="{{ product.name }}" class="pd-slide">{% endif %}
         {% for gi in product.gallery.all %}<img src="{{ gi.image_url }}" alt="{{ product.name }}" class="pd-slide">{% endfor %}
+
+        <!-- Navigation Arrow Buttons (< and >) -->
+        <button class="pd-arrow pd-arrow-prev" id="pdPrevBtn" type="button" aria-label="{% trans 'Oldingi' %}">&#10094;</button>
+        <button class="pd-arrow pd-arrow-next" id="pdNextBtn" type="button" aria-label="{% trans 'Keyingi' %}">&#10095;</button>
+
         <div class="pd-gallery-shine"></div>
       </div>
+
       <div class="pd-thumbs" aria-label="{% trans 'Mahsulot rasmlari' %}">
         <img src="{{ product.image_url }}" data-src="{{ product.image_url }}" alt="{{ product.name }}" class="pd-thumb active">
-        {% if product.box_image %}<img src="{{ product.box_image_url }}" data-src="{{ product.box_image_url }}" alt="{{ product.name }} - {% trans 'karobka' %}" class="pd-thumb">{% endif %}
         {% if product.image_2 %}<img src="{{ product.image_2_url }}" data-src="{{ product.image_2_url }}" alt="{{ product.name }}" class="pd-thumb">{% endif %}
+        {% if product.box_image %}<img src="{{ product.box_image_url }}" data-src="{{ product.box_image_url }}" alt="{{ product.name }} - {% trans 'karobka' %}" class="pd-thumb">{% endif %}
         {% for gi in product.gallery.all %}<img src="{{ gi.image_url }}" data-src="{{ gi.image_url }}" alt="{{ product.name }}" class="pd-thumb">{% endfor %}
       </div>
     </div>
 
-    <div class="pd-info reveal">
+    <div class="pd-info reveal" data-dir="right">
       <div class="pd-brandline">
         <span class="product-category">{{ product.brand }}</span>
         <span class="pd-dot"></span>
@@ -89,7 +97,7 @@
         </div>
         <button class="btn btn-gold pd-add-cart" id="pdAddToCart" data-add-id="{{ product.id }}"
           data-variant-code="full" {% if not product.in_stock %}disabled{% endif %}>
-          {% trans "Savatga qo'shish" %}
+          {% if site_settings %}{{ site_settings.btn_buy }}{% else %}{% trans "Savatga qo'shish" %}{% endif %}
           <span aria-hidden="true">&rarr;</span>
         </button>
       </div>

@@ -6,23 +6,15 @@
 <!-- ================= HERO ================= -->
 <section class="hero" id="hero">
   <div class="hero-inner">
-    <div class="hero-text reveal">
-      <span class="eyebrow">{% trans "EKSKLYUZIV KOLLEKSIYA" %}</span>
-      <h1>{% trans "O'ZINGIZGA XOS" %}<br>{% trans "HIDNI KASHF ETING" %}</h1>
+    <div class="hero-text reveal" data-dir="left">
+      <span class="eyebrow">{% if site_settings and site_settings.catalog_title %}{{ site_settings.catalog_title }}{% else %}{% trans "EKSKLYUZIV KOLLEKSIYA" %}{% endif %}</span>
+      <h1>{% if site_settings %}{{ site_settings.hero_title }}{% else %}{% trans "O'ZINGIZGA XOS HIDNI KASHF ETING" %}{% endif %}</h1>
       <span class="hero-divider">◆</span>
-      <p>{% trans "Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali betakror shaxsiyatingizni namoyon eting." %}</p>
-      <a href="#collection-section" class="btn btn-gold nav-link" data-section="collection-section">{% trans "Kolleksiyani ko'rish" %} <span>→</span></a>
+      <p>{% if site_settings %}{{ site_settings.hero_subtitle }}{% else %}{% trans "Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali betakror shaxsiyatingizni namoyon eting." %}{% endif %}</p>
+      <a href="#collection-section" class="btn btn-gold nav-link" data-section="collection-section">{% if site_settings %}{{ site_settings.hero_btn }}{% else %}{% trans "Kolleksiyani ko'rish" %}{% endif %} <span>→</span></a>
     </div>
-    <div class="hero-media reveal">
-      {% if site_settings.hero_image %}
-      <img src="{{ site_settings.hero_image.url }}" alt="{{ SITE_NAME }}">
-      {% elif hero_product %}
-      <a href="{{ hero_product.get_absolute_url }}">
-        <img src="{{ hero_product.image_url }}" alt="{{ hero_product.name }}">
-      </a>
-      {% else %}
-      <img src="{% static 'shop/img/hero-placeholder.png' %}" alt="MYRON">
-      {% endif %}
+    <div class="hero-media reveal" data-dir="right">
+      <img src="{{ site_settings.hero_image_url }}" alt="{{ SITE_NAME }}">
       <div class="hero-glow"></div>
     </div>
   </div>
@@ -30,14 +22,14 @@
 
 <!-- ================= FEATURED PRODUCTS ================= -->
 <section class="collection-section" id="collection-section">
-  <div class="section-head reveal">
-    <span class="eyebrow">{% trans "BIZNING KOLLEKSIYA" %}</span>
-    <h2>{% trans "O'ZINGIZGA MOS HIDNI TOPING" %}</h2>
+  <div class="section-head reveal" data-dir="up">
+    <span class="eyebrow">{% if site_settings %}{{ site_settings.catalog_title }}{% else %}{% trans "BIZNING KOLLEKSIYA" %}{% endif %}</span>
+    <h2>{% if site_settings %}{{ site_settings.catalog_subtitle }}{% else %}{% trans "O'ZINGIZGA MOS HIDNI TOPING" %}{% endif %}</h2>
     <span class="hero-divider">✦</span>
   </div>
 
   <div class="catalog-layout home-catalog-layout">
-    <aside class="filters-panel reveal">
+    <aside class="filters-panel reveal" data-dir="left">
       <h3>{% trans "FILTR" %}</h3>
       <form action="{% url 'shop:product_list' %}" method="get" class="home-filter-form" id="homeFilterForm">
         <div class="filter-group">
@@ -93,7 +85,7 @@
     </aside>
 
     <div class="catalog-main">
-      <div class="gender-tabs reveal" id="homeGenderTabs">
+      <div class="gender-tabs reveal" data-dir="up" id="homeGenderTabs">
         <button type="button" class="tab active" data-gender="all">{% trans "BARCHASI" %}</button>
         <button type="button" class="tab" data-gender="women">{% trans "AYOLLAR" %}</button>
         <button type="button" class="tab" data-gender="men">{% trans "ERKAKLAR" %}</button>
@@ -106,53 +98,57 @@
     </div>
   </div>
 
-  <div class="section-cta reveal">
-    <a href="{% url 'shop:product_list' %}" class="btn btn-outline">{% trans "Barcha atirlarni ko'rish" %}</a>
+  <div class="section-cta reveal" data-dir="up">
+    <a href="{% url 'shop:product_list' %}" class="btn btn-outline">{% if site_settings %}{{ site_settings.btn_details }}{% else %}{% trans "Barcha atirlarni ko'rish" %}{% endif %}</a>
   </div>
 </section>
 
 <!-- ================= ABOUT US ================= -->
 <section class="about-section" id="about-us">
   <div class="about-inner">
-    <div class="about-media reveal">
-      {% if site_settings.about_image_1 %}
-      <img src="{{ site_settings.about_image_1.url }}" alt="{{ SITE_NAME }} Perfume" class="about-img-main">
-      {% else %}
-      <img src="{% static 'shop/img/about-1.png' %}" alt="{{ SITE_NAME }} Perfume" class="about-img-main">
-      {% endif %}
-
-      {% if site_settings.about_image_2 %}
-      <img src="{{ site_settings.about_image_2.url }}" alt="{{ SITE_NAME }} box" class="about-img-float">
-      {% else %}
-      <img src="{% static 'shop/img/about-2.png' %}" alt="{{ SITE_NAME }} box" class="about-img-float">
-      {% endif %}
+    <div class="about-media reveal" data-dir="left">
+      <img src="{{ site_settings.about_image_1_url }}" alt="{{ SITE_NAME }} Perfume" class="about-img-main">
+      <img src="{{ site_settings.about_image_2_url }}" alt="{{ SITE_NAME }} box" class="about-img-float">
     </div>
-    <div class="about-text reveal">
+    <div class="about-text reveal" data-dir="right">
       <span class="eyebrow">{% trans "BIZ HAQIMIZDA" %}</span>
-      <h2>{% trans "NOZIK ATIRLAR SAN'ATI" %}</h2>
-      <p>{% trans "MYRON'da biz atir shunchaki hid emas — u bir bayonot, bir hissiyot, bir xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz sifat va nafosat bag'ishlaydi." %}</p>
+      <h2>{% if site_settings %}{{ site_settings.about_title }}{% else %}{% trans "NOZIK ATIRLAR SAN'ATI" %}{% endif %}</h2>
+      {% if site_settings and site_settings.about_subtitle %}
+      <p class="about-subtitle-lead" style="font-weight: 500; font-size: 1.1rem; color: var(--gold-color, #c5a059); margin-top: -6px; margin-bottom: 14px;">{{ site_settings.about_subtitle }}</p>
+      {% endif %}
+      <p>{% if site_settings %}{{ site_settings.about_text }}{% else %}{% trans "MYRON'da biz atir shunchaki hid emas — u bir bayonot, bir hissiyot, bir xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz sifat va nafosat bag'ishlaydi." %}{% endif %}</p>
 
       <div class="about-features">
-        <div class="feature reveal">
-          <div class="feature-icon">🌿</div>
-          <h4>{% trans "SIFATLI TARKIB" %}</h4>
-          <p>{% trans "Dunyoning eng sara joylaridan yetkazilgan" %}</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature-icon">🎓</div>
-          <h4>{% trans "MOHIR USTALAR" %}</h4>
-          <p>{% trans "Professional parfyumerlar tomonidan yaratilgan" %}</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature-icon">💎</div>
-          <h4>{% trans "HASHAMATLI TAJRIBA" %}</h4>
-          <p>{% trans "Nafis qadoqlash va nozik detallar" %}</p>
-        </div>
-        <div class="feature reveal">
-          <div class="feature-icon">🛡️</div>
-          <h4>{% trans "KAFOLAT" %}</h4>
-          <p>{% trans "100% originallik va sifat kafolati" %}</p>
-        </div>
+        {% if site_settings %}
+          {% for feature in site_settings.about_features %}
+          <div class="feature reveal" data-dir="scale">
+            <div class="feature-icon">{{ feature.icon }}</div>
+            <h4>{{ feature.title }}</h4>
+            <p>{{ feature.text }}</p>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div class="feature reveal" data-dir="scale">
+            <div class="feature-icon">🌿</div>
+            <h4>{% trans "SIFATLI TARKIB" %}</h4>
+            <p>{% trans "Dunyoning eng sara joylaridan yetkazilgan" %}</p>
+          </div>
+          <div class="feature reveal" data-dir="scale">
+            <div class="feature-icon">🎓</div>
+            <h4>{% trans "MOHIR USTALAR" %}</h4>
+            <p>{% trans "Professional parfyumerlar tomonidan yaratilgan" %}</p>
+          </div>
+          <div class="feature reveal" data-dir="scale">
+            <div class="feature-icon">💎</div>
+            <h4>{% trans "HASHAMATLI TAJRIBA" %}</h4>
+            <p>{% trans "Nafis qadoqlash va nozik detallar" %}</p>
+          </div>
+          <div class="feature reveal" data-dir="scale">
+            <div class="feature-icon">🛡️</div>
+            <h4>{% trans "KAFOLAT" %}</h4>
+            <p>{% trans "100% originallik va sifat kafolati" %}</p>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
-from .models import Product, ProductImage
+from .models import Product, ProductImage, SiteSettings
 
 
 class ProductImageInline(admin.TabularInline):
@@ -70,3 +70,9 @@ class ProductAdmin(admin.ModelAdmin):
                 obj.image.url,
             )
         return "—"
+
+
+@admin.register(SiteSettings)
+class SiteSettingsAdmin(admin.ModelAdmin):
+    list_display = ("site_name", "phone", "instagram_url", "telegram_url")
+

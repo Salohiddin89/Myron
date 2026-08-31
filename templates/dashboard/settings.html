@@ -1,123 +1,738 @@
 {% extends "dashboard/base.html" %}
 {% load static i18n %}
 
-{% block title %}{% trans "Sayt sozlamalari" %} — MYRON {% trans "Boshqaruv paneli" %}{% endblock %}
-{% block heading %}{% trans "Sayt sozlamalari va rasmlar" %}{% endblock %}
+{% block title %}{% trans "Sayt matnlari va sozlamalari" %} — MYRON {% trans "Boshqaruv paneli" %}{% endblock %}
+{% block heading %}{% trans "Sayt matnlari va sozlamalari" %}{% endblock %}
 
 {% block content %}
-<div class="panel">
-  <div class="panel-head">
-    <div>
-      <h2>{% trans "Asosiy sahifa va aloqa sozlamalari" %}</h2>
-      <small class="panel-subtitle">{% trans "Bosh sahifa, Biz haqimizda rasmlari va aloqa ma'lumotlarini tahrirlang" %}</small>
+<div class="settings-dashboard-container">
+  
+  <!-- ================= CONTROL HEADER & SEARCH ================= -->
+  <div class="settings-master-header">
+    <div class="settings-title-group">
+      <h2>
+        <svg class="header-icon-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        {% trans "Sayt matnlari va kontentini boshqarish" %}
+      </h2>
+      <p class="settings-subtext">{% trans "Saytda ko'rinadigan barcha statik matnlar, sarlavhalar, tugmalar va rasmlarni tahrirlang" %}</p>
+    </div>
+
+    <!-- Search & Category Filters -->
+    <div class="settings-search-bar">
+      <div class="search-input-wrapper">
+        <svg class="search-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="settingsSearchInput" placeholder="{% trans 'Matnni qidirish (hero, about, contact, button, emoji, uz, ru...)' %}" class="settings-search-input">
+        <button type="button" id="clearSearchBtn" class="clear-search-btn" style="display:none;">✕</button>
+      </div>
+
+      <div class="category-tabs" id="categoryTabs">
+        <button type="button" class="tab-pill active" data-filter="all">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6-6.3 4.6 2.3-7.4-6-4.6h7.6z"/></svg>
+          {% trans "Barchasi" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="contact">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          {% trans "Kontaktlar" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="about">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          {% trans "Biz haqimizda" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="hero">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          {% trans "Bosh sahifa" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="features">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          {% trans "Afzalliklar" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="catalog">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          {% trans "Aromatlar" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="buttons">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="12" cy="12" r="2"/></svg>
+          {% trans "Tugmalar" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="footer">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          {% trans "Footer" %}
+        </button>
+        <button type="button" class="tab-pill" data-filter="images">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          {% trans "Rasmlar" %}
+        </button>
+      </div>
     </div>
   </div>
 
-  <form method="post" enctype="multipart/form-data" class="form-grid">
+  <form method="post" enctype="multipart/form-data" id="siteSettingsForm" class="settings-form">
     {% csrf_token %}
 
-    <div class="form-section field-span-full mb-3">
-      <h3 class="section-title">📞 {% trans "Aloqa ma'lumotlari va ijtimoiy tarmoqlar" %}</h3>
-      <p class="section-sub">{% trans "Sayt footeri va aloqa bo‘limlarida ko‘rinadigan ma’lumotlar" %}</p>
+    {% if form.errors %}
+    <div class="alert alert-danger" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;">
+      <strong>⚠️ {% trans "Quyidagi maydonlarda xatolik bor:" %}</strong>
+      <ul style="margin: 6px 0 0 20px; padding: 0;">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
     </div>
+    {% endif %}
 
-    <div class="field-group">
-      <label for="{{ form.phone.id_for_label }}">{% trans "Telefon raqami" %} *</label>
-      {{ form.phone }}
-      {% if form.phone.errors %}<div class="form-error">{{ form.phone.errors.0 }}</div>{% endif %}
-    </div>
+    <!-- ================= 4-ZONE MASTER DASHBOARD GRID ================= -->
+    <div class="settings-4zone-grid">
 
-    <div class="field-group">
-      <label for="{{ form.instagram_url.id_for_label }}">{% trans "Instagram URL havolasi" %}</label>
-      {{ form.instagram_url }}
-      {% if form.instagram_url.errors %}<div class="form-error">{{ form.instagram_url.errors.0 }}</div>{% endif %}
-    </div>
-
-    <div class="field-group">
-      <label for="{{ form.telegram_url.id_for_label }}">{% trans "Telegram URL havolasi" %}</label>
-      {{ form.telegram_url }}
-      {% if form.telegram_url.errors %}<div class="form-error">{{ form.telegram_url.errors.0 }}</div>{% endif %}
-    </div>
-
-    <div class="form-section field-span-full my-4">
-      <h3 class="section-title">🖼️ {% trans 'Bosh sahifa va "Biz haqimizda" rasmlari' %}</h3>
-      <p class="section-sub">{% trans "Yangi rasm tanlasangiz, saytdagi standart rasmlar o‘rniga shu rasmlar ko‘rsatiladi" %}</p>
-    </div>
-
-    <!-- Hero Image -->
-    <div class="field-group field-span-full">
-      <label>1. {% trans "Bosh sahifa asosiy rasmi (Hero banner)" %}</label>
-      <div class="image-upload-preview">
-        {% if settings_obj.hero_image %}
-          <div class="current-img">
-            <img src="{{ settings_obj.hero_image.url }}" alt="{% trans 'Hero rasmi' %}">
-            <span>{% trans "Hozirgi rasm" %}</span>
+      <!-- ================= ZONE 1 (TOP LEFT): KONTAKTLAR VA IJTIMOIY TARMOQLAR ================= -->
+      <div class="zone-card settings-card" data-category="contact">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon-badge">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+            <div>
+              <h3>{% trans "Kontaktlar va Ijtimoiy Tarmoqlar" %}</h3>
+              <small>{% trans "Telefon, Instagram, Telegram va bog'lanish matnlari" %}</small>
+            </div>
           </div>
-        {% else %}
-          <div class="current-img default">
-            <img src="{% static 'shop/img/hero-placeholder.png' %}" alt="{% trans 'Standart Hero rasmi' %}">
-            <span>{% trans "Standart rasm" %}</span>
+          <button type="button" class="card-toggle-btn" aria-label="Toggle section">▼</button>
+        </div>
+
+        <div class="card-body">
+          <div class="field-grid-1col mb-3">
+            <div class="field-grid-2col mb-2">
+              <div class="field-box">
+                <label for="{{ form.site_name.id_for_label }}">🏢 {% trans "Sayt nomi" %}</label>
+                {{ form.site_name }}
+                {% if form.site_name.errors %}<div class="form-error">{{ form.site_name.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.phone.id_for_label }}">📞 {% trans "Telefon raqami" %}</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}<div class="form-error">{{ form.phone.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
+            
+            <div class="field-grid-2col">
+              <div class="field-box">
+                <label for="{{ form.instagram_url.id_for_label }}">📷 {% trans "Instagram URL havolasi" %}</label>
+                {{ form.instagram_url }}
+                {% if form.instagram_url.errors %}<div class="form-error">{{ form.instagram_url.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.telegram_url.id_for_label }}">✈️ {% trans "Telegram URL havolasi" %}</label>
+                {{ form.telegram_url }}
+                {% if form.telegram_url.errors %}<div class="form-error">{{ form.telegram_url.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
           </div>
-        {% endif %}
-        <div class="upload-box">
-          {{ form.hero_image }}
-          <small>{% trans "Tavsiya etiladi: 600x600px shaffof fonli PNG yoki JPG" %}</small>
+
+          <div class="bilingual-section">
+            <div class="bilingual-title">📝 {% trans "Kontaktlar Bo'limi Sarlavhalari" %}</div>
+            <div class="bilingual-grid">
+              <div class="field-box">
+                <label for="{{ form.contact_title_uz.id_for_label }}">🇺🇿 {% trans "Sarlavha (UZ)" %}</label>
+                {{ form.contact_title_uz }}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.contact_title_ru.id_for_label }}">🇷🇺 {% trans "Sarlavha (RU)" %}</label>
+                {{ form.contact_title_ru }}
+              </div>
+            </div>
+            <div class="bilingual-grid mt-2">
+              <div class="field-box">
+                <label for="{{ form.contact_subtitle_uz.id_for_label }}">🇺🇿 {% trans "Ostki matn (UZ)" %}</label>
+                {{ form.contact_subtitle_uz }}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.contact_subtitle_ru.id_for_label }}">🇷🇺 {% trans "Ostki matn (RU)" %}</label>
+                {{ form.contact_subtitle_ru }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {% if form.hero_image.errors %}<div class="form-error">{{ form.hero_image.errors.0 }}</div>{% endif %}
-    </div>
 
-    <!-- About Image 1 -->
-    <div class="field-group field-span-full">
-      <label>2. {% trans '"Biz haqimizda" asosiy rasmi (About 1)' %}</label>
-      <div class="image-upload-preview">
-        {% if settings_obj.about_image_1 %}
-          <div class="current-img">
-            <img src="{{ settings_obj.about_image_1.url }}" alt="{% trans 'About 1 rasmi' %}">
-            <span>{% trans "Hozirgi rasm" %}</span>
+      <!-- ================= ZONE 2 (TOP RIGHT): BIZ HAQIMIZDA VA BOSH SAHIFA MATNLARI ================= -->
+      <div class="zone-card settings-card" data-category="about hero">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon-badge">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+              </svg>
+            </span>
+            <div>
+              <h3>{% trans "Biz Haqimizda va Bosh Sahifa Matnlari" %}</h3>
+              <small>{% trans "Hero sarlavha, Biz haqimizda katta sarlavha va uzun matnlar" %}</small>
+            </div>
           </div>
-        {% else %}
-          <div class="current-img default">
-            <img src="{% static 'shop/img/about-1.png' %}" alt="{% trans 'Standart About 1 rasmi' %}">
-            <span>{% trans "Standart rasm" %}</span>
+          <button type="button" class="card-toggle-btn" aria-label="Toggle section">▼</button>
+        </div>
+
+        <div class="card-body">
+          <!-- Hero Title & Subtitle -->
+          <div class="bilingual-section mb-3">
+            <div class="bilingual-title">🏠 {% trans "Bosh Sahifa (Hero) Sarlavhalari" %}</div>
+            <div class="bilingual-grid mb-2">
+              <div class="field-box">
+                <label for="{{ form.hero_title_uz.id_for_label }}">🇺🇿 {% trans "Hero Sarlavha (UZ)" %}</label>
+                {{ form.hero_title_uz }}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.hero_title_ru.id_for_label }}">🇷🇺 {% trans "Hero Sarlavha (RU)" %}</label>
+                {{ form.hero_title_ru }}
+              </div>
+            </div>
+            <div class="bilingual-grid">
+              <div class="field-box">
+                <label for="{{ form.hero_subtitle_uz.id_for_label }}">🇺🇿 {% trans "Hero Ostki Tavsif (UZ)" %}</label>
+                {{ form.hero_subtitle_uz }}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.hero_subtitle_ru.id_for_label }}">🇷🇺 {% trans "Hero Ostki Tavsif (RU)" %}</label>
+                {{ form.hero_subtitle_ru }}
+              </div>
+            </div>
           </div>
-        {% endif %}
-        <div class="upload-box">
-          {{ form.about_image_1 }}
-          <small>{% trans "Tavsiya etiladi: 500x600px yuqori sifatli JPG/PNG" %}</small>
+
+          <!-- About Us Section -->
+          <div class="bilingual-section">
+            <div class="bilingual-title">ℹ️ {% trans '"Biz haqimizda" Katta Sarlavha va Asosiy Matn' %}</div>
+            <div class="bilingual-grid mb-2">
+              <div class="field-box">
+                <label for="{{ form.about_title_uz.id_for_label }}">🇺🇿 {% trans "About Sarlavha (UZ)" %}</label>
+                {{ form.about_title_uz }}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.about_title_ru.id_for_label }}">🇷🇺 {% trans "About Sarlavha (RU)" %}</label>
+                {{ form.about_title_ru }}
+              </div>
+            </div>
+            <div class="bilingual-grid mb-2">
+              <div class="field-box">
+                <label for="{{ form.about_subtitle_uz.id_for_label }}">🇺🇿 {% trans "About Subtitle (UZ)" %}</label>
+                {{ form.about_subtitle_uz }}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.about_subtitle_ru.id_for_label }}">🇷🇺 {% trans "About Subtitle (RU)" %}</label>
+                {{ form.about_subtitle_ru }}
+              </div>
+            </div>
+            <div class="bilingual-grid">
+              <div class="field-box">
+                <label for="{{ form.about_text_uz.id_for_label }}">🇺🇿 {% trans "About Asosiy Matn (UZ)" %}</label>
+                {{ form.about_text_uz }}
+              </div>
+              <div class="field-box">
+                <label for="{{ form.about_text_ru.id_for_label }}">🇷🇺 {% trans "About Asosiy Matn (RU)" %}</label>
+                {{ form.about_text_ru }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {% if form.about_image_1.errors %}<div class="form-error">{{ form.about_image_1.errors.0 }}</div>{% endif %}
-    </div>
 
-    <!-- About Image 2 -->
-    <div class="field-group field-span-full">
-      <label>3. {% trans '"Biz haqimizda" kichik muallaq rasmi (About 2)' %}</label>
-      <div class="image-upload-preview">
-        {% if settings_obj.about_image_2 %}
-          <div class="current-img">
-            <img src="{{ settings_obj.about_image_2.url }}" alt="{% trans 'About 2 rasmi' %}">
-            <span>{% trans "Hozirgi rasm" %}</span>
+      <!-- ================= ZONE 3 (BOTTOM LEFT): SAYT RASMLARI ================= -->
+      <div class="zone-card settings-card" data-category="images">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon-badge">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </span>
+            <div>
+              <h3>{% trans "Sayt Rasmlari va Bannerlar" %}</h3>
+              <small>{% trans "Hero rasm, Biz haqimizda 1-rasm va 2-rasm" %}</small>
+            </div>
           </div>
-        {% else %}
-          <div class="current-img default">
-            <img src="{% static 'shop/img/about-2.png' %}" alt="{% trans 'Standart About 2 rasmi' %}">
-            <span>{% trans "Standart rasm" %}</span>
+          <button type="button" class="card-toggle-btn" aria-label="Toggle section">▼</button>
+        </div>
+
+        <div class="card-body">
+          <!-- Hero Image Card -->
+          <div class="image-upload-card mb-3">
+            <div class="image-card-title">1. {% trans "Hero Banner Rasmi" %}</div>
+            <div class="image-card-content">
+              <div class="img-preview-box">
+                {% if settings_obj.hero_image %}
+                  <img src="{{ settings_obj.hero_image.url }}" alt="Hero image">
+                  <span class="img-badge">{% trans "Yuklangan" %}</span>
+                {% else %}
+                  <img src="{% static 'shop/img/hero-placeholder.png' %}" alt="Default hero">
+                  <span class="img-badge default">{% trans "Standart" %}</span>
+                {% endif %}
+              </div>
+              <div class="img-upload-inputs">
+                <label class="file-custom-btn">
+                  📁 {% trans "Fayl tanlash" %}
+                  {{ form.hero_image }}
+                </label>
+                <small class="img-help-text">{% trans "Tavsiya: 600x600px shaffof PNG/JPG" %}</small>
+                {% if form.hero_image.errors %}<div class="form-error">{{ form.hero_image.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
           </div>
-        {% endif %}
-        <div class="upload-box">
-          {{ form.about_image_2 }}
-          <small>{% trans "Tavsiya etiladi: 300x300px quticha yoki flakon rasmi" %}</small>
+
+          <!-- About Image 1 -->
+          <div class="image-upload-card mb-3">
+            <div class="image-card-title">2. {% trans '"Biz haqimizda" 1-Asosiy Rasm' %}</div>
+            <div class="image-card-content">
+              <div class="img-preview-box">
+                {% if settings_obj.about_image_1 %}
+                  <img src="{{ settings_obj.about_image_1.url }}" alt="About 1">
+                  <span class="img-badge">{% trans "Yuklangan" %}</span>
+                {% else %}
+                  <img src="{% static 'shop/img/about-1.png' %}" alt="Default about 1">
+                  <span class="img-badge default">{% trans "Standart" %}</span>
+                {% endif %}
+              </div>
+              <div class="img-upload-inputs">
+                <label class="file-custom-btn">
+                  📁 {% trans "Fayl tanlash" %}
+                  {{ form.about_image_1 }}
+                </label>
+                <small class="img-help-text">{% trans "Tavsiya: 500x600px PNG/JPG" %}</small>
+                {% if form.about_image_1.errors %}<div class="form-error">{{ form.about_image_1.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
+          </div>
+
+          <!-- About Image 2 -->
+          <div class="image-upload-card">
+            <div class="image-card-title">3. {% trans '"Biz haqimizda" 2-Kichik Rasm' %}</div>
+            <div class="image-card-content">
+              <div class="img-preview-box">
+                {% if settings_obj.about_image_2 %}
+                  <img src="{{ settings_obj.about_image_2.url }}" alt="About 2">
+                  <span class="img-badge">{% trans "Yuklangan" %}</span>
+                {% else %}
+                  <img src="{% static 'shop/img/about-2.png' %}" alt="Default about 2">
+                  <span class="img-badge default">{% trans "Standart" %}</span>
+                {% endif %}
+              </div>
+              <div class="img-upload-inputs">
+                <label class="file-custom-btn">
+                  📁 {% trans "Fayl tanlash" %}
+                  {{ form.about_image_2 }}
+                </label>
+                <small class="img-help-text">{% trans "Tavsiya: 300x300px PNG/JPG" %}</small>
+                {% if form.about_image_2.errors %}<div class="form-error">{{ form.about_image_2.errors.0 }}</div>{% endif %}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {% if form.about_image_2.errors %}<div class="form-error">{{ form.about_image_2.errors.0 }}</div>{% endif %}
+
+      <!-- ================= ZONE 4 (BOTTOM RIGHT): 4 TA XUSUSIYAT BLOKI ================= -->
+      <div class="zone-card settings-card" data-category="features">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon-badge">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </span>
+            <div>
+              <h3>{% trans '"Biz Haqimizda" 4 ta Xususiyat Bloki' %}</h3>
+              <small>{% trans "Har bir kartochka uchun emoji, sarlavha va qisqa matnlarni tahrirlang" %}</small>
+            </div>
+          </div>
+          <button type="button" class="card-toggle-btn" aria-label="Toggle section">▼</button>
+        </div>
+
+        <div class="card-body">
+          <div class="features-edit-list">
+
+            <!-- 1-Xususiyat -->
+            <div class="feature-edit-card mb-3">
+              <div class="feature-card-head">
+                <span class="feat-num">✨ 1-{% trans "Xususiyat" %}</span>
+                <div class="emoji-picker-box">
+                  <label>{% trans "Emoji" %}</label>
+                  <div class="emoji-input-wrap">
+                    <span class="emoji-badge">{{ form.about_feature1_icon.value|default:"🌿" }}</span>
+                    {{ form.about_feature1_icon }}
+                  </div>
+                </div>
+              </div>
+              <div class="feature-card-fields">
+                <div class="bilingual-grid compact">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Sarlavha (UZ)" %}</label>
+                    {{ form.about_feature1_title_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Sarlavha (RU)" %}</label>
+                    {{ form.about_feature1_title_ru }}
+                  </div>
+                </div>
+                <div class="bilingual-grid compact mt-2">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Matn (UZ)" %}</label>
+                    {{ form.about_feature1_text_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Matn (RU)" %}</label>
+                    {{ form.about_feature1_text_ru }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2-Xususiyat -->
+            <div class="feature-edit-card mb-3">
+              <div class="feature-card-head">
+                <span class="feat-num">✨ 2-{% trans "Xususiyat" %}</span>
+                <div class="emoji-picker-box">
+                  <label>{% trans "Emoji" %}</label>
+                  <div class="emoji-input-wrap">
+                    <span class="emoji-badge">{{ form.about_feature2_icon.value|default:"🎓" }}</span>
+                    {{ form.about_feature2_icon }}
+                  </div>
+                </div>
+              </div>
+              <div class="feature-card-fields">
+                <div class="bilingual-grid compact">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Sarlavha (UZ)" %}</label>
+                    {{ form.about_feature2_title_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Sarlavha (RU)" %}</label>
+                    {{ form.about_feature2_title_ru }}
+                  </div>
+                </div>
+                <div class="bilingual-grid compact mt-2">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Matn (UZ)" %}</label>
+                    {{ form.about_feature2_text_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Matn (RU)" %}</label>
+                    {{ form.about_feature2_text_ru }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3-Xususiyat -->
+            <div class="feature-edit-card mb-3">
+              <div class="feature-card-head">
+                <span class="feat-num">✨ 3-{% trans "Xususiyat" %}</span>
+                <div class="emoji-picker-box">
+                  <label>{% trans "Emoji" %}</label>
+                  <div class="emoji-input-wrap">
+                    <span class="emoji-badge">{{ form.about_feature3_icon.value|default:"💎" }}</span>
+                    {{ form.about_feature3_icon }}
+                  </div>
+                </div>
+              </div>
+              <div class="feature-card-fields">
+                <div class="bilingual-grid compact">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Sarlavha (UZ)" %}</label>
+                    {{ form.about_feature3_title_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Sarlavha (RU)" %}</label>
+                    {{ form.about_feature3_title_ru }}
+                  </div>
+                </div>
+                <div class="bilingual-grid compact mt-2">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Matn (UZ)" %}</label>
+                    {{ form.about_feature3_text_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Matn (RU)" %}</label>
+                    {{ form.about_feature3_text_ru }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4-Xususiyat -->
+            <div class="feature-edit-card">
+              <div class="feature-card-head">
+                <span class="feat-num">✨ 4-{% trans "Xususiyat" %}</span>
+                <div class="emoji-picker-box">
+                  <label>{% trans "Emoji" %}</label>
+                  <div class="emoji-input-wrap">
+                    <span class="emoji-badge">{{ form.about_feature4_icon.value|default:"🛡️" }}</span>
+                    {{ form.about_feature4_icon }}
+                  </div>
+                </div>
+              </div>
+              <div class="feature-card-fields">
+                <div class="bilingual-grid compact">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Sarlavha (UZ)" %}</label>
+                    {{ form.about_feature4_title_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Sarlavha (RU)" %}</label>
+                    {{ form.about_feature4_title_ru }}
+                  </div>
+                </div>
+                <div class="bilingual-grid compact mt-2">
+                  <div class="field-box">
+                    <label>🇺🇿 {% trans "Matn (UZ)" %}</label>
+                    {{ form.about_feature4_text_uz }}
+                  </div>
+                  <div class="field-box">
+                    <label>🇷🇺 {% trans "Matn (RU)" %}</label>
+                    {{ form.about_feature4_text_ru }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="form-actions field-span-full mt-4">
-      <button type="submit" class="btn btn-gold btn-lg">
-        <span>💾 {% trans "Sozlamalarni saqlash" %}</span>
-      </button>
+    <!-- ================= EXTRA CATEGORY CARDS (CATALOG, BUTTONS, FOOTER) ================= -->
+    <div class="extra-categories-container mt-4">
+
+      <!-- Catalog / Perfumes Section -->
+      <div class="settings-card full-width-card" data-category="catalog">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon-badge">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+            </span>
+            <div>
+              <h3>{% trans "Katalog va Aromatlar Sarlavhalari" %}</h3>
+              <small>{% trans "Katalog va kolleksiya bo'limidagi sarlavha va ostki yozuvlar" %}</small>
+            </div>
+          </div>
+          <button type="button" class="card-toggle-btn" aria-label="Toggle section">▼</button>
+        </div>
+        <div class="card-body">
+          <div class="bilingual-grid">
+            <div class="field-box">
+              <label for="{{ form.catalog_title_uz.id_for_label }}">🇺🇿 {% trans "Katalog Sarlavha (UZ)" %}</label>
+              {{ form.catalog_title_uz }}
+            </div>
+            <div class="field-box">
+              <label for="{{ form.catalog_title_ru.id_for_label }}">🇷🇺 {% trans "Katalog Sarlavha (RU)" %}</label>
+              {{ form.catalog_title_ru }}
+            </div>
+          </div>
+          <div class="bilingual-grid mt-2">
+            <div class="field-box">
+              <label for="{{ form.catalog_subtitle_uz.id_for_label }}">🇺🇿 {% trans "Katalog Ostki Matn (UZ)" %}</label>
+              {{ form.catalog_subtitle_uz }}
+            </div>
+            <div class="field-box">
+              <label for="{{ form.catalog_subtitle_ru.id_for_label }}">🇷🇺 {% trans "Katalog Ostki Matn (RU)" %}</label>
+              {{ form.catalog_subtitle_ru }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons Section -->
+      <div class="settings-card full-width-card mt-3" data-category="buttons">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon-badge">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="8" width="18" height="8" rx="4"/><circle cx="12" cy="12" r="2"/>
+              </svg>
+            </span>
+            <div>
+              <h3>{% trans "Tugma Yozuvlari (Button Texts)" %}</h3>
+              <small>{% trans "Saytdagi har xil tugmalarning O'zbekcha va Ruscha matnlari" %}</small>
+            </div>
+          </div>
+          <button type="button" class="card-toggle-btn" aria-label="Toggle section">▼</button>
+        </div>
+        <div class="card-body">
+          <div class="bilingual-grid">
+            <div class="field-box">
+              <label for="{{ form.hero_btn_uz.id_for_label }}">🇺🇿 {% trans "Hero Tugmasi (UZ)" %}</label>
+              {{ form.hero_btn_uz }}
+            </div>
+            <div class="field-box">
+              <label for="{{ form.hero_btn_ru.id_for_label }}">🇷🇺 {% trans "Hero Tugmasi (RU)" %}</label>
+              {{ form.hero_btn_ru }}
+            </div>
+          </div>
+          <div class="bilingual-grid mt-2">
+            <div class="field-box">
+              <label for="{{ form.btn_buy_uz.id_for_label }}">🇺🇿 {% trans "Xarid Qilish Tugmasi (UZ)" %}</label>
+              {{ form.btn_buy_uz }}
+            </div>
+            <div class="field-box">
+              <label for="{{ form.btn_buy_ru.id_for_label }}">🇷🇺 {% trans "Xarid Qilish Tugmasi (RU)" %}</label>
+              {{ form.btn_buy_ru }}
+            </div>
+          </div>
+          <div class="bilingual-grid mt-2">
+            <div class="field-box">
+              <label for="{{ form.btn_details_uz.id_for_label }}">🇺🇿 {% trans "Batafsil Tugmasi (UZ)" %}</label>
+              {{ form.btn_details_uz }}
+            </div>
+            <div class="field-box">
+              <label for="{{ form.btn_details_ru.id_for_label }}">🇷🇺 {% trans "Batafsil Tugmasi (RU)" %}</label>
+              {{ form.btn_details_ru }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="settings-card full-width-card mt-3" data-category="footer">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="card-icon-badge">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </span>
+            <div>
+              <h3>{% trans "Footer va Mualliflik Matni" %}</h3>
+              <small>{% trans "Sayt ostidagi yakuniy matn va ma'lumotlar" %}</small>
+            </div>
+          </div>
+          <button type="button" class="card-toggle-btn" aria-label="Toggle section">▼</button>
+        </div>
+        <div class="card-body">
+          <div class="bilingual-grid">
+            <div class="field-box">
+              <label for="{{ form.footer_text_uz.id_for_label }}">🇺🇿 {% trans "Footer Matni (UZ)" %}</label>
+              {{ form.footer_text_uz }}
+            </div>
+            <div class="field-box">
+              <label for="{{ form.footer_text_ru.id_for_label }}">🇷🇺 {% trans "Footer Matni (RU)" %}</label>
+              {{ form.footer_text_ru }}
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- ================= STICKY ACTION BAR ================= -->
+    <div class="sticky-action-bar">
+      <div class="action-bar-inner">
+        <div class="action-bar-info">
+          <span class="pulse-status-dot"></span>
+          <span class="status-text">{% trans "Sayt sozlamalari tayyor" %}</span>
+        </div>
+        <div class="action-bar-buttons">
+          <a href="/" target="_blank" class="btn btn-secondary-action">
+            👁️ {% trans "Saytni ko'rish" %}
+          </a>
+          <button type="submit" class="btn btn-gold-sticky">
+            💾 {% trans "Sozlamalarni saqlash" %}
+          </button>
+        </div>
+      </div>
+    </div>
+
   </form>
 </div>
+
+<!-- ================= JAVASCRIPT FOR INTERACTION ================= -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("settingsSearchInput");
+  const clearBtn = document.getElementById("clearSearchBtn");
+  const tabPills = document.querySelectorAll("#categoryTabs .tab-pill");
+  const settingsCards = document.querySelectorAll(".settings-card");
+  const toggleBtns = document.querySelectorAll(".card-toggle-btn");
+
+  // Toggle card collapse
+  toggleBtns.forEach(btn => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const card = this.closest(".settings-card");
+      card.classList.toggle("collapsed");
+      this.textContent = card.classList.contains("collapsed") ? "▲" : "▼";
+    });
+  });
+
+  // Category filter tabs
+  tabPills.forEach(pill => {
+    pill.addEventListener("click", function () {
+      tabPills.forEach(p => p.classList.remove("active"));
+      this.classList.add("active");
+
+      const filter = this.getAttribute("data-filter");
+      filterCards(filter, searchInput.value.trim());
+    });
+  });
+
+  // Search input filter
+  if (searchInput) {
+    searchInput.addEventListener("input", function () {
+      const query = this.value.trim().toLowerCase();
+      clearBtn.style.display = query.length > 0 ? "inline-block" : "none";
+
+      const activePill = document.querySelector("#categoryTabs .tab-pill.active");
+      const activeFilter = activePill ? activePill.getAttribute("data-filter") : "all";
+
+      filterCards(activeFilter, query);
+    });
+
+    clearBtn.addEventListener("click", function () {
+      searchInput.value = "";
+      clearBtn.style.display = "none";
+      const activePill = document.querySelector("#categoryTabs .tab-pill.active");
+      const activeFilter = activePill ? activePill.getAttribute("data-filter") : "all";
+      filterCards(activeFilter, "");
+    });
+  }
+
+  function filterCards(filterCategory, searchQuery) {
+    settingsCards.forEach(card => {
+      const cardCategory = card.getAttribute("data-category") || "";
+      const cardText = card.innerText.toLowerCase();
+
+      let categoryMatch = filterCategory === "all" || cardCategory.includes(filterCategory);
+      let searchMatch = searchQuery === "" || cardText.includes(searchQuery);
+
+      if (categoryMatch && searchMatch) {
+        card.style.display = "block";
+        if (searchQuery !== "") {
+          card.classList.remove("collapsed");
+        }
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  // Live emoji badge preview
+  document.querySelectorAll(".emoji-input-wrap input").forEach(input => {
+    input.addEventListener("input", function () {
+      const badge = this.previousElementSibling;
+      if (badge && badge.classList.contains("emoji-badge")) {
+        badge.textContent = this.value.trim() || "✨";
+      }
+    });
+  });
+});
+</script>
 {% endblock %}

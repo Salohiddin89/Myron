@@ -327,8 +327,11 @@ def order_receipt(request, pk):
 def site_settings_view(request):
     settings_obj = SiteSettings.get_settings()
     form = SiteSettingsForm(request.POST or None, request.FILES or None, instance=settings_obj)
-    if request.method == "POST" and form.is_valid():
-        form.save()
-        messages.success(request, _("✨ Sayt sozlamalari va rasmlari muvaffaqiyatli saqlandi."))
-        return redirect("dashboard:settings")
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("✨ Sayt sozlamalari va rasmlari muvaffaqiyatli saqlandi."))
+            return redirect("dashboard:settings")
+        else:
+            messages.error(request, _("⚠️ Sozlamalarni saqlashda xatolik yuz berdi. Iltimos, kiritilgan ma'lumotlarni tekshiring."))
     return render(request, "dashboard/settings.html", {"form": form, "settings_obj": settings_obj})

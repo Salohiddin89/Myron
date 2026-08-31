@@ -9,9 +9,15 @@ from django.utils.translation import gettext as _
 _REQUEST_HISTORY = defaultdict(list)
 _POST_HISTORY = defaultdict(list)
 
-# Limits
-MAX_GET_PER_MINUTE = 120
-MAX_POST_PER_MINUTE = 20
+# Rate Limits
+MAX_GET_PER_MINUTE = 150
+MAX_POST_PER_MINUTE = 30
+MAX_AUTH_POST_PER_MINUTE = 5
+
+_AUTH_POST_HISTORY = defaultdict(list)
+
+# Sensitive paths needing strict brute-force protection
+AUTH_PATHS = ("/MYRON-control-9821/kirish/", "/MYRON-control-9821/chiqish/")
 
 # Malicious patterns (Path traversal, SQLi probes, XSS in query parameters)
 SUSPICIOUS_PATTERNS = re.compile(
@@ -22,7 +28,7 @@ SUSPICIOUS_PATTERNS = re.compile(
 
 class CybersecurityMiddleware:
     """Production-grade Security Middleware for MYRON Perfume.
-    - Rate limits IPs to prevent DoS / Brute-force attacks.
+    - Rate limits IPs to prevent DoS / Brute-force attacks (with strict login limits).
     - Filters malicious payload patterns (Path traversal, SQLi, XSS).
     - Sets security headers (XSS, Nosniff, Clickjacking prevention).
     """
@@ -33,6 +39,7 @@ class CybersecurityMiddleware:
     def __call__(self, request):
         ip = self.get_client_ip(request)
         now = time.time()
+        path = request.path
 
         # 1. Inspect Query String & Request Path for malicious payloads
         full_path = urllib.parse.unquote(request.get_full_path())
@@ -43,6 +50,7 @@ class CybersecurityMiddleware:
         # Clean up old timestamps (> 60s ago)
         _REQUEST_HISTORY[ip] = [t for t in _REQUEST_HISTORY[ip] if now - t < 60]
         _POST_HISTORY[ip] = [t for t in _POST_HISTORY[ip] if now - t < 60]
+        _AUTH_POST_HISTORY[ip] = [t for t in _AUTH_POST_HISTORY[ip] if now - t < 60]
 
         if len(_REQUEST_HISTORY[ip]) >= MAX_GET_PER_MINUTE:
             if request.headers.get("x-requested-with") == "XMLHttpRequest":
@@ -52,6 +60,12 @@ class CybersecurityMiddleware:
         _REQUEST_HISTORY[ip].append(now)
 
         if request.method == "POST":
+            # Strict limit for authentication & login attempts (max 5 per minute)
+            if any(path.startswith(auth_path) for auth_path in AUTH_PATHS):
+                if len(_AUTH_POST_HISTORY[ip]) >= MAX_AUTH_POST_PER_MINUTE:
+                    return HttpResponseForbidden("429 Too Many Requests: Parolni noto'g'ri kiritish limiti oshib ketdi. 1 daqiqadan so'ng qayta urining.")
+                _AUTH_POST_HISTORY[ip].append(now)
+
             if len(_POST_HISTORY[ip]) >= MAX_POST_PER_MINUTE:
                 if request.headers.get("x-requested-with") == "XMLHttpRequest":
                     return JsonResponse({"error": _("So'rovlar soni cheklandi. Biroz kuting.")}, status=429)

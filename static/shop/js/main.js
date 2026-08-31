@@ -891,14 +891,275 @@
   /* Init sliders on page load */
   initCardSliders();
 
-  /* Re-init sliders whenever new product cards are injected via AJAX
-     (covers both home catalog filter and full catalog page). */
-  const sliderGrid = document.getElementById("productGrid");
+  /* Re-init sliders whenever new product cards are injected via AJAX */
+  var sliderGrid = document.getElementById("productGrid");
   if (sliderGrid) {
-    const gridObserver = new MutationObserver(function () {
+    var sliderGridObs = new MutationObserver(function () {
       initCardSliders(sliderGrid);
     });
-    gridObserver.observe(sliderGrid, { childList: true, subtree: false });
+    sliderGridObs.observe(sliderGrid, { childList: true, subtree: false });
   }
 
+  /* ---------------------------------------------------------------
+     SCROLL REVEAL — IntersectionObserver
+     Works with .reveal elements that carry optional data-dir attribute
+     (up | down | left | right | scale) and stagger-delay from siblings
+  --------------------------------------------------------------- */
+  (function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: just make everything visible immediately
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+
+    var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); // animate once
+        }
+      });
+    }, {
+      threshold: isMobile ? 0.06 : 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    function observeAll(root) {
+      var els = (root || document).querySelectorAll('.reveal:not(.is-visible)');
+
+      // Group siblings by parent to apply stagger delay
+      var parentMap = new Map();
+      els.forEach(function (el) {
+        var parent = el.parentElement;
+        if (!parentMap.has(parent)) parentMap.set(parent, []);
+        parentMap.get(parent).push(el);
+      });
+
+      parentMap.forEach(function (siblings) {
+        // Only stagger if more than 1 sibling in group
+        if (siblings.length > 1) {
+          siblings.forEach(function (el, idx) {
+            // Don't overwrite existing data-delay
+            if (!el.dataset.delay) {
+              el.dataset.delay = Math.min(idx + 1, 8);
+            }
+          });
+        }
+        siblings.forEach(function (el) { observer.observe(el); });
+      });
+    }
+
+    // Initial pass on page load
+    observeAll();
+
+    // Re-observe when AJAX injects new cards into product grid
+    var productGrid = document.getElementById('productGrid');
+    if (productGrid) {
+      var gridMutObs = new MutationObserver(function () {
+        observeAll(productGrid);
+      });
+      gridMutObs.observe(productGrid, { childList: true });
+    }
+
+    // Expose for manual calls (e.g. after filter update)
+    window.reinitReveal = observeAll;
+  })();
+
+  /* ---------------------------------------------------------------
+     SMOOTH ANCHOR SCROLL
+     Intercepts clicks on any <a href="#section"> or [data-section]
+     and scrolls smoothly to the target with header offset
+  --------------------------------------------------------------- */
+  (function initSmoothScroll() {
+    var headerEl = document.getElementById('siteHeader');
+
+    function scrollToTarget(targetId) {
+      var target = document.getElementById(targetId);
+      if (!target) return false;
+      var headerH = headerEl ? headerEl.offsetHeight : 70;
+      var top = target.getBoundingClientRect().top + window.scrollY - headerH - 16;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+      return true;
+    }
+
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href^="#"], [data-section]');
+      if (!link) return;
+
+      var section = link.dataset.section || (link.getAttribute('href') || '').replace('#', '');
+      if (!section) return;
+
+      // Filter tabs — handled by existing gender-tab JS, don't interfere
+      if (link.dataset.gender !== undefined) return;
+
+      if (scrollToTarget(section)) {
+        e.preventDefault();
+      }
+    });
+  })();
+
+  /* ---------------------------------------------------------------
+     IMAGE LAZY-LOAD FADE-IN
+     Images that are inside .reveal blocks get a smooth fade-in
+     once their src has fully loaded — prevents layout flash
+  --------------------------------------------------------------- */
+  (function initImageFade() {
+    var imgs = document.querySelectorAll('.product-card img, .about-img-main, .about-img-float');
+    imgs.forEach(function (img) {
+      if (img.complete && img.naturalWidth > 0) {
+        img.style.opacity = '1';
+        return;
+      }
+      img.style.opacity = '0';
+      img.style.transition = 'opacity .5s ease';
+      img.addEventListener('load', function () {
+        img.style.opacity = '1';
+      });
+      img.addEventListener('error', function () {
+        img.style.opacity = '1'; // show broken-image icon cleanly
+      });
+    });
+  })();
+
+  /* ---------------------------------------------------------------
+     PRODUCT DETAIL GALLERY SLIDER
+     Supports:
+     - 1-to-1 sync between slides and thumbnails
+     - Auto-slide every 3000ms
+     - Prev (<) & Next (>) arrow buttons
+     - Clickable thumbnail selection
+     - Touch swipe for mobile
+  --------------------------------------------------------------- */
+  (function initProductDetailGallery() {
+    var gallery = document.querySelector('.pd-gallery');
+    if (!gallery) return;
+
+    var slides = gallery.querySelectorAll('.pd-slide');
+    var thumbs = gallery.querySelectorAll('.pd-thumb');
+    var prevBtn = gallery.querySelector('#pdPrevBtn, .pd-arrow-prev');
+    var nextBtn = gallery.querySelector('#pdNextBtn, .pd-arrow-next');
+
+    if (slides.length === 0) return;
+
+    var current = 0;
+    var autoTimer = null;
+    var pauseTimer = null;
+
+    function goTo(index) {
+      if (index < 0) index = slides.length - 1;
+      if (index >= slides.length) index = 0;
+
+      slides.forEach(function (slide, i) {
+        if (i === index) {
+          slide.classList.add('active');
+          slide.style.opacity = '';
+        } else {
+          slide.classList.remove('active');
+          slide.style.opacity = '';
+        }
+      });
+
+      thumbs.forEach(function (thumb, i) {
+        if (i === index) {
+          thumb.classList.add('active');
+          thumb.style.opacity = '';
+          var thumbsContainer = gallery.querySelector('.pd-thumbs');
+          if (thumbsContainer && thumb) {
+            var targetScroll = thumb.offsetLeft - (thumbsContainer.clientWidth / 2) + (thumb.offsetWidth / 2);
+            thumbsContainer.scrollTo({ left: targetScroll, behavior: 'smooth' });
+          }
+        } else {
+          thumb.classList.remove('active');
+          thumb.style.opacity = '';
+        }
+      });
+
+      current = index;
+    }
+
+    function startAuto() {
+      if (autoTimer || slides.length <= 1) return;
+      autoTimer = setInterval(function () {
+        goTo(current + 1);
+      }, 3000);
+    }
+
+    function stopAuto() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    function manualAction(nextIdx) {
+      stopAuto();
+      clearTimeout(pauseTimer);
+      goTo(nextIdx);
+      pauseTimer = setTimeout(startAuto, 4000);
+    }
+
+    // Click on thumbnails
+    thumbs.forEach(function (thumb, i) {
+      thumb.addEventListener('click', function (e) {
+        e.preventDefault();
+        manualAction(i);
+      });
+    });
+
+    // Arrow navigation click
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        manualAction(current - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        manualAction(current + 1);
+      });
+    }
+
+    // Hover pause
+    var mainImageWrap = gallery.querySelector('.pd-main-image');
+    if (mainImageWrap) {
+      mainImageWrap.addEventListener('mouseenter', stopAuto);
+      mainImageWrap.addEventListener('mouseleave', function () {
+        stopAuto();
+        clearTimeout(pauseTimer);
+        pauseTimer = setTimeout(startAuto, 2000);
+      });
+
+      // Touch swipe support for mobile
+      var startX = 0;
+      mainImageWrap.addEventListener('touchstart', function (e) {
+        if (e.touches && e.touches[0]) {
+          startX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      mainImageWrap.addEventListener('touchend', function (e) {
+        if (e.changedTouches && e.changedTouches[0]) {
+          var endX = e.changedTouches[0].clientX;
+          var diff = startX - endX;
+          if (Math.abs(diff) > 35) {
+            if (diff > 0) manualAction(current + 1);
+            else manualAction(current - 1);
+          }
+        }
+      }, { passive: true });
+    }
+
+    goTo(0);
+    startAuto();
+  })();
+
 })();
+

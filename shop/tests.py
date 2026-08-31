@@ -154,12 +154,13 @@ class ProductVoteTests(TestCase):
     def test_product_detail_vote_labels_follow_selected_language(self):
         url = reverse("shop:product_detail", args=[self.product.slug])
 
-        response = self.client.get(url, HTTP_ACCEPT_LANGUAGE="ru")
+        self.client.cookies["django_language"] = "ru"
+        response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Оценка пользователей")
         self.assertContains(response, "Когда носить")
-        self.assertContains(response, "Обожаю")
+        self.assertContains(response, "Влюблен")
         self.assertNotContains(response, "User Rating")
 
     def test_product_detail_renders_fragrance_pyramid_in_order(self):
@@ -189,9 +190,9 @@ class ProductVoteTests(TestCase):
         self.product.top_notes_ru = "Бергамот"
         self.product.save(update_fields=["top_notes_uz", "top_notes_ru"])
 
+        self.client.cookies["django_language"] = "ru"
         response = self.client.get(
-            reverse("shop:product_detail", args=[self.product.slug]),
-            HTTP_ACCEPT_LANGUAGE="ru",
+            reverse("shop:product_detail", args=[self.product.slug])
         )
 
         self.assertEqual(response.status_code, 200)

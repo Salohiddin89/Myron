@@ -316,6 +316,7 @@ def cart_add(request):
     except json.JSONDecodeError:
         data = request.POST
     product_id = data.get("product_id")
+    variant_code = data.get("variant_code") or "full"
     try:
         quantity = int(data.get("quantity", 1))
     except (ValueError, TypeError):

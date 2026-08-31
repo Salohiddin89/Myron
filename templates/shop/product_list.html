@@ -5,15 +5,15 @@
 
 {% block content %}
 <section class="catalog-section">
-  <div class="section-head reveal">
-    <span class="eyebrow">{% trans "BIZNING KOLLEKSIYA" %}</span>
-    <h2>{% trans "O'ZINGIZGA MOS HIDNI TOPING" %}</h2>
+  <div class="section-head reveal" data-dir="up">
+    <span class="eyebrow">{% if site_settings %}{{ site_settings.catalog_title }}{% else %}{% trans "BIZNING KOLLEKSIYA" %}{% endif %}</span>
+    <h2>{% if site_settings %}{{ site_settings.catalog_subtitle }}{% else %}{% trans "O'ZINGIZGA MOS HIDNI TOPING" %}{% endif %}</h2>
     <span class="hero-divider">✦</span>
   </div>
 
   <div class="catalog-layout">
     <!-- ===== SIDEBAR FILTERS ===== -->
-    <aside class="filters-panel reveal">
+    <aside class="filters-panel reveal" data-dir="left">
       <h3>{% trans "FILTR" %}</h3>
 
       <div class="filter-group">

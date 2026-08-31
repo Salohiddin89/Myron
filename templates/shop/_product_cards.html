@@ -30,7 +30,7 @@
     </div>
     {% endif %}
   </div>
-  <button class="quick-add" type="button" data-add-id="{{ product.id }}">{% trans "Savatga qo'shish" %}</button>
+  <button class="quick-add" type="button" data-add-id="{{ product.id }}">{% if site_settings %}{{ site_settings.btn_buy }}{% else %}{% trans "Savatga qo'shish" %}{% endif %}</button>
 
   <div class="product-card-body">
     <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a>

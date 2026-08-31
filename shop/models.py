@@ -50,14 +50,14 @@ def _safe_image_url(image_field, fallback_path="shop/img/product-placeholder.png
     except (AttributeError, OSError, ValueError):
         pass
 
-    # If image field has a valid name string, return its URL
-    if getattr(image_field, "name", None) and str(image_field.name).strip():
-        try:
+    try:
+        if hasattr(image_field, "path") and os.path.exists(image_field.path):
             return image_field.url
-        except (AttributeError, ValueError):
-            pass
+    except (AttributeError, OSError, ValueError):
+        pass
 
     return static(fallback_path)
+
 
 
 class Product(models.Model):
@@ -161,7 +161,7 @@ class Product(models.Model):
         _("50 ml narxi ($)"), max_digits=10, decimal_places=2, blank=True, null=True
     )
 
-    image = models.ImageField(_("Asosiy rasm"), upload_to="products/")
+    image = models.ImageField(_("Asosiy rasm"), upload_to="products/", blank=True, null=True)
     box_image = models.ImageField(
         _("Karobka rasmi"),
         upload_to="products/boxes/",
@@ -209,8 +209,8 @@ class Product(models.Model):
     )
     base_notes_ru = models.TextField(_("Базовая нота (RU)"), blank=True)
 
-    rating = models.DecimalField(_("Reyting"), max_digits=2, decimal_places=1, default=5.0)
-    reviews_count = models.PositiveIntegerField(_("Sharhlar soni"), default=0)
+    rating = models.DecimalField(_("Reyting"), max_digits=2, decimal_places=1, default=5.0, blank=True)
+    reviews_count = models.PositiveIntegerField(_("Sharhlar soni"), default=0, blank=True)
 
     is_new = models.BooleanField(_("Yangi mahsulot"), default=False)
     is_bestseller = models.BooleanField(_("Ko'p sotilgan"), default=False)
@@ -460,9 +460,9 @@ class ProductImage(models.Model):
 
 
 class SiteSettings(models.Model):
-    site_name = models.CharField(_("Sayt nomi"), max_length=100, default="MYRON")
+    site_name = models.CharField(_("Sayt nomi"), max_length=100, default="MYRON", blank=True)
     phone = models.CharField(
-        _("Telefon raqami"), max_length=50, default="+998 90 123 45 67"
+        _("Telefon raqami"), max_length=50, default="+998 90 123 45 67", blank=True
     )
     instagram_url = models.URLField(
         _("Instagram havola"), default="https://instagram.com/myron_perfume", blank=True
@@ -481,9 +481,181 @@ class SiteSettings(models.Model):
         _("Biz haqimizda 2-rasm"), upload_to="site/", blank=True, null=True
     )
 
+    # Biz haqimizda sarlavha va matni
+    about_title_uz = models.CharField(
+        _("Biz haqimizda sarlavha (UZ)"),
+        max_length=200,
+        default="NOZIK ATIRLAR SAN'ATI",
+        blank=True,
+    )
+    about_title_ru = models.CharField(
+        _("Biz haqimizda sarlavha (RU)"),
+        max_length=200,
+        default="ИСКУССТВО ИЗЫСКАННЫХ АРОМАТОВ",
+        blank=True,
+    )
+
+    about_text_uz = models.TextField(
+        _("Biz haqimizda matn (UZ)"),
+        default="MYRON'da biz atir shunchaki hid emas — u bir bayonot, bir hissiyot, bir xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz sifat va nafosat bag'ishlaydi.",
+        blank=True,
+    )
+    about_text_ru = models.TextField(
+        _("Biz haqimizda matn (RU)"),
+        default="В MYRON мы верим, что духи — это не просто аромат, это заявление, эмоция и воспоминание. Наши ароматы создаются опытными парфюмерами из лучших мировых ингредиентов.",
+        blank=True,
+    )
+
+    # 4 ta xususiyat bloki (Emoji, sarlavha, matn)
+    # 1-xususiyat
+    about_feature1_icon = models.CharField(
+        _("1-xususiyat emojisi"), max_length=20, default="🌿", blank=True
+    )
+    about_feature1_title_uz = models.CharField(
+        _("1-xususiyat sarlavha (UZ)"), max_length=150, default="SIFATLI TARKIB", blank=True
+    )
+    about_feature1_title_ru = models.CharField(
+        _("1-xususiyat sarlavha (RU)"), max_length=150, default="Качественный состав", blank=True
+    )
+    about_feature1_text_uz = models.CharField(
+        _("1-xususiyat matn (UZ)"), max_length=255, default="Dunyoning eng sara joylaridan yetkazilgan", blank=True
+    )
+    about_feature1_text_ru = models.CharField(
+        _("1-xususiyat matn (RU)"), max_length=255, default="Собрано из лучших уголков мира", blank=True
+    )
+
+    # 2-xususiyat
+    about_feature2_icon = models.CharField(
+        _("2-xususiyat emojisi"), max_length=20, default="🎓", blank=True
+    )
+    about_feature2_title_uz = models.CharField(
+        _("2-xususiyat sarlavha (UZ)"), max_length=150, default="MOHIR USTALAR", blank=True
+    )
+    about_feature2_title_ru = models.CharField(
+        _("2-xususiyat sarlavha (RU)"), max_length=150, default="Опытные парфюмеры", blank=True
+    )
+    about_feature2_text_uz = models.CharField(
+        _("2-xususiyat matn (UZ)"), max_length=255, default="Professional parfyumerlar tomonidan yaratilgan", blank=True
+    )
+    about_feature2_text_ru = models.CharField(
+        _("2-xususiyat matn (RU)"), max_length=255, default="Создано профессиональными парфюмерами", blank=True
+    )
+
+    # 3-xususiyat
+    about_feature3_icon = models.CharField(
+        _("3-xususiyat emojisi"), max_length=20, default="💎", blank=True
+    )
+    about_feature3_title_uz = models.CharField(
+        _("3-xususiyat sarlavha (UZ)"), max_length=150, default="HASHAMATLI TAJRIBA", blank=True
+    )
+    about_feature3_title_ru = models.CharField(
+        _("3-xususiyat sarlavha (RU)"), max_length=150, default="Роскошный опыт", blank=True
+    )
+    about_feature3_text_uz = models.CharField(
+        _("3-xususiyat matn (UZ)"), max_length=255, default="Nafis qadoqlash va nozik detallar", blank=True
+    )
+    about_feature3_text_ru = models.CharField(
+        _("3-xususiyat matn (RU)"), max_length=255, default="Изысканная упаковка и детали", blank=True
+    )
+
+    # 4-xususiyat
+    about_feature4_icon = models.CharField(
+        _("4-xususiyat emojisi"), max_length=20, default="🛡️", blank=True
+    )
+    about_feature4_title_uz = models.CharField(
+        _("4-xususiyat sarlavha (UZ)"), max_length=150, default="KAFOLAT", blank=True
+    )
+    about_feature4_title_ru = models.CharField(
+        _("4-xususiyat sarlavha (RU)"), max_length=150, default="Гарантия качества", blank=True
+    )
+    about_feature4_text_uz = models.CharField(
+        _("4-xususiyat matn (UZ)"), max_length=255, default="100% originallik va sifat kafolati", blank=True
+    )
+    about_feature4_text_ru = models.CharField(
+        _("4-xususiyat matn (RU)"), max_length=255, default="100% оригинальность и качество", blank=True
+    )
+
+    # Bosh sahifa (Hero) matnlari
+    hero_title_uz = models.CharField(
+        _("Hero sarlavha (UZ)"), max_length=255, default="MYRON PERFUME — HASHAMATLI PARFYUMERLAR UYI", blank=True
+    )
+    hero_title_ru = models.CharField(
+        _("Hero sarlavha (RU)"), max_length=255, default="MYRON PERFUME — ДОМ ИЗЫСКАННОЙ ПАРФЮМЕРИИ", blank=True
+    )
+    hero_subtitle_uz = models.TextField(
+        _("Hero ostki matn (UZ)"), default="Eng sara va eksklyuziv fransuz ingredientlaridan tayyorlangan nafis atirlar kolleksiyasi.", blank=True
+    )
+    hero_subtitle_ru = models.TextField(
+        _("Hero ostki matn (RU)"), default="Коллекция утонченных ароматов, созданных из лучших французских ингредиентов.", blank=True
+    )
+    hero_btn_uz = models.CharField(
+        _("Hero tugmasi matni (UZ)"), max_length=100, default="Katalogni ko'rish", blank=True
+    )
+    hero_btn_ru = models.CharField(
+        _("Hero tugmasi matni (RU)"), max_length=100, default="Смотреть каталог", blank=True
+    )
+
+    # Biz haqimizda ostki sarlavha
+    about_subtitle_uz = models.CharField(
+        _("Biz haqimizda ostki matn (UZ)"), max_length=255, default="Har bir tomchida nozik did, yuqori sifat va takrorlanmas hissiyot aks etadi.", blank=True
+    )
+    about_subtitle_ru = models.CharField(
+        _("Biz haqimizda ostki matn (RU)"), max_length=255, default="В каждой капле отражается изысканный вкус, высокое качество и эмоции.", blank=True
+    )
+
+    # Katalog va Boshqa bo'lim sarlavhalari
+    catalog_title_uz = models.CharField(
+        _("Katalog sarlavha (UZ)"), max_length=200, default="EKSKLYUZIV PARFYUMERIA", blank=True
+    )
+    catalog_title_ru = models.CharField(
+        _("Katalog sarlavha (RU)"), max_length=200, default="ЭКСКЛЮЗИВНАЯ ПАРФЮМЕРИЯ", blank=True
+    )
+    catalog_subtitle_uz = models.CharField(
+        _("Katalog ostki matn (UZ)"), max_length=255, default="O'zingizga mos unikal aromatlarni tanlang va buyurtma bering.", blank=True
+    )
+    catalog_subtitle_ru = models.CharField(
+        _("Katalog ostki matn (RU)"), max_length=255, default="Выберите уникальный аромат и оформите быстрый заказ.", blank=True
+    )
+
+    # Kontakt va Footer matnlari
+    contact_title_uz = models.CharField(
+        _("Kontaktlar sarlavha (UZ)"), max_length=200, default="BIZ BILAN BOG'LANING", blank=True
+    )
+    contact_title_ru = models.CharField(
+        _("Kontaktlar sarlavha (RU)"), max_length=200, default="СВЯЖИТЕСЬ С НАМИ", blank=True
+    )
+    contact_subtitle_uz = models.CharField(
+        _("Kontaktlar ostki matn (UZ)"), max_length=255, default="Savollaringiz bormi? Bizga qo'ng'iroq qiling yoki ijtimoiy tarmoqlarda yozing.", blank=True
+    )
+    contact_subtitle_ru = models.CharField(
+        _("Kontaktlar ostki matn (RU)"), max_length=255, default="Есть вопросы? Позвоните нам или напишите в социальных сетях.", blank=True
+    )
+
+    footer_text_uz = models.TextField(
+        _("Footer matni (UZ)"), default="MYRON Perfume — Yuqori sifat va nafosat ramzi. Barcha huquqlar himoyalangan.", blank=True
+    )
+    footer_text_ru = models.TextField(
+        _("Footer matni (RU)"), default="MYRON Perfume — Символ высокого качества и изысканности. Все права защищены.", blank=True
+    )
+
+    # Tugmalar matnlari
+    btn_buy_uz = models.CharField(
+        _("Sotib olish tugmasi (UZ)"), max_length=100, default="Xarid qilish", blank=True
+    )
+    btn_buy_ru = models.CharField(
+        _("Sotib olish tugmasi (RU)"), max_length=100, default="Купить сейчас", blank=True
+    )
+    btn_details_uz = models.CharField(
+        _("Batafsil tugmasi (UZ)"), max_length=100, default="Batafsil ma'lumot", blank=True
+    )
+    btn_details_ru = models.CharField(
+        _("Batafsil tugmasi (RU)"), max_length=100, default="Подробнее", blank=True
+    )
+
     class Meta:
         verbose_name = _("Sayt Sozlamalari")
         verbose_name_plural = _("Sayt Sozlamalari")
+
 
     def __str__(self):
         return "Sayt Sozlamalari"
@@ -524,3 +696,198 @@ class SiteSettings(models.Model):
     def get_settings(cls):
         obj, _ = cls.objects.get_or_create(pk=1)
         return obj
+
+    @property
+    def hero_image_url(self):
+        return _safe_image_url(self.hero_image, "shop/img/hero-placeholder.png")
+
+    @property
+    def about_image_1_url(self):
+        return _safe_image_url(self.about_image_1, "shop/img/about-1.png")
+
+    @property
+    def about_image_2_url(self):
+        return _safe_image_url(self.about_image_2, "shop/img/about-2.png")
+
+    @property
+    def hero_title(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.hero_title_ru or self.hero_title_uz or "MYRON PERFUME — ДОМ ИЗЫСКАННОЙ ПАРФЮМЕРИИ"
+        return self.hero_title_uz or self.hero_title_ru or "MYRON PERFUME — HASHAMATLI PARFYUMERLAR UYI"
+
+    @property
+    def hero_subtitle(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.hero_subtitle_ru or self.hero_subtitle_uz or "Коллекция утонченных ароматов, созданных из лучших французских ингредиентов."
+        return self.hero_subtitle_uz or self.hero_subtitle_ru or "Eng sara va eksklyuziv fransuz ingredientlaridan tayyorlangan nafis atirlar kolleksiyasi."
+
+    @property
+    def hero_btn(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.hero_btn_ru or self.hero_btn_uz or "Смотреть каталог"
+        return self.hero_btn_uz or self.hero_btn_ru or "Katalogni ko'rish"
+
+    @property
+    def about_subtitle(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_subtitle_ru or self.about_subtitle_uz or "В каждой капле отражается изысканный вкус, высокое качество и эмоции."
+        return self.about_subtitle_uz or self.about_subtitle_ru or "Har bir tomchida nozik did, yuqori sifat va takrorlanmas hissiyot aks etadi."
+
+    @property
+    def catalog_title(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.catalog_title_ru or self.catalog_title_uz or "ЭКСКЛЮЗИВНАЯ ПАРФЮМЕРИЯ"
+        return self.catalog_title_uz or self.catalog_title_ru or "EKSKLYUZIV PARFYUMERIA"
+
+    @property
+    def catalog_subtitle(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.catalog_subtitle_ru or self.catalog_subtitle_uz or "Выберите уникальный аромат и оформите быстрый заказ."
+        return self.catalog_subtitle_uz or self.catalog_subtitle_ru or "O'zingizga mos unikal aromatlarni tanlang va buyurtma bering."
+
+    @property
+    def contact_title(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.contact_title_ru or self.contact_title_uz or "СВЯЖИТЕСЬ С НАМИ"
+        return self.contact_title_uz or self.contact_title_ru or "BIZ BILAN BOG'LANING"
+
+    @property
+    def contact_subtitle(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.contact_subtitle_ru or self.contact_subtitle_uz or "Есть вопросы? Позвоните нам или напишите в социальных сетях."
+        return self.contact_subtitle_uz or self.contact_subtitle_ru or "Savollaringiz bormi? Bizga qo'ng'iroq qiling yoki ijtimoiy tarmoqlarda yozing."
+
+    @property
+    def footer_text(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.footer_text_ru or self.footer_text_uz or "MYRON Perfume — Символ высокого качества и изысканности. Все права защищены."
+        return self.footer_text_uz or self.footer_text_ru or "MYRON Perfume — Yuqori sifat va nafosat ramzi. Barcha huquqlar himoyalangan."
+
+    @property
+    def btn_buy(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.btn_buy_ru or self.btn_buy_uz or "Купить сейчас"
+        return self.btn_buy_uz or self.btn_buy_ru or "Xarid qilish"
+
+    @property
+    def btn_details(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.btn_details_ru or self.btn_details_uz or "Подробнее"
+        return self.btn_details_uz or self.btn_details_ru or "Batafsil ma'lumot"
+
+    @property
+    def about_title(self):
+
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_title_ru or self.about_title_uz or "ИСКУССТВО ИЗЫСКАННЫХ АРОМАТОВ"
+        return self.about_title_uz or self.about_title_ru or "NOZIK ATIRLAR SAN'ATI"
+
+    @property
+    def about_text(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return (
+                self.about_text_ru
+                or self.about_text_uz
+                or "В MYRON мы верим, что духи — это не просто аромат, это заявление, эмоция и воспоминание. Наши ароматы создаются опытными парфюмерами из лучших мировых ингредиентов."
+            )
+        return (
+            self.about_text_uz
+            or self.about_text_ru
+            or "MYRON'da biz atir shunchaki hid emas — u bir bayonot, bir hissiyot, bir xotira ekaniga ishonamiz. Bizning atirlarimiz dunyoning eng sara ingredientlaridan mohir parfyumerlar tomonidan tayyorlanadi, sizga tengsiz sifat va nafosat bag'ishlaydi."
+        )
+
+    @property
+    def about_feature1_title(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature1_title_ru or self.about_feature1_title_uz or "Качественный состав"
+        return self.about_feature1_title_uz or self.about_feature1_title_ru or "SIFATLI TARKIB"
+
+    @property
+    def about_feature1_text(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature1_text_ru or self.about_feature1_text_uz or "Собрано из лучших уголков мира"
+        return self.about_feature1_text_uz or self.about_feature1_text_ru or "Dunyoning eng sara joylaridan yetkazilgan"
+
+    @property
+    def about_feature2_title(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature2_title_ru or self.about_feature2_title_uz or "Опытные парфюмеры"
+        return self.about_feature2_title_uz or self.about_feature2_title_ru or "MOHIR USTALAR"
+
+    @property
+    def about_feature2_text(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature2_text_ru or self.about_feature2_text_uz or "Создано профессиональными парфюмерами"
+        return self.about_feature2_text_uz or self.about_feature2_text_ru or "Professional parfyumerlar tomonidan yaratilgan"
+
+    @property
+    def about_feature3_title(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature3_title_ru or self.about_feature3_title_uz or "Роскошный опыт"
+        return self.about_feature3_title_uz or self.about_feature3_title_ru or "HASHAMATLI TAJRIBA"
+
+    @property
+    def about_feature3_text(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature3_text_ru or self.about_feature3_text_uz or "Изысканная упаковка и детали"
+        return self.about_feature3_text_uz or self.about_feature3_text_ru or "Nafis qadoqlash va nozik detallar"
+
+    @property
+    def about_feature4_title(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature4_title_ru or self.about_feature4_title_uz or "Гарантия качества"
+        return self.about_feature4_title_uz or self.about_feature4_title_ru or "KAFOLAT"
+
+    @property
+    def about_feature4_text(self):
+        lang = (get_language() or "uz")[:2].lower()
+        if lang == "ru":
+            return self.about_feature4_text_ru or self.about_feature4_text_uz or "100% оригинальность и качество"
+        return self.about_feature4_text_uz or self.about_feature4_text_ru or "100% originallik va sifat kafolati"
+
+    @property
+    def about_features(self):
+        return [
+            {
+                "icon": self.about_feature1_icon or "🌿",
+                "title": self.about_feature1_title,
+                "text": self.about_feature1_text,
+            },
+            {
+                "icon": self.about_feature2_icon or "🎓",
+                "title": self.about_feature2_title,
+                "text": self.about_feature2_text,
+            },
+            {
+                "icon": self.about_feature3_icon or "💎",
+                "title": self.about_feature3_title,
+                "text": self.about_feature3_text,
+            },
+            {
+                "icon": self.about_feature4_icon or "🛡️",
+                "title": self.about_feature4_title,
+                "text": self.about_feature4_text,
+            },
+        ]
+
+

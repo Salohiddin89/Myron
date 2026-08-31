@@ -5,6 +5,9 @@ from orders.models import Order
 from shop.models import Product, SiteSettings
 
 
+from shop.validators import validate_image_file
+
+
 class StaffLoginForm(forms.Form):
     username = forms.CharField(label=_("Login"), max_length=150)
     password = forms.CharField(label=_("Parol"), widget=forms.PasswordInput)
@@ -66,6 +69,15 @@ class ProductForm(forms.ModelForm):
             "base_notes_ru": forms.Textarea(attrs={"rows": 2}),
         }
 
+    def clean_image(self):
+        return validate_image_file(self.cleaned_data.get("image"))
+
+    def clean_box_image(self):
+        return validate_image_file(self.cleaned_data.get("box_image"))
+
+    def clean_image_2(self):
+        return validate_image_file(self.cleaned_data.get("image_2"))
+
 
 class OrderStatusForm(forms.ModelForm):
     class Meta:
@@ -76,11 +88,26 @@ class OrderStatusForm(forms.ModelForm):
 class SiteSettingsForm(forms.ModelForm):
     class Meta:
         model = SiteSettings
-        fields = [
-            "phone",
-            "instagram_url",
-            "telegram_url",
-            "hero_image",
-            "about_image_1",
-            "about_image_2",
-        ]
+        fields = "__all__"
+        widgets = {
+            "hero_image": forms.FileInput(attrs={"class": "file-input-field"}),
+            "about_image_1": forms.FileInput(attrs={"class": "file-input-field"}),
+            "about_image_2": forms.FileInput(attrs={"class": "file-input-field"}),
+            "hero_subtitle_uz": forms.Textarea(attrs={"rows": 3}),
+            "hero_subtitle_ru": forms.Textarea(attrs={"rows": 3}),
+            "about_text_uz": forms.Textarea(attrs={"rows": 5}),
+            "about_text_ru": forms.Textarea(attrs={"rows": 5}),
+            "footer_text_uz": forms.Textarea(attrs={"rows": 3}),
+            "footer_text_ru": forms.Textarea(attrs={"rows": 3}),
+        }
+
+    def clean_hero_image(self):
+        return validate_image_file(self.cleaned_data.get("hero_image"))
+
+    def clean_about_image_1(self):
+        return validate_image_file(self.cleaned_data.get("about_image_1"))
+
+    def clean_about_image_2(self):
+        return validate_image_file(self.cleaned_data.get("about_image_2"))
+
+

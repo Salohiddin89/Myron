@@ -7,6 +7,12 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(BASE_DIR / ".env")
+except ImportError:
+    pass
+
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "django-insecure-l$*xn-=ssgvhzg0$e2(wb(e8@#%)xocs&h!tuh=nb_zx8$0fa*",
@@ -151,8 +157,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Telegram bot notifications for new orders.
 # Create a bot via @BotFather, get its token, and get your chat_id via @userinfobot
 # (or the bot's getUpdates endpoint). Fill these in before going to production.
-TELEGRAM_BOT_TOKEN = "8218372259:AAFXKY2LjAwHxEID4bhYZJMXcMA7peg9ehw"
-TELEGRAM_ADMIN_CHAT_ID = "6296302270"
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "8218372259:AAFXKY2LjAwHxEID4bhYZJMXcMA7peg9ehw")
+TELEGRAM_ADMIN_CHAT_ID = os.environ.get("TELEGRAM_ADMIN_CHAT_ID", "6296302270")
 
 SITE_NAME = "MYRON"
 SITE_PHONE = "+998 90 123 45 67"

@@ -11,24 +11,53 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
 
+<link rel="icon" type="image/png" href="{% static 'shop/img/favicon.png' %}">
+<link rel="shortcut icon" href="{% static 'shop/img/favicon.png' %}" type="image/png">
 <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
 {% block extra_css %}{% endblock %}
 </head>
 <body>
 
+<!-- ================= LUXURY LOADING SCREEN ================= -->
+<div id="luxuryLoader" class="luxury-loader">
+  <div class="loader-backdrop"></div>
+
+  <!-- Floating gold particles -->
+  <div class="loader-particles" aria-hidden="true">
+    <span class="lp lp1"></span>
+    <span class="lp lp2"></span>
+    <span class="lp lp3"></span>
+    <span class="lp lp4"></span>
+    <span class="lp lp5"></span>
+    <span class="lp lp6"></span>
+    <span class="lp lp7"></span>
+    <span class="lp lp8"></span>
+  </div>
+
+  <!-- Centre content -->
+  <div class="loader-center">
+
+    <!-- Luxury Gold PM Monogram Logo -->
+    <div class="loader-logo-wrap" aria-hidden="true">
+      <img src="{% static 'shop/img/logo_transparent.png' %}" alt="{{ SITE_NAME }}" class="loader-logo-img">
+      <div class="loader-logo-glow"></div>
+    </div>
+
+    <!-- Tagline -->
+    <p class="loader-tagline">Hashamatli atirlar dunyosiga xush kelibsiz</p>
+
+    <!-- Progress bar -->
+    <div class="loader-progress-wrap" aria-hidden="true">
+      <div class="loader-progress-bar" id="loaderBar"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ================= HEADER ================= -->
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
     <a href="{% url 'shop:home' %}" class="brand">
-      <span class="brand-icon">
-        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 6H25V10L28 13V16H12V13L15 10V6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-          <rect x="11" y="16" width="18" height="19" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
-          <path d="M11 22H29" stroke="currentColor" stroke-width="1"/>
-          <circle cx="20" cy="26" r="3.2" stroke="currentColor" stroke-width="1"/>
-        </svg>
-      </span>
-      <span class="brand-text">{{ SITE_NAME }}<small>{% trans "PERFUME" %}</small></span>
+      <img src="{% static 'shop/img/logo_transparent.png' %}" alt="{{ SITE_NAME }}" class="brand-logo-img">
     </a>
 
     <nav class="main-nav" id="mainNav">
@@ -144,17 +173,9 @@
   <div class="footer-inner">
     <div class="footer-col footer-brand">
       <a href="{% url 'shop:home' %}" class="brand">
-        <span class="brand-icon">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 6H25V10L28 13V16H12V13L15 10V6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-            <rect x="11" y="16" width="18" height="19" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
-            <path d="M11 22H29" stroke="currentColor" stroke-width="1"/>
-            <circle cx="20" cy="26" r="3.2" stroke="currentColor" stroke-width="1"/>
-          </svg>
-        </span>
-        <span class="brand-text">{{ SITE_NAME }}<small>{% trans "PERFUME" %}</small></span>
+        <img src="{% static 'shop/img/logo_transparent.png' %}" alt="{{ SITE_NAME }}" class="footer-logo-img">
       </a>
-      <p>{% trans "Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni yuksaltiring." %}</p>
+      <p>{% if site_settings %}{{ site_settings.contact_subtitle }}{% else %}{% trans "Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni yuksaltiring." %}{% endif %}</p>
     </div>
 
     <div class="footer-col footer-nav-col">
@@ -197,7 +218,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; {% now "Y" %} {{ SITE_NAME }} {% trans "Perfume. Barcha huquqlar himoyalangan." %}</p>
+    <p>&copy; {% now "Y" %} {% if site_settings %}{{ site_settings.footer_text }}{% else %}{{ SITE_NAME }} {% trans "Perfume. Barcha huquqlar himoyalangan." %}{% endif %}</p>
   </div>
 </footer>
 
@@ -213,5 +234,213 @@
 </script>
 <script src="{% static 'shop/js/main.js' %}"></script>
 {% block extra_js %}{% endblock %}
+
+<style>
+/* ================================================================
+   LUXURY LOADER — MYRON PERFUME
+   Palette: deep green + antique gold — matches site theme perfectly
+================================================================ */
+.luxury-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: all;
+  transition: opacity .65s cubic-bezier(.22,.9,.32,1), visibility .65s;
+}
+.luxury-loader.loader-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+/* Dark backdrop */
+.loader-backdrop {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(35,65,47,.95) 0%, transparent 60%),
+    radial-gradient(ellipse at 75% 65%, rgba(27,51,36,.9) 0%, transparent 55%),
+    linear-gradient(160deg, #08150d 0%, #0e1e14 40%, #14271b 100%);
+  z-index: 0;
+}
+
+/* ---- Floating gold particles ---- */
+.loader-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.lp {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fcd765 0%, #d4af37 50%, transparent 100%);
+  opacity: 0;
+  animation: lpFloat 7s ease-in-out infinite;
+}
+.lp1  { width:4px;  height:4px;  left:12%;  top:20%; animation-delay:0s;    animation-duration:6.5s; }
+.lp2  { width:6px;  height:6px;  left:25%;  top:75%; animation-delay:1.2s;  animation-duration:8s;   }
+.lp3  { width:3px;  height:3px;  left:78%;  top:18%; animation-delay:0.6s;  animation-duration:7s;   }
+.lp4  { width:5px;  height:5px;  left:88%;  top:65%; animation-delay:2.1s;  animation-duration:9s;   }
+.lp5  { width:4px;  height:4px;  left:55%;  top:85%; animation-delay:1.8s;  animation-duration:6s;   }
+.lp6  { width:3px;  height:3px;  left:42%;  top:10%; animation-delay:0.3s;  animation-duration:8.5s; }
+.lp7  { width:6px;  height:6px;  left:68%;  top:45%; animation-delay:3s;    animation-duration:7.5s; }
+.lp8  { width:4px;  height:4px;  left:8%;   top:55%; animation-delay:1.5s;  animation-duration:6.8s; }
+@keyframes lpFloat {
+  0%   { opacity:0; transform: translateY(0) scale(.8); }
+  20%  { opacity:.7; }
+  70%  { opacity:.5; }
+  100% { opacity:0; transform: translateY(-80px) scale(1.3); }
+}
+
+/* ---- Centre content ---- */
+.loader-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  animation: loaderFadeUp .7s cubic-bezier(.22,.9,.32,1) both;
+}
+@keyframes loaderFadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ---- PM Gold Logo in Loader ---- */
+.loader-logo-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.loader-logo-img {
+  width: min(160px, 45vw);
+  max-height: 160px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 22px rgba(212,175,55,.55));
+  animation: logoPulse 2.8s ease-in-out infinite, brandReveal 0.8s cubic-bezier(.22,.9,.32,1) both;
+}
+@keyframes logoPulse {
+  0%, 100% { filter: drop-shadow(0 0 16px rgba(212,175,55,.4)); transform: translateY(0) scale(1); }
+  50%       { filter: drop-shadow(0 0 32px rgba(252,215,101,.75)); transform: translateY(-4px) scale(1.03); }
+}
+@keyframes brandReveal {
+  from { opacity:0; transform: scale(.85); }
+  to   { opacity:1; transform: scale(1); }
+}
+
+/* ---- Divider ---- */
+.loader-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  animation: brandReveal 1s .6s both;
+}
+.loader-divider span {
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,.5), transparent);
+}
+.loader-divider .diamond {
+  width: auto;
+  height: auto;
+  background: none;
+  color: #d4af37;
+  font-size: .65rem;
+  line-height: 1;
+}
+
+/* ---- Tagline ---- */
+.loader-tagline {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(.95rem, 3vw, 1.15rem);
+  color: rgba(248,250,244,.65);
+  margin: 0 0 28px;
+  text-align: center;
+  padding: 0 20px;
+  animation: brandReveal 1s .7s both;
+}
+
+/* ---- Progress bar ---- */
+.loader-progress-wrap {
+  width: 160px;
+  height: 2px;
+  background: rgba(212,175,55,.15);
+  border-radius: 2px;
+  overflow: hidden;
+  animation: brandReveal 1s .8s both;
+}
+.loader-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #d4af37, #fcd765, #d4af37);
+  background-size: 200% 100%;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(212,175,55,.6);
+  animation:
+    loaderProgress 1.8s cubic-bezier(.22,.9,.32,1) .3s forwards,
+    barShimmer 1.2s linear .3s infinite;
+}
+@keyframes loaderProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+@keyframes barShimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+</style>
+
+<script>
+(function () {
+  var loader = document.getElementById('luxuryLoader');
+  if (!loader) return;
+
+  var MIN_MS = 800;
+  var start  = Date.now();
+  var isDone = false;
+
+  function dismissLoader() {
+    if (isDone) return;
+    isDone = true;
+
+    var elapsed = Date.now() - start;
+    var wait    = Math.max(0, MIN_MS - elapsed);
+
+    setTimeout(function () {
+      loader.classList.add('loader-hidden');
+      loader.style.opacity = '0';
+      loader.style.pointerEvents = 'none';
+
+      // Immediate hard removal fallback after fade-out transition (500ms)
+      setTimeout(function () {
+        loader.style.display = 'none';
+        if (loader && loader.parentNode) {
+          loader.parentNode.removeChild(loader);
+        }
+      }, 500);
+    }, wait);
+  }
+
+  if (document.readyState === 'complete') {
+    dismissLoader();
+  } else {
+    window.addEventListener('load', dismissLoader);
+    // Hard safety timeout: max 1.8s
+    setTimeout(dismissLoader, 1800);
+  }
+})();
+</script>
 </body>
 </html>
