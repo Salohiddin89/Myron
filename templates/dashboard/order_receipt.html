@@ -30,12 +30,17 @@
       padding-bottom: 20px;
       margin-bottom: 24px;
     }
-    .receipt-header h1 {
-      font-family: 'Bodoni Moda', 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.2rem;
-      margin: 0;
-      color: #0d1710;
-      letter-spacing: 0.1em;
+    .receipt-logo {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      margin: 0 auto 8px;
+      border-radius: 50%;
+      border: 1px solid #b58b28;
+      outline: 1px solid rgba(181, 139, 40, .35);
+      outline-offset: 3px;
+      padding: 3px;
+      box-shadow: 0 5px 14px rgba(181, 139, 40, .22);
     }
     .receipt-header p {
       font-size: 0.75rem;
@@ -110,7 +115,7 @@
 <body>
   <div class="receipt-card">
     <div class="receipt-header">
-      <h1>MYRON</h1>
+      <img src="{% get_media_prefix %}logo/logo2.jpg" alt="MYRON" class="receipt-logo">
       <p>Luxury Parfums — {% trans "Xarid cheki" %}</p>
     </div>
 

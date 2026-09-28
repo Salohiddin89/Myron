@@ -10,7 +10,7 @@
 {% block branding %}
 <div id="site-name">
   <a href="{% url 'admin:index' %}">
-    <span class="admin-logo">?</span> MYRON <small>{% trans "ADMIN" %}</small>
+    <img src="{% get_media_prefix %}logo/logo2.jpg" alt="MYRON" class="admin-logo-image"> <small>{% trans "ADMIN" %}</small>
   </a>
 </div>
 {% endblock %}

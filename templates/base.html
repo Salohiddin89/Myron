@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..900&family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
 
-<link rel="icon" type="image/png" href="{% static 'shop/img/favicon.png' %}">
-<link rel="shortcut icon" href="{% static 'shop/img/favicon.png' %}" type="image/png">
+<link rel="icon" type="image/jpeg" href="{% get_media_prefix %}logo/logo2.jpg">
+<link rel="shortcut icon" href="{% get_media_prefix %}logo/logo2.jpg" type="image/jpeg">
 <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
 {% block extra_css %}{% endblock %}
 </head>
@@ -39,7 +39,7 @@
 
     <!-- Luxury Gold PM Monogram Logo -->
     <div class="loader-logo-wrap" aria-hidden="true">
-      <img src="{% static 'shop/img/logo_transparent.png' %}" alt="{{ SITE_NAME }}" class="loader-logo-img">
+      <img src="{% get_media_prefix %}logo/logo2.jpg" alt="{{ SITE_NAME }}" class="loader-logo-img">
       <div class="loader-logo-glow"></div>
     </div>
 
@@ -57,7 +57,7 @@
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
     <a href="{% url 'shop:home' %}" class="brand">
-      <img src="{% static 'shop/img/logo_transparent.png' %}" alt="{{ SITE_NAME }}" class="brand-logo-img">
+      <img src="{% get_media_prefix %}logo/logo2.jpg" alt="{{ SITE_NAME }}" class="brand-logo-img">
     </a>
 
     <nav class="main-nav" id="mainNav">
@@ -173,7 +173,7 @@
   <div class="footer-inner">
     <div class="footer-col footer-brand">
       <a href="{% url 'shop:home' %}" class="brand">
-        <img src="{% static 'shop/img/logo_transparent.png' %}" alt="{{ SITE_NAME }}" class="footer-logo-img">
+        <img src="{% get_media_prefix %}logo/logo2.jpg" alt="{{ SITE_NAME }}" class="footer-logo-img">
       </a>
       <p>{% if site_settings %}{{ site_settings.contact_subtitle }}{% else %}{% trans "Shaxsiyatingizni ifodalaydigan hashamatli atirlar bilan o'zingizni yuksaltiring." %}{% endif %}</p>
     </div>

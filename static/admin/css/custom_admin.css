@@ -27,16 +27,17 @@
   --font-family-primary:'Manrope','Segoe UI',sans-serif;
 }
 
-body{font-family:var(--font-family-primary);}
+body{font-family:var(--font-family-primary);font-size:16px;font-weight:500;line-height:1.55;}
 
 #header{
   background:var(--header-bg);
   color:var(--header-color);
   border-bottom:2px solid var(--admin-gold);
 }
-#site-name a{color:var(--admin-gold-light);font-family:'Bodoni Moda','Cormorant Garamond',Georgia,serif;font-weight:500;font-size:1.3rem;letter-spacing:.03em;}
+#site-name a{color:var(--admin-gold-light);font-family:var(--font-family-primary);font-weight:800;font-size:1.3rem;letter-spacing:0;}
 #site-name a small{font-family:var(--font-family-primary);font-size:.6rem;letter-spacing:.3em;color:var(--admin-gold);margin-left:6px;}
 .admin-logo{color:var(--admin-gold);margin-right:6px;}
+.admin-logo-image{width:34px;height:34px;object-fit:contain;vertical-align:middle;margin-right:7px;}
 
 div.breadcrumbs{background:var(--breadcrumbs-bg);color:var(--breadcrumbs-fg);border-bottom:1px solid rgba(212,175,55,.2);}
 div.breadcrumbs a{color:var(--breadcrumbs-link-fg);}
@@ -88,4 +89,21 @@ table thead th{background:#efeae0;}
 #user-tools .admin-language-links button:hover {
   border-color: #d4af37;
   color: #d4af37;
+}
+
+/* Keep the Django admin as readable as the public site. */
+body { font-size: 16px; font-weight: 500; line-height: 1.55; }
+#site-name a {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+.admin-logo-image {
+  border-radius: 50%;
+  border: 1px solid var(--admin-gold-light);
+  outline: 1px solid rgba(212, 175, 55, .42);
+  outline-offset: 3px;
+  padding: 2px;
+  background: var(--admin-green-950);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, .3);
 }
