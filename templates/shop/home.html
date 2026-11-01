@@ -5,6 +5,11 @@
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="hero">
+  <div class="hero-slides" aria-hidden="true">
+    <div class="hero-slide is-active" style="background-image:url('{% static 'shop/img/veneno.jpg' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'shop/img/nabatieh.jpg' %}')"></div>
+    <div class="hero-slide" style="background-image:url('{% static 'shop/img/safari.jpg' %}')"></div>
+  </div>
   <div class="hero-inner">
     <div class="hero-text reveal" data-dir="left">
       <span class="eyebrow">{% if site_settings and site_settings.catalog_title %}{{ site_settings.catalog_title }}{% else %}{% trans "EKSKLYUZIV KOLLEKSIYA" %}{% endif %}</span>
@@ -13,10 +18,11 @@
       <p>{% if site_settings %}{{ site_settings.hero_subtitle }}{% else %}{% trans "Eng nozik ingredientlardan tayyorlangan premium sifatli atirlar orqali betakror shaxsiyatingizni namoyon eting." %}{% endif %}</p>
       <a href="#collection-section" class="btn btn-gold nav-link" data-section="collection-section">{% if site_settings %}{{ site_settings.hero_btn }}{% else %}{% trans "Kolleksiyani ko'rish" %}{% endif %} <span>→</span></a>
     </div>
-    <div class="hero-media reveal" data-dir="right">
-      <img src="{{ site_settings.hero_image_url }}" alt="{{ SITE_NAME }}">
-      <div class="hero-glow"></div>
-    </div>
+  </div>
+  <div class="hero-controls" aria-label="Slayd navigatsiyasi">
+    <button class="hero-arrow" type="button" data-hero-direction="prev" aria-label="Oldingi rasm">‹</button>
+    <span class="hero-pagination" aria-live="polite">01 / 03</span>
+    <button class="hero-arrow" type="button" data-hero-direction="next" aria-label="Keyingi rasm">›</button>
   </div>
 </section>
 

@@ -1163,3 +1163,23 @@
 
 })();
 
+// Home hero background carousel
+(function () {
+  var hero = document.getElementById('hero');
+  if (!hero) return;
+  var slides = Array.prototype.slice.call(hero.querySelectorAll('.hero-slide'));
+  var counter = hero.querySelector('.hero-pagination');
+  if (slides.length < 2) return;
+  var current = 0;
+  function show(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach(function (slide, i) { slide.classList.toggle('is-active', i === current); });
+    if (counter) counter.textContent = '0' + (current + 1) + ' / 0' + slides.length;
+  }
+  hero.querySelectorAll('[data-hero-direction]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      show(current + (button.dataset.heroDirection === 'next' ? 1 : -1));
+    });
+  });
+  window.setInterval(function () { show(current + 1); }, 2000);
+})();
